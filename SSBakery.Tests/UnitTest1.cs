@@ -1,5 +1,4 @@
-﻿using SSBakery.ViewModels;
-using System;
+﻿using System;
 using System.Linq;
 using Xunit;
 
@@ -10,7 +9,7 @@ namespace SSBakery.Tests
         [Fact]
         public void TestMethod1()
         {
-            ItemsViewModel vm = new ItemsViewModel();
+            //ItemsViewModel vm = new ItemsViewModel();
         }
     }
 }

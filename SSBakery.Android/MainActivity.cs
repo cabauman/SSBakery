@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using FFImageLoading.Forms.Droid;
 
 namespace SSBakery.Droid
 {
@@ -19,9 +20,10 @@ namespace SSBakery.Droid
 
             base.OnCreate(bundle);
 
+            CachedImageRenderer.Init(enableFastRenderer: false);
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
     }
 }
-

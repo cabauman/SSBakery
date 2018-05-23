@@ -132,14 +132,27 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\SSBakery\SSBakery.csproj">
-      <Project>{436D065C-FA4F-4F4D-BC4D-FC72E446F957}</Project>
-      <Name>SSBakery</Name>
+    <ProjectReference Include="..\SSBakery.Core\SSBakery.Core.csproj">
+      <Project>{44ce511a-0366-4a24-a0a5-a284328f8851}</Project>
+      <Name>SSBakery.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSBakery\SSBakery.UI.csproj">
+      <Project>{9B8AD95F-353C-4565-87AF-B51A17F5D84F}</Project>
+      <Name>SSBakery.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FirebaseAuthentication.net">
+      <Version>3.0.7</Version>
+    </PackageReference>
+    <PackageReference Include="FirebaseDatabase.net">
+      <Version>4.0.0-alpha7</Version>
+    </PackageReference>
     <PackageReference Include="ReactiveUI">
       <Version>8.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.3.6</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>3.0.0.482510</Version>

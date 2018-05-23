@@ -112,9 +112,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SSBakery\SSBakery.csproj">
+    <ProjectReference Include="..\SSBakery\SSBakery.UI.csproj">
       <Project>{9b8ad95f-353c-4565-87af-b51a17f5d84f}</Project>
-      <Name>SSBakery</Name>
+      <Name>SSBakery.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
