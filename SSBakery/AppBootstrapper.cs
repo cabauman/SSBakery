@@ -32,7 +32,7 @@ namespace SSBakery
             this
                 .Router
                 .NavigateAndReset
-                .Execute(new CatalogViewModel())
+                .Execute(new MainViewModel())
                 .Subscribe();
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;

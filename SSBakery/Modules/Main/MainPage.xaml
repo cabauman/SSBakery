@@ -1,15 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:layout="clr-namespace:SSBakery.UI.Layout"
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
             x:TypeArguments="modules:MainViewModel"
             x:Class="SSBakery.UI.Modules.MainPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Image x:Name="CardImg" Source="img_display_case1.jpg" Aspect="AspectFit" />
+            <layout:WrapLayout x:Name="wrapLayout">
+                <Label Text="Section 1" WidthRequest="100" HeightRequest="100" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="AliceBlue" />
+                <Label Text="Section 2" WidthRequest="100" HeightRequest="100" BackgroundColor="Beige" />
+                <Label Text="Section 3" WidthRequest="100" HeightRequest="100" BackgroundColor="Cornsilk" />
+                <Label Text="Section 3" WidthRequest="100" HeightRequest="100" BackgroundColor="GreenYellow" />
+            </layout:WrapLayout>
         </StackLayout>
     </ContentPage.Content>
 </ui:ContentPageBase>
