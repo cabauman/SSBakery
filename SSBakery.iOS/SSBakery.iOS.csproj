@@ -157,5 +157,8 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>3.0.0.482510</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Maps">
+      <Version>3.0.0.482510</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

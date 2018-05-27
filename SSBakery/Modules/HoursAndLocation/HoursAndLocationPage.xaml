@@ -4,12 +4,45 @@
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
             x:TypeArguments="modules:HoursAndLocationViewModel"
+            xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
             x:Class="SSBakery.UI.Modules.HoursAndLocationPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <maps:Map
+                x:Name="MyMap"
+                IsShowingUser="false"
+                HeightRequest="100"
+                WidthRequest="960"
+                VerticalOptions="FillAndExpand"
+                Margin="0, 0, 0, 10" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Monday" />
+                <Label Text="9:00am - 6:00pm" XAlign="End" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Tuesday" />
+                <Label Text="9:00am - 6:00pm" XAlign="End" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Wednesday" />
+                <Label Text="9:00am - 6:00pm" XAlign="End" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Thursday" />
+                <Label Text="9:00am - 6:00pm" XAlign="End" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Friday" />
+                <Label Text="9:00am - 6:00pm" XAlign="End" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Saturday" />
+                <Label Text="8:00am - 6:00pm" XAlign="End" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Margin="0, 0, 0, 10">
+                <Label Text="Sunday" />
+                <Label Text="Closed" XAlign="End" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ui:ContentPageBase>
