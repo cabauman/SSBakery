@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{26C6A1F9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSBakery.Tests", "SSBakery.Tests\SSBakery.Tests.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSBakery.Core", "SSBakery.Core\SSBakery.Core.csproj", "{44CE511A-0366-4A24-A0A5-A284328F8851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSBakery.Core", "SSBakery.Core\SSBakery.Core.csproj", "{44CE511A-0366-4A24-A0A5-A284328F8851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
