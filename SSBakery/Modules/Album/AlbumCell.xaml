@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<rxui:ReactiveViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                       xmlns:modules="clr-namespace:SSBakery.UI.Modules"
+                       x:TypeArguments="modules:AlbumCellViewModel"
+                       x:Class="SSBakery.UI.Modules.AlbumCell">
+
+    <Grid HeightRequest="100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.7*" />
+        </Grid.ColumnDefinitions>
+        <ffimageloading:CachedImage x:Name="Image"
+                                    Margin="10"
+                                    WidthRequest="80"
+                                    HeightRequest ="80"
+                                    Aspect="AspectFill"
+                                    BitmapOptimizations="true"
+                                    DownsampleWidth="80"
+                                    DownsampleHeight="80" />
+
+        <StackLayout Grid.Row="0" Grid.Column="1">
+            <Label x:Name="Name" FontSize="16" />
+            <Label x:Name="Count" FontSize="12"  />
+        </StackLayout>
+    </Grid>
+</rxui:ReactiveViewCell>

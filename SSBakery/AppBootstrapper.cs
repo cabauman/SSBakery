@@ -4,6 +4,7 @@ using ReactiveUI;
 using ReactiveUI.XamForms;
 using Splat;
 using SSBakery.Config;
+using SSBakery.Core.Services;
 using SSBakery.Repositories;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Modules;
@@ -25,14 +26,19 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<CatalogViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<CatalogItemDetailsViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemCell(), typeof(IViewFor<CatalogItemCellViewModel>));
-            Locator.CurrentMutable.Register(() => new HoursAndLocationPage(), typeof(IViewFor<HoursAndLocationViewModel>));
+            Locator.CurrentMutable.Register(() => new StoreInfoPage(), typeof(IViewFor<StoreInfoViewModel>));
+            Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<IAlbumViewModel>));
+            Locator.CurrentMutable.Register(() => new AlbumCell(), typeof(IViewFor<AlbumCellViewModel>));
+            Locator.CurrentMutable.Register(() => new GalleryPage(), typeof(IViewFor<GalleryViewModel>));
+            //Locator.CurrentMutable.Register(() => new PhotoCell(), typeof(IViewFor<PhotoCellViewModel>));
 
             Locator.CurrentMutable.RegisterLazySingleton(() => new DataStore(), typeof(IDataStore));
+            Locator.CurrentMutable.RegisterLazySingleton(() => new FacebookPhotoService(), typeof(IFacebookPhotoService));
 
             this
                 .Router
                 .NavigateAndReset
-                .Execute(new HoursAndLocationViewModel())
+                .Execute(new AlbumViewModel())
                 .Subscribe();
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
