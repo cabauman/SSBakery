@@ -151,6 +151,9 @@
     <PackageReference Include="ReactiveUI">
       <Version>8.2.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Auth.XamarinForms">
+      <Version>1.6.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.3.6</Version>
     </PackageReference>

@@ -105,51 +105,12 @@ namespace SSBakery.Repositories
                 .Select(x => x.Object);
         }
 
-        protected IObservable<U> ReadAllBasicType<U>(ChildQuery childQuery, bool useCache = true)
-            where U : class
-        {
-            var realtimeDb = childQuery
-                .AsRealtimeDatabase<U>(string.Empty, string.Empty, StreamingOptions.LatestOnly, InitialPullStrategy.Everything, true);
-
-            realtimeDb.SyncExceptionThrown +=
-                (s, ex) =>
-                {
-                    Console.WriteLine(ex.Exception);
-                };
-
-            if(!useCache || realtimeDb.Database?.Count == 0)
-            {
-                return realtimeDb
-                    .PullAsync()
-                    .ToObservable()
-                    .SelectMany(_ => ReadAllBasicType(realtimeDb));
-            }
-
-            return ReadAllBasicType(realtimeDb);
-        }
-
-        protected IObservable<U> ReadBasicType<U>(ChildQuery childQuery)
-        {
-            return childQuery
-                .OnceSingleAsync<U>()
-                .ToObservable();
-        }
-
         protected IObservable<T> ReadAll(RealtimeDatabase<T> realtimeDb)
         {
             return realtimeDb
                 .Once()
                 .ToObservable()
                 .Do(MapKeyToId)
-                .Select(x => x.Object);
-        }
-
-        private IObservable<U> ReadAllBasicType<U>(RealtimeDatabase<U> realtimeDb)
-            where U : class
-        {
-            return realtimeDb
-                .Once()
-                .ToObservable()
                 .Select(x => x.Object);
         }
 

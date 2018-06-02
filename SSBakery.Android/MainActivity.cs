@@ -20,7 +20,7 @@ namespace SSBakery.Droid
 
             base.OnCreate(bundle);
 
-            CachedImageRenderer.Init(enableFastRenderer: false);
+            CachedImageRenderer.Init(enableFastRenderer: true);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
