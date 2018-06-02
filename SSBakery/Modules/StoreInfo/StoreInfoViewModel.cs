@@ -7,9 +7,9 @@ using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
 {
-    public class HoursAndLocationViewModel : ViewModelBase
+    public class StoreInfoViewModel : ViewModelBase
     {
-        public HoursAndLocationViewModel(IScreen hostScreen = null)
+        public StoreInfoViewModel(IScreen hostScreen = null)
             : base(hostScreen)
         {
         }

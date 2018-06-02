@@ -11,9 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HoursAndLocationPage : ContentPageBase<HoursAndLocationViewModel>
+    public partial class StoreInfoPage : ContentPageBase<StoreInfoViewModel>
     {
-        public HoursAndLocationPage()
+        public StoreInfoPage()
         {
             InitializeComponent();
 
