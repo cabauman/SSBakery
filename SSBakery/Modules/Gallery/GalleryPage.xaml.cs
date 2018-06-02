@@ -17,6 +17,7 @@ namespace SSBakery.UI.Modules
         public GalleryPage()
         {
             InitializeComponent();
+            //HeightRequest = Application.Current.MainPage.Width / 3;
 
             this.WhenActivated(
                 disposables =>
@@ -29,10 +30,10 @@ namespace SSBakery.UI.Modules
                         .Select(x => Unit.Default)
                         .InvokeCommand(this, x => x.ViewModel.LoadPhotos)
                         .DisposeWith(disposables);
-                    this
-                        .WhenAnyValue(x => x.ViewModel.Photos)
-                        .Where(x => x != null)
-                        .Subscribe(LayoutGrid);
+                    //this
+                    //    .WhenAnyValue(x => x.ViewModel.Photos)
+                    //    .Where(x => x != null)
+                    //    .Subscribe(LayoutGrid);
                 });
         }
 
@@ -55,7 +56,7 @@ namespace SSBakery.UI.Modules
                 tapGesture.Tapped += TapGesture_Tapped;
                 image.GestureRecognizers.Add(tapGesture);
 
-                wrapLayout.Children.Add(image);
+                //wrapLayout.Children.Add(image);
             }
         }
 

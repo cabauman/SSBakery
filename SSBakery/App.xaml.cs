@@ -1,4 +1,5 @@
 ﻿using System;
+using DLToolkit.Forms.Controls;
 using SSBakery.UI.Modules;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,7 @@ namespace SSBakery
         public App()
         {
             InitializeComponent();
+            FlowListView.Init();
 
             var bootstrapper = new AppBootstrapper();
             MainPage = bootstrapper.CreateMainPage();

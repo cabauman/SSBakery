@@ -159,7 +159,7 @@ namespace SSBakery.UI.Layout
 
                 // Now maximize the cell size based on the layout size.
                 Size cellSize = default(Size);
-                car
+
                 if(double.IsPositiveInfinity(width))
                 {
                     cellSize.Width = maxChildSize.Width;
