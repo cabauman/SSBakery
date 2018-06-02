@@ -159,8 +159,8 @@ namespace SSBakery.UI.Layout
 
                 // Now maximize the cell size based on the layout size.
                 Size cellSize = default(Size);
-
-                if (double.IsPositiveInfinity(width))
+                car
+                if(double.IsPositiveInfinity(width))
                 {
                     cellSize.Width = maxChildSize.Width;
                 }
@@ -169,14 +169,15 @@ namespace SSBakery.UI.Layout
                     cellSize.Width = (width - ColumnSpacing * (columns - 1)) / columns;
                 }
 
-                if (double.IsPositiveInfinity(height))
-                {
-                    cellSize.Height = maxChildSize.Height;
-                }
-                else
-                {
-                    cellSize.Height = (height - RowSpacing * (rows - 1)) / rows;
-                }
+                cellSize.Height = maxChildSize.Height;
+                //if (double.IsPositiveInfinity(height))
+                //{
+                //    cellSize.Height = maxChildSize.Height;
+                //}
+                //else
+                //{
+                //    cellSize.Height = (height - RowSpacing * (rows - 1)) / rows;
+                //}
 
                 layoutData = new LayoutData(visibleChildCount, cellSize, rows, columns);
             }
