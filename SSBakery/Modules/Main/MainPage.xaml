@@ -1,20 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:layout="clr-namespace:SSBakery.UI.Layout"
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
             x:TypeArguments="modules:MainViewModel"
             x:Class="SSBakery.UI.Modules.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Image x:Name="CardImg" Source="img_display_case1.jpg" Aspect="AspectFit" />
-            <layout:WrapLayout x:Name="wrapLayout">
-                <Label Text="Section 1" WidthRequest="100" HeightRequest="100" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="AliceBlue" />
-                <Label Text="Section 2" WidthRequest="100" HeightRequest="100" BackgroundColor="Beige" />
-                <Label Text="Section 3" WidthRequest="100" HeightRequest="100" BackgroundColor="Cornsilk" />
-                <Label Text="Section 3" WidthRequest="100" HeightRequest="100" BackgroundColor="GreenYellow" />
-            </layout:WrapLayout>
-        </StackLayout>
+        <Grid x:Name="wrapLayout" Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.ColumnSpan="2"
+                Source="img_display_case1.jpg"
+                Aspect="AspectFit" />
+            <Button
+                x:Name="CatalogButton"
+                Text="Catalog"
+                Grid.Row="1"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="AliceBlue" />
+            <Button
+                x:Name="AlbumButton"
+                Text="Album"
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Beige" />
+            <Button
+                x:Name="RewardsButton"
+                Text="Rewards"
+                Grid.Row="2"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Cornsilk" />
+            <Button
+                x:Name="StoreInfoButton"
+                Text="Store Info"
+                Grid.Row="2"
+                Grid.Column="1"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="GreenYellow" />
+        </Grid>
     </ContentPage.Content>
 </ui:ContentPageBase>
