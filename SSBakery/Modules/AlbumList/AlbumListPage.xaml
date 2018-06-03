@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:layout="clr-namespace:SSBakery.UI.Layout"
+            xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+            xmlns:ui="clr-namespace:SSBakery.UI.Common"
+            xmlns:modules="clr-namespace:SSBakery.UI.Modules"
+            x:TypeArguments="modules:IAlbumListViewModel"
+            x:Class="SSBakery.UI.Modules.AlbumListPage">
+    <ContentPage.Content>
+        <ListView x:Name="Albums"
+              RowHeight="100"
+              SeparatorVisibility="None"
+              CachingStrategy="RetainElement">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <modules:AlbumCell />
+                    <!--<ImageCell ImageSource="{Binding ImageUrl}" Text="{Binding Name}" />-->
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ui:ContentPageBase>

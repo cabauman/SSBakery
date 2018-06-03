@@ -3,21 +3,32 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:layout="clr-namespace:SSBakery.UI.Layout"
             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+            xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-            x:TypeArguments="modules:IAlbumViewModel"
+            x:TypeArguments="modules:AlbumViewModel"
             x:Class="SSBakery.UI.Modules.AlbumPage">
     <ContentPage.Content>
-        <ListView x:Name="Albums"
-              RowHeight="100"
-              SeparatorVisibility="None"
-              CachingStrategy="RetainElement">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <modules:AlbumCell />
-                    <!--<ImageCell ImageSource="{Binding ImageUrl}" Text="{Binding Name}" />-->
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+
+            <flv:FlowListView
+                FlowColumnMinWidth="110"
+                SeparatorVisibility="None"
+                HasUnevenRows="true"
+	            FlowItemsSource="{Binding Photos}">
+
+                <flv:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <ffimageloading:CachedImage
+                            Margin="3"
+                            Aspect="AspectFill"
+                            HeightRequest="100"
+							DownsampleHeight="100"
+                            DownsampleUseDipUnits="false"
+							Source="{Binding ImageUrl} "/>
+                    </DataTemplate>
+                </flv:FlowListView.FlowColumnTemplate>
+
+            </flv:FlowListView>
+
     </ContentPage.Content>
 </ui:ContentPageBase>

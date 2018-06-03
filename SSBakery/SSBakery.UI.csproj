@@ -42,10 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Modules\Album\AlbumPage.xaml.cs">
-      <DependentUpon>AlbumPage.xaml</DependentUpon>
+    <Compile Update="Modules\AlbumList\AlbumListPage.xaml.cs">
+      <DependentUpon>AlbumListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\Album\AlbumCell.xaml.cs">
+    <Compile Update="Modules\AlbumList\AlbumCell.xaml.cs">
       <DependentUpon>AlbumCell.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\CatalogItemDetails\CatalogItemDetailsPage.xaml.cs">
@@ -57,11 +57,14 @@
     <Compile Update="Modules\Catalog\CatalogItemCell.xaml.cs">
       <DependentUpon>CatalogItemCell.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\Gallery\GalleryPage.xaml.cs">
-      <DependentUpon>GalleryPage.xaml</DependentUpon>
+    <Compile Update="Modules\Album\AlbumPage.xaml.cs">
+      <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\Rewards\RewardsPage.xaml.cs">
       <DependentUpon>RewardsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\SignIn\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\StoreInfo\StoreInfoPage.xaml.cs">
       <DependentUpon>StoreInfoPage.xaml</DependentUpon>

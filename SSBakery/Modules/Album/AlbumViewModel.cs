@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using ReactiveUI;
 using Splat;
 using SSBakery;
@@ -11,76 +10,45 @@ using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
 {
-    public class AlbumViewModel : ViewModelBase, IAlbumViewModel
+    public class AlbumViewModel : ViewModelBase
     {
-        private ObservableAsPropertyHelper<List<AlbumCellViewModel>> _albums;
-        private AlbumCellViewModel _selectedItem;
+        private ObservableAsPropertyHelper<IList<PhotoCellViewModel>> _photos;
+        private PhotoCellViewModel _selectedItem;
 
-        public AlbumViewModel(IFacebookPhotoService photoService = null, IScreen hostScreen = null)
+        public AlbumViewModel(string albumId, IFacebookPhotoService photoService = null, IScreen hostScreen = null)
             : base(hostScreen)
         {
             photoService = photoService ?? Locator.Current.GetService<IFacebookPhotoService>();
 
-            LoadAlbums = ReactiveCommand.CreateFromTask(
+            LoadPhotos = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    var albumData = await photoService.GetAlbumsAsync(Config.Constants.FACEBOOK_PAGE_ID, Config.Constants.FACEBOOK_PAGE_ACCESS_TOKEN);
+                    var photos = await photoService.GetAlbumPhotos(albumId, Config.Constants.FACEBOOK_PAGE_ACCESS_TOKEN);
 
-                    var viewModels = new List<AlbumCellViewModel>(albumData.Data.Count);
-                    foreach(var model in albumData.Data)
+                    var viewModels = new List<PhotoCellViewModel>(photos.Count);
+                    foreach(var model in photos)
                     {
-                        var vm = new AlbumCellViewModel(model);
+                        var vm = new PhotoCellViewModel(model);
                         viewModels.Add(vm);
                     }
 
                     return viewModels;
                 });
 
-            _albums = LoadAlbums.ToProperty(this, vm => vm.Albums);
-
-            this.WhenActivated(
-                disposables =>
-                {
-                    SelectedItem = null;
-
-                    this
-                        .WhenAnyValue(vm => vm.SelectedItem)
-                        .Where(x => x != null)
-                        .Subscribe(
-                            x => LoadSelectedPage(x),
-                            ex =>
-                            {
-                                this.Log().Debug(ex.Message);
-                            })
-                        .DisposeWith(disposables);
-
-                    LoadAlbums
-                        .ThrownExceptions
-                        .Subscribe(ex => this.Log().WarnException("Failed to load albums", ex))
-                        .DisposeWith(disposables);
-                });
+            _photos = LoadPhotos.ToProperty(this, x => x.Photos);
         }
 
-        public ReactiveCommand<Unit, List<AlbumCellViewModel>> LoadAlbums { get; set; }
+        public ReactiveCommand<Unit, List<PhotoCellViewModel>> LoadPhotos { get; set; }
 
-        public List<AlbumCellViewModel> Albums
+        public IList<PhotoCellViewModel> Photos
         {
-            get { return _albums.Value; }
+            get { return _photos.Value; }
         }
 
-        public AlbumCellViewModel SelectedItem
+        public PhotoCellViewModel SelectedItem
         {
             get { return _selectedItem; }
             set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
-        }
-
-        private void LoadSelectedPage(AlbumCellViewModel viewModel)
-        {
-            HostScreen
-                .Router
-                .Navigate
-                .Execute(new GalleryViewModel(viewModel.FacebookAlbum.Id))
-                .Subscribe();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using FFImageLoading;
 using ReactiveUI;
 using SSBakery.Core.Services;
 using SSBakery.UI.Common;
@@ -12,11 +12,13 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AlbumPage : ContentPageBase<IAlbumViewModel>
+    public partial class AlbumPage : ContentPageBase<AlbumViewModel>
     {
         public AlbumPage()
         {
             InitializeComponent();
+            return;
+            //HeightRequest = Application.Current.MainPage.Width / 3;
 
             this.WhenActivated(
                 disposables =>
@@ -24,23 +26,44 @@ namespace SSBakery.UI.Modules
                     ViewModel.SelectedItem = null;
 
                     this
-                        .OneWayBind(ViewModel, vm => vm.Albums, v => v.Albums.ItemsSource)
-                        .DisposeWith(disposables);
-                    this
-                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.Albums.SelectedItem)
-                        .DisposeWith(disposables);
-                    this
                         .WhenAnyValue(x => x.ViewModel)
                         .Where(x => x != null)
                         .Select(x => Unit.Default)
-                        .InvokeCommand(this, x => x.ViewModel.LoadAlbums)
+                        .InvokeCommand(this, x => x.ViewModel.LoadPhotos)
                         .DisposeWith(disposables);
+                    //this
+                    //    .WhenAnyValue(x => x.ViewModel.Photos)
+                    //    .Where(x => x != null)
+                    //    .Subscribe(LayoutGrid);
                 });
         }
 
-        protected override void OnAppearing()
+        private void LayoutGrid(IList<PhotoCellViewModel> photos)
         {
-            base.OnAppearing();
+            foreach(var photo in photos)
+            {
+                var image = new FFImageLoading.Forms.CachedImage
+                {
+                    HorizontalOptions = LayoutOptions.Start,
+                    VerticalOptions = LayoutOptions.Start,
+                    WidthRequest = 110,
+                    HeightRequest = 110,
+                    Aspect = Aspect.AspectFill,
+                    DownsampleToViewSize = true,
+                    Source = photo.ImageUrl
+                };
+
+                var tapGesture = new TapGestureRecognizer();
+                tapGesture.Tapped += TapGesture_Tapped;
+                image.GestureRecognizers.Add(tapGesture);
+
+                //wrapLayout.Children.Add(image);
+            }
+        }
+
+        private void TapGesture_Tapped(object sender, EventArgs e)
+        {
+            DisplayAlert("Alert", "This is an image button", "OK");
         }
     }
 }

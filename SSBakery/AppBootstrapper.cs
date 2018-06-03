@@ -22,15 +22,16 @@ namespace SSBakery
             Locator.CurrentMutable.InitializeReactiveUI();
 
             Locator.CurrentMutable.RegisterConstant(this, typeof(IScreen));
+            Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
             Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<CatalogViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<CatalogItemDetailsViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemCell(), typeof(IViewFor<CatalogItemCellViewModel>));
             Locator.CurrentMutable.Register(() => new StoreInfoPage(), typeof(IViewFor<StoreInfoViewModel>));
-            Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<IAlbumViewModel>));
+            Locator.CurrentMutable.Register(() => new AlbumListPage(), typeof(IViewFor<IAlbumListViewModel>));
             Locator.CurrentMutable.Register(() => new AlbumCell(), typeof(IViewFor<AlbumCellViewModel>));
-            Locator.CurrentMutable.Register(() => new GalleryPage(), typeof(IViewFor<GalleryViewModel>));
-            //Locator.CurrentMutable.Register(() => new PhotoCell(), typeof(IViewFor<PhotoCellViewModel>));
+            Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<AlbumViewModel>));
+            Locator.CurrentMutable.Register(() => new RewardsPage(), typeof(IViewFor<RewardsViewModel>));
 
             Locator.CurrentMutable.RegisterLazySingleton(() => new DataStore(), typeof(IDataStore));
             Locator.CurrentMutable.RegisterLazySingleton(() => new FacebookPhotoService(), typeof(IFacebookPhotoService));
@@ -38,7 +39,7 @@ namespace SSBakery
             this
                 .Router
                 .NavigateAndReset
-                .Execute(new AlbumViewModel())
+                .Execute(new MainViewModel())
                 .Subscribe();
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;

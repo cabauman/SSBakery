@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace SSBakery.UI.Modules
 {
-    public interface IAlbumViewModel
+    public interface IAlbumListViewModel
     {
         ReactiveCommand<Unit, List<AlbumCellViewModel>> LoadAlbums { get; }
 
