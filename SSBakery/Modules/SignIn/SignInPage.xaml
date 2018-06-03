@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:ui="clr-namespace:SSBakery.UI.Common"
+            xmlns:modules="clr-namespace:SSBakery.UI.Modules"
+            x:TypeArguments="modules:SignInViewModel"
+            x:Class="SSBakery.UI.Modules.SignInPage">
+    <ContentPage.Content>
+        <Grid x:Name="wrapLayout" Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image
+                Grid.ColumnSpan="2"
+                Source="img_display_case1.jpg"
+                Aspect="AspectFit" />
+            <Button
+                x:Name="ContinueAnonymouslyButton"
+                Text="Continue Anonymously"
+                Grid.Row="1"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="AliceBlue" />
+        </Grid>
+    </ContentPage.Content>
+</ui:ContentPageBase>
