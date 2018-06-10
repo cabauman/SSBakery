@@ -3,6 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using SSBakery.Core.Common;
+using SSBakery.Config;
 
 namespace SSBakery.Droid
 {
@@ -16,10 +18,10 @@ namespace SSBakery.Droid
                     Intent.CategoryDefault,
                     Intent.CategoryBrowsable
             },
-            //DataSchemes = new[]
-            //{
-            //    FacebookAuthConfig.DATA_SCHEME,
-            //},
+            DataSchemes = new[]
+            {
+                FacebookAuthConfig.DATA_SCHEME,
+            },
             DataHosts = new[]
             {
                 "authorize",
@@ -40,7 +42,11 @@ namespace SSBakery.Droid
             var uri = new Uri(Intent.Data.ToString());
 
             // Load redirectUrl page
-            //AuthenticationState.Authenticator.OnPageLoading(uri);
+            AuthenticationState.Authenticator.OnPageLoading(uri);
+
+            var intent = new Intent(this, typeof(MainActivity));
+            intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            StartActivity(intent);
 
             Finish();
         }

@@ -3,6 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using SSBakery.Config;
+using SSBakery.Core.Common;
 
 namespace SSBakery.Droid
 {
@@ -16,11 +18,11 @@ namespace SSBakery.Droid
                     Intent.CategoryDefault,
                     Intent.CategoryBrowsable
             },
-            //DataSchemes = new[]
-            //{
-            //    // First part of the redirect url
-            //    GoogleAuthConfig.DATA_SCHEME_ANDROID,
-            //},
+            DataSchemes = new[]
+            {
+                // First part of the redirect url
+                GoogleAuthConfig.DATA_SCHEME_ANDROID,
+            },
             DataPaths = new[]
             {
                 "/oauth2redirect"
@@ -45,7 +47,11 @@ namespace SSBakery.Droid
             var uri = new Uri(uri_android.ToString());
 
             // Send the URI to the Authenticator for continuation
-            //SignInActivity.Authenticator?.OnPageLoading(uri);
+            AuthenticationState.Authenticator?.OnPageLoading(uri);
+
+            var intent = new Intent(this, typeof(MainActivity));
+            intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            StartActivity(intent);
 
             Finish();
         }

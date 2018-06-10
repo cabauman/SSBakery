@@ -69,6 +69,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -137,7 +138,7 @@
       <Name>SSBakery.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SSBakery\SSBakery.UI.csproj">
-      <Project>{9B8AD95F-353C-4565-87AF-B51A17F5D84F}</Project>
+      <Project>{9b8ad95f-353c-4565-87af-b51a17f5d84f}</Project>
       <Name>SSBakery.UI</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,7 +4,7 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
-using SSBakery.Core.Services;
+using SSBakery.Services;
 using SSBakery.UI.Common;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

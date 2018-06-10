@@ -24,24 +24,24 @@
                 <Label Text="9:00am - 6:00pm" XAlign="End" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Wednesday" />
-                <Label Text="9:00am - 6:00pm" XAlign="End" />
+                <Label Text="Wednesday" FontSize="Medium" />
+                <Label Text="9:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Thursday" />
-                <Label Text="9:00am - 6:00pm" XAlign="End" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                <Label Text="Thursday" FontSize="Medium" />
+                <Label Text="9:00am - 6:00pm" FontSize="Medium" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Friday" />
-                <Label Text="9:00am - 6:00pm" XAlign="End" />
+                <Label Text="9:00am - 6:00pm" HorizontalOptions="End" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End">
                 <Label Text="Saturday" />
-                <Label Text="8:00am - 6:00pm" XAlign="End" />
+                <Label Text="8:00am - 6:00pm" HorizontalTextAlignment="End" />
             </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="0, 0, 0, 10">
                 <Label Text="Sunday" />
-                <Label Text="Closed" XAlign="End" />
+                <Label Text="Closed" HorizontalTextAlignment="End" HorizontalOptions="End" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

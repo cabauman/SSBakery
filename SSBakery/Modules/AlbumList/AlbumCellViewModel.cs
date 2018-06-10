@@ -5,7 +5,8 @@ using ReactiveUI;
 using Splat;
 using Square.Connect.Model;
 using SSBakery;
-using SSBakery.Core.Services;
+using SSBakery.Models;
+using SSBakery.Services;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules

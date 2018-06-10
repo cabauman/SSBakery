@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
+using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.XamForms;
 using Splat;
 using SSBakery.Config;
-using SSBakery.Core.Services;
 using SSBakery.Repositories;
 using SSBakery.Repositories.Interfaces;
+using SSBakery.Services;
+using SSBakery.Services.Interfaces;
 using SSBakery.UI.Modules;
 using Xamarin.Forms;
 
@@ -33,23 +36,37 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<AlbumViewModel>));
             Locator.CurrentMutable.Register(() => new RewardsPage(), typeof(IViewFor<RewardsViewModel>));
 
+            Locator.CurrentMutable.RegisterConstant(new XamarinAuthCredentialsService(), typeof(ICredentialsService));
+            var firebaseAuthService = new FirebaseAuthService();
+            Locator.CurrentMutable.RegisterConstant(firebaseAuthService, typeof(IFirebaseAuthService));
             Locator.CurrentMutable.RegisterLazySingleton(() => new DataStore(), typeof(IDataStore));
             Locator.CurrentMutable.RegisterLazySingleton(() => new FacebookPhotoService(), typeof(IFacebookPhotoService));
 
-            this
-                .Router
-                .NavigateAndReset
-                .Execute(new MainViewModel())
-                .Subscribe();
-
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
+
+            if(firebaseAuthService.IsAuthenticated)
+            {
+                GoToPage(new MainViewModel());
+            }
+            else
+            {
+                GoToPage(new SignInViewModel());
+            }
         }
 
-        public RoutingState Router { get; protected set; }
+        public RoutingState Router { get; }
 
         public Page CreateMainPage()
         {
             return new RoutedViewHost();
+        }
+
+        private void GoToPage(IRoutableViewModel routableViewModel)
+        {
+            Router
+                .NavigateAndReset
+                .Execute(routableViewModel)
+                .Subscribe();
         }
     }
 }

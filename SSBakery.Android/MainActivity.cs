@@ -22,8 +22,10 @@ namespace SSBakery.Droid
 
             CachedImageRenderer.Init(enableFastRenderer: true);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
+
             LoadApplication(new App());
         }
     }

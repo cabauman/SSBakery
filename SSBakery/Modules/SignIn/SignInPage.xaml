@@ -10,19 +10,31 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Image
                 Grid.ColumnSpan="2"
                 Source="img_display_case1.jpg"
                 Aspect="AspectFit" />
-            <Button
-                x:Name="ContinueAnonymouslyButton"
-                Text="Continue Anonymously"
-                Grid.Row="1"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="AliceBlue" />
+            <StackLayout>
+                <Button
+                    x:Name="GoogleSignInButton"
+                    Text="Sign in with Google"
+                    Grid.Row="1"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="AliceBlue" />
+                <Button
+                    x:Name="FacebookSignInButton"
+                    Text="Sign in with Facebook"
+                    Grid.Row="1"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="AliceBlue" />
+                <Button
+                    x:Name="ContinueAsGuestButton"
+                    Text="Continue as guest"
+                    Grid.Row="1"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="AliceBlue" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ui:ContentPageBase>

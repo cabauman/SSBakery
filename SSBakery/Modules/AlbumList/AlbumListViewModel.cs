@@ -6,7 +6,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using Splat;
 using SSBakery;
-using SSBakery.Core.Services;
+using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules

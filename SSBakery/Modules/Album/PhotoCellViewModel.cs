@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
-using SSBakery.Core.Services;
+using SSBakery.Models;
+using SSBakery.Services;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
