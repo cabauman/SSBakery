@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using FFImageLoading.Forms.Droid;
+using Firebase;
+using Plugin.CurrentActivity;
 
 namespace SSBakery.Droid
 {
@@ -25,6 +27,13 @@ namespace SSBakery.Droid
             Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
+            CrossCurrentActivity.Current.Init(this, bundle);
+
+            var options = new FirebaseOptions.Builder()
+                .SetApplicationId("<APPLICATION ID>")
+                .SetApiKey(Config.ApiKeys.FIREBASE)
+                .Build();
+            FirebaseApp.InitializeApp(this, options);
 
             LoadApplication(new App());
         }

@@ -18,17 +18,17 @@ namespace SSBakery.UI.Modules
         private CatalogItemCellViewModel _selectedItem;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
 
-        public CatalogViewModel(IDataStore dataStore = null, IScreen hostScreen = null)
+        public CatalogViewModel(IRepoContainer dataStore = null, IScreen hostScreen = null)
             : base(hostScreen)
         {
             UrlPathSegment = "Catalog Items";
 
-            DataStore = dataStore ?? Locator.Current.GetService<IDataStore>();
+            RepoContainer = dataStore ?? Locator.Current.GetService<IRepoContainer>();
 
             LoadCatalogObjects = ReactiveCommand.CreateFromObservable<Unit, IEnumerable<CatalogObject>>(
                 _ =>
                 {
-                    return DataStore.CatalogObjectRepo.GetAll();
+                    return RepoContainer.CatalogObjectRepo.GetAll();
                 });
 
             this.WhenActivated(
@@ -76,7 +76,7 @@ namespace SSBakery.UI.Modules
 
         public ReactiveCommand<Unit, IEnumerable<CatalogObject>> LoadCatalogObjects { get; }
 
-        public IDataStore DataStore { get; }
+        public IRepoContainer RepoContainer { get; }
 
         public CatalogItemCellViewModel SelectedItem
         {

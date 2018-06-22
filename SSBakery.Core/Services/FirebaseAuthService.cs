@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Firebase.Auth;
+using GameCtor.Firebase.AuthWrapper;
 using Newtonsoft.Json;
 using Splat;
 using SSBakery.Models;
@@ -63,9 +64,16 @@ namespace SSBakery.Services
             return SignInWithOAuth(FirebaseAuthType.Facebook, authToken);
         }
 
+        //public IObservable<Unit> SignInWithGoogle(string authToken)
+        //{
+        //    return SignInWithOAuth(FirebaseAuthType.Google, authToken);
+        //}
+
         public IObservable<Unit> SignInWithGoogle(string authToken)
         {
-            return SignInWithOAuth(FirebaseAuthType.Google, authToken);
+            return CrossFirebaseAuth.Current.SignInWithGoogleAsync(null, authToken)
+                .ToObservable()
+                .Select(_ => Unit.Default);
         }
 
         public IObservable<Unit> SignInAnonymously()

@@ -7,13 +7,14 @@ using System.Collections.Generic;
 
 namespace SSBakery.Repositories
 {
-    public class DataStore : IDataStore
+    public class RepoContainer : IRepoContainer
     {
-        public DataStore()
+        public RepoContainer()
         {
             CatalogObjectRepo = new CatalogObjectRepo();
             CustomerRepo = new CustomerRepo();
             RewardDataRepo = new FirebaseRepo<RewardData>();
+            UserRepo = new FirebaseRepo<SSBakeryUser>();
         }
 
         public IRepository<CatalogObject> CatalogObjectRepo { get; }
@@ -21,5 +22,7 @@ namespace SSBakery.Repositories
         public IRepository<Customer> CustomerRepo { get; }
 
         public IRepository<RewardData> RewardDataRepo { get; }
+
+        public IRepository<SSBakeryUser> UserRepo { get; }
     }
 }

@@ -39,7 +39,7 @@ namespace SSBakery
             Locator.CurrentMutable.RegisterConstant(new XamarinAuthCredentialsService(), typeof(ICredentialsService));
             var firebaseAuthService = new FirebaseAuthService();
             Locator.CurrentMutable.RegisterConstant(firebaseAuthService, typeof(IFirebaseAuthService));
-            Locator.CurrentMutable.RegisterLazySingleton(() => new DataStore(), typeof(IDataStore));
+            Locator.CurrentMutable.RegisterLazySingleton(() => new RepoContainer(), typeof(IRepoContainer));
             Locator.CurrentMutable.RegisterLazySingleton(() => new FacebookPhotoService(), typeof(IFacebookPhotoService));
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
@@ -50,7 +50,8 @@ namespace SSBakery
             }
             else
             {
-                GoToPage(new SignInViewModel());
+                GoToPage(new MainViewModel());
+                //GoToPage(new SignInViewModel());
             }
         }
 

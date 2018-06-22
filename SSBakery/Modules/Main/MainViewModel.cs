@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Threading.Tasks;
+using GameCtor.Firebase.AuthWrapper;
 using ReactiveUI;
 using Splat;
 using SSBakery;
@@ -33,6 +35,22 @@ namespace SSBakery.UI.Modules
                 {
                     return GoToPage(new StoreInfoViewModel());
                 });
+
+            IUserWrapper user = CrossFirebaseAuth.Current.CurrentUser;
+            if(user != null)
+            {
+                user.GetIdTokenAsync(false)
+                    .ToObservable()
+                    .Subscribe(
+                        token =>
+                        {
+                            Console.WriteLine(token);
+                        },
+                        ex =>
+                        {
+                            Console.WriteLine(ex.Message);
+                        });
+            }
         }
 
         public ReactiveCommand<Unit, IRoutableViewModel> GoToCatalogPage { get; }
