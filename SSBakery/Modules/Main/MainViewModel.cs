@@ -36,21 +36,21 @@ namespace SSBakery.UI.Modules
                     return GoToPage(new StoreInfoViewModel());
                 });
 
-            IUserWrapper user = CrossFirebaseAuth.Current.CurrentUser;
-            if(user != null)
-            {
-                user.GetIdTokenAsync(false)
-                    .ToObservable()
-                    .Subscribe(
-                        token =>
-                        {
-                            Console.WriteLine(token);
-                        },
-                        ex =>
-                        {
-                            Console.WriteLine(ex.Message);
-                        });
-            }
+            //IUserWrapper user = CrossFirebaseAuth.Current.CurrentUser;
+            //if(user != null)
+            //{
+            //    user.GetIdTokenAsync(false)
+            //        .ToObservable()
+            //        .Subscribe(
+            //            token =>
+            //            {
+            //                Console.WriteLine(token);
+            //            },
+            //            ex =>
+            //            {
+            //                Console.WriteLine(ex.Message);
+            //            });
+            //}
         }
 
         public ReactiveCommand<Unit, IRoutableViewModel> GoToCatalogPage { get; }

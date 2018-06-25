@@ -64,6 +64,9 @@
     <Compile Update="Modules\Rewards\RewardsPage.xaml.cs">
       <DependentUpon>RewardsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Modules\PhoneNumberVerification\PhoneNumberVerificationPage.xaml.cs">
+      <DependentUpon>PhoneNumberVerificationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Modules\SignIn\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
