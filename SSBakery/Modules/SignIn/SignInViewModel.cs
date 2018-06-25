@@ -17,7 +17,7 @@ using Xamarin.Auth;
 
 namespace SSBakery.UI.Modules
 {
-    public class SignInViewModel : ViewModelBase
+    public class SignInViewModel : ViewModelBase, ISignInViewModel
     {
         private const string PhoneNum = "+1 653-555-4117";
         private const string VerificationCode = "897604";
@@ -46,12 +46,10 @@ namespace SSBakery.UI.Modules
                     Console.WriteLine(ex);
                 });
 
-            SignInWithPhoneNumber = ReactiveCommand.CreateFromObservable(
+            NavigateToPhoneNumberVerificationPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(PhoneNum)
-                        .ToObservable()
-                        .SelectMany(x => CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(x.VerificationId, VerificationCode));
+                    return GoToPage(new PhoneNumberVerificationViewModel());
                 });
 
             TriggerGoogleAuthFlow = ReactiveCommand.Create(
@@ -123,21 +121,9 @@ namespace SSBakery.UI.Modules
             this.WhenAnyObservable(x => x.SignInSuccessful)
                 .SelectMany(x => GoToPage(new MainViewModel()))
                 .Subscribe();
-
-            SignInWithPhoneNumber
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(
-                    x =>
-                    {
-                        Console.WriteLine(x.User.ToString());
-                    },
-                    ex =>
-                    {
-                        Console.WriteLine(ex.Message);
-                    });
         }
 
-        public ReactiveCommand<Unit, IAuthResultWrapper> SignInWithPhoneNumber { get; }
+        public ReactiveCommand NavigateToPhoneNumberVerificationPage { get; }
 
         public ReactiveCommand TriggerGoogleAuthFlow { get; }
 

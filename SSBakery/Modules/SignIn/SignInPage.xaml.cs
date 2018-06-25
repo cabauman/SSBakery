@@ -23,14 +23,14 @@ namespace SSBakery.UI.Modules
                     this
                         .BindCommand(ViewModel, vm => vm.ContinueAsGuest, v => v.ContinueAsGuestButton)
                         .DisposeWith(disposables);
-                    //this
-                    //    .BindCommand(ViewModel, vm => vm.TriggerGoogleAuthFlow, v => v.GoogleSignInButton)
-                    //    .DisposeWith(disposables);
+                    this
+                        .BindCommand(ViewModel, vm => vm.TriggerGoogleAuthFlow, v => v.GoogleSignInButton)
+                        .DisposeWith(disposables);
                     this
                         .BindCommand(ViewModel, vm => vm.TriggerFacebookAuthFlow, v => v.FacebookSignInButton)
                         .DisposeWith(disposables);
                     this
-                        .BindCommand(ViewModel, vm => vm.SignInWithPhoneNumber, v => v.GoogleSignInButton)
+                        .BindCommand(ViewModel, vm => vm.NavigateToPhoneNumberVerificationPage, v => v.PhoneNumberSignInButton)
                         .DisposeWith(disposables);
                 });
         }

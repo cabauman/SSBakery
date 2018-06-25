@@ -6,33 +6,31 @@
             x:TypeArguments="modules:SignInViewModel"
             x:Class="SSBakery.UI.Modules.SignInPage">
     <ContentPage.Content>
-        <Grid x:Name="wrapLayout" Padding="5">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Image
-                Grid.ColumnSpan="2"
                 Source="img_display_case1.jpg"
                 Aspect="AspectFit" />
-            <StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                Padding="10"
+                VerticalOptions="End">
                 <Button
                     x:Name="GoogleSignInButton"
-                    Text="Sign in with Google"
-                    Grid.Row="1"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="AliceBlue" />
+                    Text="Sign in with Google" />
                 <Button
                     x:Name="FacebookSignInButton"
                     Text="Sign in with Facebook"
-                    Grid.Row="1"
-                    HorizontalOptions="FillAndExpand"
                     BackgroundColor="AliceBlue" />
                 <Button
                     x:Name="ContinueAsGuestButton"
-                    Text="Continue as guest"
-                    Grid.Row="1"
-                    HorizontalOptions="FillAndExpand"
+                    Text="Continue as guest" />
+                <Button
+                    x:Name="PhoneNumberSignInButton"
+                    Text="Sign in with phone number"
                     BackgroundColor="AliceBlue" />
             </StackLayout>
         </Grid>

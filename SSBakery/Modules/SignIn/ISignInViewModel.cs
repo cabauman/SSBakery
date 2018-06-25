@@ -3,13 +3,15 @@ using System.Reactive;
 using ReactiveUI;
 using Xamarin.Auth;
 
-namespace SSBakery.UI.Modules.SignIn
+namespace SSBakery.UI.Modules
 {
     public interface ISignInViewModel
     {
-        ReactiveCommand<Unit, WebRedirectAuthenticator> TriggerGoogleAuthFlow { get; }
+        ReactiveCommand TriggerGoogleAuthFlow { get; }
 
-        ReactiveCommand<Unit, WebRedirectAuthenticator> TriggerFacebookAuthFlow { get; }
+        ReactiveCommand TriggerFacebookAuthFlow { get; }
+
+        ReactiveCommand NavigateToPhoneNumberVerificationPage { get; }
 
         ReactiveCommand<Unit, Unit> ContinueAsGuest { get; }
 
