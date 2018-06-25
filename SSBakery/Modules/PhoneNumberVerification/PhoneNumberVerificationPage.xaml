@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:ui="clr-namespace:SSBakery.UI.Common"
+            xmlns:modules="clr-namespace:SSBakery.UI.Modules"
+            x:TypeArguments="modules:PhoneNumberVerificationViewModel"
+            x:Class="SSBakery.UI.Modules.PhoneNumberVerificationPage">
+    <ContentPage.Content>
+        <StackLayout
+            VerticalOptions="StartAndExpand"
+            Padding="5">
+            <Label Text="Phone number" />
+            <Entry x:Name="PhoneNumberEntry" Placeholder="Phone number" />
+            <Button
+                x:Name="PhoneNumberVerificationButton"
+                Text="Verify phone number" />
+        </StackLayout>
+    </ContentPage.Content>
+</ui:ContentPageBase>
