@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.10" />
-    <PackageReference Include="GameCtor.Firebase.AuthWrapper" Version="1.0.0" />
+    <PackageReference Include="GameCtor.Firebase.AuthWrapper" Version="1.0.1" />
     <PackageReference Include="ReactiveUI" Version="8.2.1" />
     <PackageReference Include="ReactiveUI.XamForms" Version="8.2.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
@@ -60,6 +60,9 @@
     </Compile>
     <Compile Update="Modules\Album\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\PhoneNumberVerification\PhoneNumberVerificationCodeEntryPage.xaml.cs">
+      <DependentUpon>PhoneNumberVerificationCodeEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\Rewards\RewardsPage.xaml.cs">
       <DependentUpon>RewardsPage.xaml</DependentUpon>

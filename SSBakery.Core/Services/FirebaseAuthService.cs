@@ -40,11 +40,16 @@ namespace SSBakery.Services
                 .Select(_ => Unit.Default);
         }
 
-        public IObservable<Unit> SignInWithPhoneNumber(string phoneNumber)
+        public IObservable<IPhoneNumberSignInResult> SignInWithPhoneNumber(string phoneNumber)
         {
             return CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(phoneNumber)
                 .ToObservable()
-                .Select(_ => Unit.Default);
+                .Select(
+                    x =>
+                    {
+                        return new PhoneNumberSignInResult(x.AuthResult != null, x.VerificationId);
+                    });
+
                 //.SelectMany(x => CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(x.VerificationId, VerificationCode))
                 //.SelectMany(x => GoToPage(new MainViewModel()));
         }

@@ -26,7 +26,8 @@ namespace SSBakery
 
             Locator.CurrentMutable.RegisterConstant(this, typeof(IScreen));
             Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
-            Locator.CurrentMutable.Register(() => new PhoneNumberVerificationPage(), typeof(IViewFor<PhoneNumberVerificationViewModel>));
+            Locator.CurrentMutable.Register(() => new PhoneNumberVerificationPage(), typeof(IViewFor<IPhoneNumberVerificationViewModel>));
+            Locator.CurrentMutable.Register(() => new PhoneNumberVerificationCodeEntryPage(), typeof(IViewFor<IPhoneNumberVerificationCodeEntryViewModel>));
             Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<CatalogViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<CatalogItemDetailsViewModel>));
@@ -45,7 +46,7 @@ namespace SSBakery
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
-            GoToPage(new MainViewModel());
+            GoToPage(new SignInViewModel());
             return;
 
             if(firebaseAuthService.IsAuthenticated)

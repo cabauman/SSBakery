@@ -13,7 +13,7 @@ namespace SSBakery.UI.Modules
 
         ReactiveCommand NavigateToPhoneNumberVerificationPage { get; }
 
-        ReactiveCommand<Unit, Unit> ContinueAsGuest { get; }
+        ReactiveCommand ContinueAsGuest { get; }
 
         IObservable<Unit> SignInSuccessful { get; }
 

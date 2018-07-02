@@ -1,14 +1,11 @@
-﻿using System;
-using System.Reactive;
-using ReactiveUI;
-using Xamarin.Auth;
+﻿using ReactiveUI;
 
 namespace SSBakery.UI.Modules
 {
     public interface IPhoneNumberVerificationViewModel
     {
-        ReactiveCommand<Unit, Unit> VerifyPhoneNumber { get; }
+        ReactiveCommand VerifyPhoneNumber { get; }
 
-        ReactiveCommand<Unit, Unit> ConfirmVerificationCode { get; }
+        string PhoneNumber { get; }
     }
 }

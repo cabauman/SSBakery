@@ -35,10 +35,12 @@ namespace SSBakery.UI.Modules
             _firebaseAuthService = firebaseAuthService ?? Locator.Current.GetService<IFirebaseAuthService>();
             _repositoryService = repositoryService ?? Locator.Current.GetService<IRepoContainer>();
 
-            ContinueAsGuest = ReactiveCommand.CreateFromObservable(() => SignInAnonymously());
-            ContinueAsGuest
-                .SelectMany(_ => GoToPage(new MainViewModel()))
-                .Subscribe();
+            ContinueAsGuest = ReactiveCommand.CreateFromObservable(
+                () =>
+                {
+                    return SignInAnonymously()
+                        .SelectMany(_ => GoToPage(new MainViewModel()));
+                });
 
             ContinueAsGuest.ThrownExceptions.Subscribe(
                 ex =>
@@ -129,7 +131,7 @@ namespace SSBakery.UI.Modules
 
         public ReactiveCommand TriggerFacebookAuthFlow { get; }
 
-        public ReactiveCommand<Unit, Unit> ContinueAsGuest { get; }
+        public ReactiveCommand ContinueAsGuest { get; }
 
         public IObservable<Unit> SignInSuccessful
         {
