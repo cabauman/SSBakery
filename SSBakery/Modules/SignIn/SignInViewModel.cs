@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using GameCtor.Firebase.AuthWrapper;
 using ReactiveUI;
 using Splat;
-using SSBakery;
 using SSBakery.Config;
 using SSBakery.Core.Common;
-using SSBakery.Models;
-using SSBakery.Repositories.Interfaces;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
 using Xamarin.Auth;
@@ -23,17 +17,15 @@ namespace SSBakery.UI.Modules
         private const string VerificationCode = "897604";
 
         private readonly IFirebaseAuthService _firebaseAuthService;
-        private readonly IRepoContainer _repositoryService;
         private IObservable<Unit> _signInSuccessful;
         private IObservable<Unit> _signInCanceled;
         private IObservable<AuthenticatorErrorEventArgs> _signInFailed;
         private string _provider;
 
-        public SignInViewModel(IFirebaseAuthService firebaseAuthService = null, IRepoContainer repositoryService = null, IScreen hostScreen = null)
+        public SignInViewModel(IFirebaseAuthService firebaseAuthService = null, IScreen hostScreen = null)
             : base(hostScreen)
         {
             _firebaseAuthService = firebaseAuthService ?? Locator.Current.GetService<IFirebaseAuthService>();
-            _repositoryService = repositoryService ?? Locator.Current.GetService<IRepoContainer>();
 
             ContinueAsGuest = ReactiveCommand.CreateFromObservable(
                 () =>
@@ -165,7 +157,6 @@ namespace SSBakery.UI.Modules
                 .Where(x => x.EventArgs.IsAuthenticated)
                 .Select(x => ExtractAuthToken(x.EventArgs.Account))
                 .SelectMany(authToken => AuthenticateWithFirebase(authToken));
-                //.Do(_ => SetUser());
 
             SignInCanceled = authCompleted
                 .Where(x => !x.EventArgs.IsAuthenticated)
@@ -203,21 +194,6 @@ namespace SSBakery.UI.Modules
             }
 
             return result;
-        }
-
-        private IObservable<Unit> SetUser()
-        {
-            var user = _repositoryService.UserRepo.Get("");
-            return user
-                .Where(x => x == null)
-                .SelectMany(
-                    x =>
-                    {
-                        var newUser = new SSBakeryUser();
-                        return _repositoryService.UserRepo.Add(newUser)
-                            .Select(_ => newUser);
-                    })
-                .Select(_ => Unit.Default);
         }
 
         private IObservable<Unit> SignInAnonymously()
