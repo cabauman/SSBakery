@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:ui="clr-namespace:SSBakery.UI.Common"
+            xmlns:modules="clr-namespace:SSBakery.UI.Modules"
+            x:TypeArguments="modules:IRewardsProgramActivationViewModel"
+            x:Class="SSBakery.UI.Modules.RewardsProgramActivationPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Our rewards program goes by name and phone number. Every time you make a purchase, you'll receive one stamp.
+                   After collecting 10 stamps, you'll receive 1 free drink or pastry of your choice. Proceed to phone number verification."
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="NavigateToPhoneNumberVerificationPageButton" Text="Next" />
+        </StackLayout>
+    </ContentPage.Content>
+</ui:ContentPageBase>
