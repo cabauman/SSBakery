@@ -7,7 +7,7 @@
             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
             x:Class="SSBakery.UI.Modules.StoreInfoPage">
     <ContentPage.Content>
-        <Grid RowSpacing="15">
+        <Grid RowSpacing="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -31,69 +31,30 @@
                 VerticalOptions="FillAndExpand"
                 Margin="0, 0, 0, 10" />
 
-            <Label Grid.Row="1" Text="Monday" FontSize="Medium" Margin="10, 0, 0, 0"/>
-            <Label Grid.Row="1" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" />
+            <BoxView Grid.Row="1" Grid.ColumnSpan="2" Color="WhiteSmoke" />
+            <Label Grid.Row="1" Text="Monday" FontSize="Medium" Margin="10, 0, 0, 0" VerticalTextAlignment="Center" />
+            <Label Grid.Row="1" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
 
-            <Label Grid.Row="2" Text="Tuesday" FontSize="Medium" Margin="10, 0, 0, 0"/>
+            <Label Grid.Row="2" Text="Tuesday" FontSize="Medium" Margin="10, 0, 0, 0" />
             <Label Grid.Row="2" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" />
 
-            <Label Grid.Row="3" Text="Wednesday" FontSize="Medium" Margin="10, 0, 0, 0"/>
-            <Label Grid.Row="3" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" />
+            <BoxView Grid.Row="3" Grid.ColumnSpan="2" Color="WhiteSmoke" />
+            <Label Grid.Row="3" Text="Wednesday" FontSize="Medium" Margin="10, 0, 0, 0" VerticalTextAlignment="Center" />
+            <Label Grid.Row="3" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
 
             <Label Grid.Row="4" Text="Thursday" FontSize="Medium" Margin="10, 0, 0, 0"/>
             <Label Grid.Row="4" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" />
 
-            <Label Grid.Row="10" Text="Friday" FontSize="Medium" Margin="10, 0, 0, 0"/>
-            <Label Grid.Row="10" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" />
+            <BoxView Grid.Row="5" Grid.ColumnSpan="2" Color="WhiteSmoke" />
+            <Label Grid.Row="5" Text="Friday" FontSize="Medium" Margin="10, 0, 0, 0" VerticalTextAlignment="Center" />
+            <Label Grid.Row="5" Grid.Column="1" Text="9:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
 
             <Label Grid.Row="6" Text="Saturday" FontSize="Medium" Margin="10, 0, 0, 0"/>
             <Label Grid.Row="6" Grid.Column="1" Text="8:00am - 6:00pm" FontSize="Medium" Margin="0, 0, 10, 0" HorizontalTextAlignment="End" />
 
-            <Label Grid.Row="7" Text="Sunday" FontSize="Medium" Margin="10, 0, 0, 15"/>
-            <Label Grid.Row="7" Grid.Column="1" Text="Closed" FontSize="Medium" Margin="0, 0, 10, 15" HorizontalTextAlignment="End" />
-
-
-
-
-            <!--<Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <maps:Map
-                x:Name="MyMap"
-                Grid.ColumnSpan="2"
-                IsShowingUser="false"
-                HeightRequest="100"
-                WidthRequest="960"
-                VerticalOptions="FillAndExpand"
-                Margin="0, 0, 0, 10" />
-
-            <StackLayout Grid.Row="1" Orientation="Vertical">
-                <Label Text="Monday" FontSize="Medium" Margin="10" />
-                <Label Text="Tuesday" FontSize="Medium" Margin="10" />
-                <Label Text="Wednesday" FontSize="Medium" Margin="10" />
-                <Label Text="Thursday" FontSize="Medium" Margin="10" />
-                <Label Text="Friday" FontSize="Medium" Margin="10" />
-                <Label Text="Saturday" FontSize="Medium" Margin="10" />
-                <Label Text="Sunday" FontSize="Medium" Margin="10" />
-            </StackLayout>
-
-            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <Label Text="9:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
-                <Label Text="9:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
-                <Label Text="9:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
-                <Label Text="9:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
-                <Label Text="9:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
-                <Label Text="8:00am - 6:00pm" FontSize="Medium" HorizontalTextAlignment="End" />
-                <Label Text="Closed" FontSize="Medium" HorizontalTextAlignment="End" />
-            </StackLayout>-->
-
-
-
+            <BoxView Grid.Row="7" Grid.ColumnSpan="2" Color="WhiteSmoke" />
+            <Label Grid.Row="7" Text="Sunday" FontSize="Medium" Margin="10, 0, 0, 15" VerticalTextAlignment="Center" />
+            <Label Grid.Row="7" Grid.Column="1" Text="Closed" FontSize="Medium" Margin="0, 0, 10, 15" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
         </Grid>
     </ContentPage.Content>
 </ui:ContentPageBase>
