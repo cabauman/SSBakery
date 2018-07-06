@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Reactive.Disposables;
+using System.Reactive;
+using System.Reactive.Linq;
 using ReactiveUI;
 using Splat;
 
@@ -25,5 +26,23 @@ namespace SSBakery.UI.Common
         }
 
         public ViewModelActivator Activator { get; } = new ViewModelActivator();
+
+        protected IObservable<Unit> Navigate(IRoutableViewModel routableViewModel)
+        {
+            return HostScreen
+                .Router
+                .Navigate
+                .Execute(routableViewModel)
+                .Select(_ => Unit.Default);
+        }
+
+        protected IObservable<Unit> NavigateAndReset(IRoutableViewModel routableViewModel)
+        {
+            return HostScreen
+                .Router
+                .NavigateAndReset
+                .Execute(routableViewModel)
+                .Select(_ => Unit.Default);
+        }
     }
 }
