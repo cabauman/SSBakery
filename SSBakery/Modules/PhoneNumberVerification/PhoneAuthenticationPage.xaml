@@ -3,8 +3,8 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-            x:TypeArguments="modules:PhoneNumberVerificationCodeEntryViewModel"
-            x:Class="SSBakery.UI.Modules.PhoneNumberVerificationCodeEntryPage">
+            x:TypeArguments="modules:IPhoneAuthenticationViewModel"
+            x:Class="SSBakery.UI.Modules.PhoneAuthenticationPage">
     <ContentPage.Content>
         <StackLayout
             VerticalOptions="StartAndExpand"

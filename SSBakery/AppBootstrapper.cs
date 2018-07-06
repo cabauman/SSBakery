@@ -25,9 +25,9 @@ namespace SSBakery
             Locator.CurrentMutable.InitializeReactiveUI();
 
             Locator.CurrentMutable.RegisterConstant(this, typeof(IScreen));
-            Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<SignInViewModel>));
+            Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<ISignInViewModel>));
             Locator.CurrentMutable.Register(() => new PhoneNumberVerificationPage(), typeof(IViewFor<IPhoneNumberVerificationViewModel>));
-            Locator.CurrentMutable.Register(() => new PhoneNumberVerificationCodeEntryPage(), typeof(IViewFor<IPhoneNumberVerificationCodeEntryViewModel>));
+            Locator.CurrentMutable.Register(() => new PhoneAuthenticationPage(), typeof(IViewFor<IPhoneAuthenticationViewModel>));
             Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<CatalogViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<CatalogItemDetailsViewModel>));
@@ -37,6 +37,7 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new AlbumCell(), typeof(IViewFor<AlbumCellViewModel>));
             Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<AlbumViewModel>));
             Locator.CurrentMutable.Register(() => new RewardsPage(), typeof(IViewFor<RewardsViewModel>));
+            Locator.CurrentMutable.Register(() => new RewardsProgramActivationPage(), typeof(IViewFor<IRewardsProgramActivationViewModel>));
 
             Locator.CurrentMutable.RegisterConstant(new XamarinAuthCredentialsService(), typeof(ICredentialsService));
             var firebaseAuthService = new FirebaseAuthService();
@@ -46,7 +47,7 @@ namespace SSBakery
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
-            GoToPage(new SignInViewModel());
+            GoToPage(new MainViewModel());
             return;
 
             if(firebaseAuthService.IsAuthenticated)

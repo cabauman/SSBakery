@@ -1,46 +1,47 @@
 ﻿using System;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using GameCtor.Firebase.AuthWrapper;
 using ReactiveUI;
 using Splat;
-using SSBakery;
-using SSBakery.Config;
-using SSBakery.Core.Common;
-using SSBakery.Models;
-using SSBakery.Repositories.Interfaces;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using Xamarin.Auth;
 
 namespace SSBakery.UI.Modules
 {
-    public class PhoneNumberVerificationCodeEntryViewModel : ViewModelBase, IPhoneNumberVerificationCodeEntryViewModel
+    public class PhoneAuthenticationViewModel : ViewModelBase, IPhoneAuthenticationViewModel
     {
         private const string PhoneNum = "+1 653-555-4117";
         //private const string VerificationCode = "897604";
+        private const int REQUIRED_CODE_LENGTH = 6;
 
         private readonly IFirebaseAuthService _firebaseAuthService;
 
         private string _verificationCode;
 
-        public PhoneNumberVerificationCodeEntryViewModel(
+        public PhoneAuthenticationViewModel(
+            PhoneNumberVerificationViewModel.AuthAction authAction,
             string verificationId,
+            IObservable<Unit> completionObservable,
             IFirebaseAuthService firebaseAuthService = null,
             IScreen hostScreen = null)
                 : base(hostScreen)
         {
             _firebaseAuthService = firebaseAuthService ?? Locator.Current.GetService<IFirebaseAuthService>();
 
-            var canExecute = this.WhenAnyValue(vm => vm.VerificationCode, code => !string.IsNullOrEmpty(code));
+            var canExecute = this.WhenAnyValue(vm => vm.VerificationCode, code => code != null && code.Length == REQUIRED_CODE_LENGTH);
             VerifyCode = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return _firebaseAuthService.SignInWithPhoneNumber(verificationId, VerificationCode)
-                        .SelectMany(_ => HostScreen.Router.NavigateAndReset.Execute(new MainViewModel()))
-                        .Select(_ => Unit.Default);
+                    if(authAction == PhoneNumberVerificationViewModel.AuthAction.SignIn)
+                    {
+                        return _firebaseAuthService.SignInWithPhoneNumber(verificationId, VerificationCode)
+                            .SelectMany(_ => completionObservable);
+                    }
+                    else
+                    {
+                        return _firebaseAuthService.LinkPhoneNumberWithCurrentUser(verificationId, VerificationCode)
+                            .SelectMany(_ => completionObservable);
+                    }
                 },
                 canExecute);
         }

@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace SSBakery.UI.Modules
 {
-    public interface IPhoneNumberVerificationCodeEntryViewModel
+    public interface IPhoneAuthenticationViewModel
     {
         ReactiveCommand VerifyCode { get; }
 

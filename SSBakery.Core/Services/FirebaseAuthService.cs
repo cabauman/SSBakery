@@ -21,6 +21,14 @@ namespace SSBakery.Services
             get { return CrossFirebaseAuth.Current.CurrentUser != null; }
         }
 
+        public bool IsPhoneNumberLinkedToAccount
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public async Task<string> GetFreshFirebaseToken()
         {
             return await CrossFirebaseAuth.Current.CurrentUser.GetIdTokenAsync(false);
@@ -40,18 +48,15 @@ namespace SSBakery.Services
                 .Select(_ => Unit.Default);
         }
 
-        public IObservable<IPhoneNumberSignInResult> SignInWithPhoneNumber(string phoneNumber)
+        public IObservable<IPhoneNumberVerificationResult> SignInWithPhoneNumber(string phoneNumber)
         {
             return CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(phoneNumber)
                 .ToObservable()
                 .Select(
                     x =>
                     {
-                        return new PhoneNumberSignInResult(x.AuthResult != null, x.VerificationId);
+                        return new PhoneNumberVerificationResult(x.AuthResult != null, x.VerificationId);
                     });
-
-                //.SelectMany(x => CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(x.VerificationId, VerificationCode))
-                //.SelectMany(x => GoToPage(new MainViewModel()));
         }
 
         public IObservable<Unit> SignInWithPhoneNumber(string verificationId, string verificationCode)
@@ -64,6 +69,24 @@ namespace SSBakery.Services
         public IObservable<Unit> SignInAnonymously()
         {
             return CrossFirebaseAuth.Current.SignInAnonymouslyAsync()
+                .ToObservable()
+                .Select(_ => Unit.Default);
+        }
+
+        public IObservable<IPhoneNumberVerificationResult> LinkPhoneNumberWithCurrentUser(string phoneNumber)
+        {
+            return CrossFirebaseAuth.Current.LinkPhoneNumberWithCurrentUserAsync(phoneNumber)
+                .ToObservable()
+                .Select(
+                    x =>
+                    {
+                        return new PhoneNumberVerificationResult(x.AuthResult != null, x.VerificationId);
+                    });
+        }
+
+        public IObservable<Unit> LinkPhoneNumberWithCurrentUser(string verificationId, string verificationCode)
+        {
+            return CrossFirebaseAuth.Current.CurrentUser.LinkWithPhoneNumberAsync(verificationId, verificationCode)
                 .ToObservable()
                 .Select(_ => Unit.Default);
         }

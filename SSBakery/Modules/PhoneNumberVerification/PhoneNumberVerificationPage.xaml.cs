@@ -4,14 +4,13 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using SSBakery.UI.Common;
-using Xamarin.Auth;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PhoneNumberVerificationPage : ContentPageBase<PhoneNumberVerificationViewModel>
+    public partial class PhoneNumberVerificationPage : ContentPageBase<IPhoneNumberVerificationViewModel>
     {
         public PhoneNumberVerificationPage()
         {

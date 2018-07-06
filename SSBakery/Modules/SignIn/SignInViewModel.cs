@@ -31,7 +31,7 @@ namespace SSBakery.UI.Modules
                 () =>
                 {
                     return SignInAnonymously()
-                        .SelectMany(_ => GoToPage(new MainViewModel()));
+                        .SelectMany(_ => NavigateAndReset(new MainViewModel()));
                 });
 
             ContinueAsGuest.ThrownExceptions.Subscribe(
@@ -43,7 +43,10 @@ namespace SSBakery.UI.Modules
             NavigateToPhoneNumberVerificationPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return GoToPage(new PhoneNumberVerificationViewModel());
+                    var page = new PhoneNumberVerificationViewModel(
+                        PhoneNumberVerificationViewModel.AuthAction.SignIn,
+                        NavigateAndReset(new MainViewModel()));
+                    return Navigate(page);
                 });
 
             TriggerGoogleAuthFlow = ReactiveCommand.Create(
@@ -113,7 +116,7 @@ namespace SSBakery.UI.Modules
                 });
 
             this.WhenAnyObservable(x => x.SignInSuccessful)
-                .SelectMany(x => GoToPage(new MainViewModel()))
+                .SelectMany(x => NavigateAndReset(new MainViewModel()))
                 .Subscribe();
         }
 
@@ -200,15 +203,6 @@ namespace SSBakery.UI.Modules
         {
             return _firebaseAuthService
                 .SignInAnonymously();
-        }
-
-        private IObservable<Unit> GoToPage(IRoutableViewModel routableViewModel)
-        {
-            return HostScreen
-                .Router
-                .Navigate
-                .Execute(routableViewModel)
-                .Select(_ => Unit.Default);
         }
     }
 }

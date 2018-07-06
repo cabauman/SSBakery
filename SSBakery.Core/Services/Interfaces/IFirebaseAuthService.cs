@@ -9,17 +9,23 @@ namespace SSBakery.Services.Interfaces
     {
         bool IsAuthenticated { get; }
 
+        bool IsPhoneNumberLinkedToAccount { get; }
+
         Task<string> GetFreshFirebaseToken();
 
         IObservable<Unit> SignInWithFacebook(string authToken);
 
         IObservable<Unit> SignInWithGoogle(string authToken);
 
-        IObservable<IPhoneNumberSignInResult> SignInWithPhoneNumber(string phoneNumber);
+        IObservable<IPhoneNumberVerificationResult> SignInWithPhoneNumber(string phoneNumber);
 
         IObservable<Unit> SignInWithPhoneNumber(string verificationId, string verificationCode);
 
         IObservable<Unit> SignInAnonymously();
+
+        IObservable<IPhoneNumberVerificationResult> LinkPhoneNumberWithCurrentUser(string phoneNumber);
+
+        IObservable<Unit> LinkPhoneNumberWithCurrentUser(string verificationId, string verificationCode);
 
         void SignOut();
     }

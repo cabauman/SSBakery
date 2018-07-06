@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Reactive;
-using System.Reactive.Disposables;
-using System.Reactive.Threading.Tasks;
-using GameCtor.Firebase.AuthWrapper;
 using ReactiveUI;
 using Splat;
 using SSBakery;
+using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
 {
     public class MainViewModel : ViewModelBase
     {
-        public MainViewModel(IScreen hostScreen = null)
+        private IFirebaseAuthService _authService;
+
+        public MainViewModel(IFirebaseAuthService authService = null, IScreen hostScreen = null)
             : base(hostScreen)
         {
+            _authService = authService ?? Locator.Current.GetService<IFirebaseAuthService>();
+
             GoToCatalogPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
@@ -25,11 +27,24 @@ namespace SSBakery.UI.Modules
                 {
                     return GoToPage(new AlbumListViewModel());
                 });
-            GoToRewardsPage = ReactiveCommand.CreateFromObservable(
-                () =>
-                {
-                    return GoToPage(new RewardsViewModel());
-                });
+
+            if(_authService.IsPhoneNumberLinkedToAccount)
+            {
+                GoToRewardsPage = ReactiveCommand.CreateFromObservable(
+                    () =>
+                    {
+                        return GoToPage(new RewardsViewModel());
+                    });
+            }
+            else
+            {
+                GoToRewardsPage = ReactiveCommand.CreateFromObservable(
+                    () =>
+                    {
+                        return GoToPage(new RewardsProgramActivationViewModel());
+                    });
+            }
+
             GoToStoreInfoPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
