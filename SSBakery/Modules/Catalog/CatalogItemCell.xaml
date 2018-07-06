@@ -19,9 +19,7 @@
                                     Margin="10"
                                     VerticalOptions="FillAndExpand"
                                     Aspect="AspectFill"
-                                    AutomationId="DocumentView_Thumbnail"
-                                    BitmapOptimizations="true"
-                                    DownsampleUseDipUnits="true" />
+                                    DownsampleToViewSize="true" />
 
         <StackLayout Grid.Row="0" Grid.Column="1">
             <Label x:Name="Name" FontSize="16" />
