@@ -8,7 +8,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPageBase<MainViewModel>
+    public partial class MainPage : ContentPageBase<IMainViewModel>
     {
         public MainPage()
         {
@@ -18,16 +18,16 @@ namespace SSBakery.UI.Modules
                 disposables =>
                 {
                     this
-                        .BindCommand(ViewModel, vm => vm.GoToCatalogPage, v => v.CatalogButton)
+                        .BindCommand(ViewModel, vm => vm.NavigateToCatalogPage, v => v.CatalogButton)
                         .DisposeWith(disposables);
                     this
-                        .BindCommand(ViewModel, vm => vm.GoToAlbumPage, v => v.AlbumButton)
+                        .BindCommand(ViewModel, vm => vm.NavigateToAlbumPage, v => v.AlbumButton)
                         .DisposeWith(disposables);
                     this
-                        .BindCommand(ViewModel, vm => vm.GoToRewardsPage, v => v.RewardsButton)
+                        .BindCommand(ViewModel, vm => vm.NavigateToRewardsPage, v => v.RewardsButton)
                         .DisposeWith(disposables);
                     this
-                        .BindCommand(ViewModel, vm => vm.GoToStoreInfoPage, v => v.StoreInfoButton)
+                        .BindCommand(ViewModel, vm => vm.NavigateToStoreInfoPage, v => v.StoreInfoButton)
                         .DisposeWith(disposables);
                 });
         }

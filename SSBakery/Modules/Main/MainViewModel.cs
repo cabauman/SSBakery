@@ -8,7 +8,7 @@ using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IMainViewModel
     {
         private IFirebaseAuthService _authService;
 
@@ -17,71 +17,46 @@ namespace SSBakery.UI.Modules
         {
             _authService = authService ?? Locator.Current.GetService<IFirebaseAuthService>();
 
-            GoToCatalogPage = ReactiveCommand.CreateFromObservable(
+            NavigateToCatalogPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return GoToPage(new CatalogViewModel());
+                    return Navigate(new CatalogViewModel());
                 });
-            GoToAlbumPage = ReactiveCommand.CreateFromObservable(
+            NavigateToAlbumPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return GoToPage(new AlbumListViewModel());
+                    return Navigate(new AlbumListViewModel());
+                });
+            NavigateToStoreInfoPage = ReactiveCommand.CreateFromObservable(
+                () =>
+                {
+                    return Navigate(new StoreInfoViewModel());
                 });
 
             if(_authService.IsPhoneNumberLinkedToAccount)
             {
-                GoToRewardsPage = ReactiveCommand.CreateFromObservable(
+                NavigateToRewardsPage = ReactiveCommand.CreateFromObservable(
                     () =>
                     {
-                        return GoToPage(new RewardsViewModel());
+                        return Navigate(new RewardsViewModel());
                     });
             }
             else
             {
-                GoToRewardsPage = ReactiveCommand.CreateFromObservable(
+                NavigateToRewardsPage = ReactiveCommand.CreateFromObservable(
                     () =>
                     {
-                        return GoToPage(new RewardsProgramActivationViewModel());
+                        return Navigate(new RewardsProgramActivationViewModel());
                     });
             }
-
-            GoToStoreInfoPage = ReactiveCommand.CreateFromObservable(
-                () =>
-                {
-                    return GoToPage(new StoreInfoViewModel());
-                });
-
-            //IUserWrapper user = CrossFirebaseAuth.Current.CurrentUser;
-            //if(user != null)
-            //{
-            //    user.GetIdTokenAsync(false)
-            //        .ToObservable()
-            //        .Subscribe(
-            //            token =>
-            //            {
-            //                Console.WriteLine(token);
-            //            },
-            //            ex =>
-            //            {
-            //                Console.WriteLine(ex.Message);
-            //            });
-            //}
         }
 
-        public ReactiveCommand<Unit, IRoutableViewModel> GoToCatalogPage { get; }
+        public ReactiveCommand NavigateToCatalogPage { get; }
 
-        public ReactiveCommand GoToAlbumPage { get; }
+        public ReactiveCommand NavigateToAlbumPage { get; }
 
-        public ReactiveCommand GoToRewardsPage { get; }
+        public ReactiveCommand NavigateToRewardsPage { get; }
 
-        public ReactiveCommand GoToStoreInfoPage { get; }
-
-        public IObservable<IRoutableViewModel> GoToPage(IRoutableViewModel routableViewModel)
-        {
-            return HostScreen
-                .Router
-                .Navigate
-                .Execute(routableViewModel);
-        }
+        public ReactiveCommand NavigateToStoreInfoPage { get; }
     }
 }
