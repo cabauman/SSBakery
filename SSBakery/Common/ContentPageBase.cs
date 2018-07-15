@@ -1,5 +1,4 @@
-﻿using System;
-using ReactiveUI.XamForms;
+﻿using ReactiveUI.XamForms;
 
 namespace SSBakery.UI.Common
 {

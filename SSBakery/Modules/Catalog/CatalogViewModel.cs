@@ -10,19 +10,18 @@ using Square.Connect.Model;
 using SSBakery;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class CatalogViewModel : ViewModelBase
+    public class CatalogViewModel : PageViewModel, ICatalogViewModel
     {
         private CatalogItemCellViewModel _selectedItem;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
 
-        public CatalogViewModel(IRepoContainer dataStore = null, IScreen hostScreen = null)
-            : base(hostScreen)
+        public CatalogViewModel(IRepoContainer dataStore = null, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
-            UrlPathSegment = "Catalog Items";
-
             RepoContainer = dataStore ?? Locator.Current.GetService<IRepoContainer>();
 
             LoadCatalogObjects = ReactiveCommand.CreateFromObservable<Unit, IEnumerable<CatalogObject>>(
@@ -62,12 +61,8 @@ namespace SSBakery.UI.Modules
                     this
                         .WhenAnyValue(x => x.SelectedItem)
                         .Where(x => x != null)
-                        .Subscribe(
-                            x => LoadSelectedPage(x),
-                            ex =>
-                            {
-                                this.Log().Debug(ex.Message);
-                            })
+                        .SelectMany(x => LoadSelectedPage(x))
+                        .Subscribe()
                         .DisposeWith(disposables);
                 });
         }
@@ -86,13 +81,9 @@ namespace SSBakery.UI.Modules
 
         public bool IsRefreshing => _isRefreshing.Value;
 
-        private void LoadSelectedPage(CatalogItemCellViewModel viewModel)
+        private IObservable<Unit> LoadSelectedPage(CatalogItemCellViewModel viewModel)
         {
-            HostScreen
-                .Router
-                .Navigate
-                .Execute(new CatalogItemDetailsViewModel(viewModel.CatalogObject))
-                .Subscribe();
+            return ViewStackService.PushPage(new CatalogItemDetailsViewModel(viewModel.CatalogObject));
         }
     }
 }

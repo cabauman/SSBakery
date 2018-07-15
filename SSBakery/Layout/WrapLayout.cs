@@ -170,14 +170,15 @@ namespace SSBakery.UI.Layout
                 }
 
                 cellSize.Height = maxChildSize.Height;
-                //if (double.IsPositiveInfinity(height))
-                //{
+
+                // if (double.IsPositiveInfinity(height))
+                // {
                 //    cellSize.Height = maxChildSize.Height;
-                //}
-                //else
-                //{
+                // }
+                // else
+                // {
                 //    cellSize.Height = (height - RowSpacing * (rows - 1)) / rows;
-                //}
+                // }
 
                 layoutData = new LayoutData(visibleChildCount, cellSize, rows, columns);
             }

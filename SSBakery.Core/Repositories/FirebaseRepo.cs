@@ -121,10 +121,10 @@ namespace SSBakery.Repositories
 
         private void MapKeyToId(T obj, string key)
         {
-            //if(obj is BaseEntity model)
-            //{
+            // if(obj is BaseEntity model)
+            // {
             //    model.Id = key;
-            //}
+            // }
         }
     }
 }

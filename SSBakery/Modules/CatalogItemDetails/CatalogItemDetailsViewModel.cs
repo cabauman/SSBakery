@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reactive;
-using System.Reactive.Disposables;
-using ReactiveUI;
-using Splat;
-using Square.Connect.Model;
-using SSBakery;
+﻿using Square.Connect.Model;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class CatalogItemDetailsViewModel : ViewModelBase
+    public class CatalogItemDetailsViewModel : PageViewModel
     {
         private readonly CatalogObject _model;
 
-        public CatalogItemDetailsViewModel(CatalogObject model, IScreen hostScreen = null)
-            : base(hostScreen)
+        public CatalogItemDetailsViewModel(CatalogObject model, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             _model = model;
         }

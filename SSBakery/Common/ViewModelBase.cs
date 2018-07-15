@@ -1,48 +1,28 @@
-﻿using System;
-using System.Reactive;
-using System.Reactive.Linq;
-using ReactiveUI;
+﻿using ReactiveUI;
 using Splat;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Common
 {
-    public class ViewModelBase : ReactiveObject, IRoutableViewModel, ISupportsActivation
+    public class ViewModelBase : ReactiveObject, ISupportsActivation, IEnableLogger
     {
-        public ViewModelBase(IScreen hostScreen = null)
+        private ViewModelActivator _activator;
+
+        public ViewModelBase(IViewStackService viewStackService = null)
         {
-            HostScreen = hostScreen ?? Locator.Current.GetService<IScreen>();
+            ViewStackService = viewStackService ?? Locator.Current.GetService<IViewStackService>();
         }
 
-        public string UrlPathSegment
+        public ViewModelActivator Activator
         {
-            get;
-            protected set;
+            get
+            {
+                _activator = _activator ?? new ViewModelActivator();
+
+                return _activator;
+            }
         }
 
-        public IScreen HostScreen
-        {
-            get;
-            protected set;
-        }
-
-        public ViewModelActivator Activator { get; } = new ViewModelActivator();
-
-        protected IObservable<Unit> Navigate(IRoutableViewModel routableViewModel)
-        {
-            return HostScreen
-                .Router
-                .Navigate
-                .Execute(routableViewModel)
-                .Select(_ => Unit.Default);
-        }
-
-        protected IObservable<Unit> NavigateAndReset(IRoutableViewModel routableViewModel)
-        {
-            return HostScreen
-                .Router
-                .NavigateAndReset
-                .Execute(routableViewModel)
-                .Select(_ => Unit.Default);
-        }
+        protected IViewStackService ViewStackService { get; }
     }
 }

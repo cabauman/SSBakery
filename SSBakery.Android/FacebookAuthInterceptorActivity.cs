@@ -3,8 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using SSBakery.Core.Common;
 using SSBakery.Config;
+using SSBakery.Core.Common;
 
 namespace SSBakery.Droid
 {

@@ -1,36 +1,34 @@
-﻿using System;
-using System.Reactive;
-using ReactiveUI;
+﻿using ReactiveUI;
 using Splat;
-using SSBakery;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class MainViewModel : ViewModelBase, IMainViewModel
+    public class MainViewModel : PageViewModel, IMainViewModel
     {
         private IFirebaseAuthService _authService;
 
-        public MainViewModel(IFirebaseAuthService authService = null, IScreen hostScreen = null)
-            : base(hostScreen)
+        public MainViewModel(IFirebaseAuthService authService = null, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             _authService = authService ?? Locator.Current.GetService<IFirebaseAuthService>();
 
             NavigateToCatalogPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return Navigate(new CatalogViewModel());
+                    return ViewStackService.PushPage(new CatalogViewModel());
                 });
             NavigateToAlbumPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return Navigate(new AlbumListViewModel());
+                    return ViewStackService.PushPage(new AlbumListViewModel());
                 });
             NavigateToStoreInfoPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return Navigate(new StoreInfoViewModel());
+                    return ViewStackService.PushPage(new StoreInfoViewModel());
                 });
 
             if(_authService.IsPhoneNumberLinkedToAccount)
@@ -38,7 +36,7 @@ namespace SSBakery.UI.Modules
                 NavigateToRewardsPage = ReactiveCommand.CreateFromObservable(
                     () =>
                     {
-                        return Navigate(new RewardsViewModel());
+                        return ViewStackService.PushPage(new RewardsViewModel());
                     });
             }
             else
@@ -46,7 +44,7 @@ namespace SSBakery.UI.Modules
                 NavigateToRewardsPage = ReactiveCommand.CreateFromObservable(
                     () =>
                     {
-                        return Navigate(new RewardsProgramActivationViewModel());
+                        return ViewStackService.PushPage(new RewardsProgramActivationViewModel());
                     });
             }
         }

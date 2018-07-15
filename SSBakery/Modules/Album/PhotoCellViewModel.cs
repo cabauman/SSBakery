@@ -2,6 +2,7 @@
 using SSBakery.Models;
 using SSBakery.Services;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
@@ -10,8 +11,8 @@ namespace SSBakery.UI.Modules
         private FacebookPhoto _model;
         private string _imageUrl;
 
-        public PhotoCellViewModel(FacebookPhoto model, IScreen hostScreen = null)
-            : base(hostScreen)
+        public PhotoCellViewModel(FacebookPhoto model, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             _model = model;
         }

@@ -4,26 +4,28 @@ using System.Reactive.Linq;
 using GameCtor.Firebase.AuthWrapper;
 using ReactiveUI;
 using Splat;
+using SSBakery.Core.Common;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class PhoneNumberVerificationViewModel : ViewModelBase, IPhoneNumberVerificationViewModel
+    public class PhoneAuthPhoneNumberEntryViewModel : PageViewModel, IPhoneAuthPhoneNumberEntryViewModel
     {
-        //private const string PhoneNum = "+1 653-555-4117";
-        //private const string VerificationCode = "897604";
+        private const string PhoneNumberTest = "+1 653-555-4117";
+        private const string VerificationCodeTest = "897604";
 
         private readonly IFirebaseAuthService _firebaseAuthService;
 
         private string _phoneNumber;
 
-        public PhoneNumberVerificationViewModel(
+        public PhoneAuthPhoneNumberEntryViewModel(
             AuthAction authAction,
-            IObservable<Unit> completionObservable,
+            IObservable<Unit> whenVerified,
             IFirebaseAuthService firebaseAuthService = null,
-            IScreen hostScreen = null)
-                : base(hostScreen)
+            IViewStackService viewStackService = null)
+                : base(viewStackService)
         {
             _firebaseAuthService = firebaseAuthService ?? Locator.Current.GetService<IFirebaseAuthService>();
 
@@ -39,13 +41,15 @@ namespace SSBakery.UI.Modules
                 {
                     if(authAction == AuthAction.SignIn)
                     {
-                        return _firebaseAuthService.SignInWithPhoneNumber(_phoneNumber)
-                            .SelectMany(result => HandleResult(authAction, result, completionObservable));
+                        return _firebaseAuthService
+                            .SignInWithPhoneNumber(_phoneNumber)
+                            .SelectMany(result => HandleResult(authAction, result, whenVerified));
                     }
                     else
                     {
-                        return _firebaseAuthService.LinkPhoneNumberWithCurrentUser(_phoneNumber)
-                            .SelectMany(result => HandleResult(authAction, result, completionObservable));
+                        return _firebaseAuthService
+                            .LinkPhoneNumberToCurrentUser(_phoneNumber)
+                            .SelectMany(result => HandleResult(authAction, result, whenVerified));
                     }
                 },
                 canExecute);
@@ -74,12 +78,6 @@ namespace SSBakery.UI.Modules
                     });
         }
 
-        public enum AuthAction
-        {
-            SignIn,
-            LinkAccount,
-        }
-
         public ReactiveCommand VerifyPhoneNumber { get; }
 
         public string PhoneNumber
@@ -96,7 +94,7 @@ namespace SSBakery.UI.Modules
             }
             else
             {
-                return Navigate(new PhoneAuthenticationViewModel(authAction, result.VerificationId, completionObservable));
+                return ViewStackService.PushPage(new PhoneAuthVerificationCodeEntryViewModel(authAction, result.VerificationId, completionObservable));
             }
         }
     }

@@ -23,9 +23,9 @@ namespace SSBakery.Services.Interfaces
 
         IObservable<Unit> SignInAnonymously();
 
-        IObservable<IPhoneNumberVerificationResult> LinkPhoneNumberWithCurrentUser(string phoneNumber);
+        IObservable<IPhoneNumberVerificationResult> LinkPhoneNumberToCurrentUser(string phoneNumber);
 
-        IObservable<Unit> LinkPhoneNumberWithCurrentUser(string verificationId, string verificationCode);
+        IObservable<Unit> LinkPhoneNumberToCurrentUser(string verificationId, string verificationCode);
 
         void SignOut();
     }

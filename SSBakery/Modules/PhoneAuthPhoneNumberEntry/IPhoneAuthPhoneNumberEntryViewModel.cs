@@ -2,10 +2,10 @@
 
 namespace SSBakery.UI.Modules
 {
-    public interface IPhoneNumberVerificationViewModel
+    public interface IPhoneAuthPhoneNumberEntryViewModel
     {
         ReactiveCommand VerifyPhoneNumber { get; }
 
-        string PhoneNumber { get; }
+        string PhoneNumber { get; set; }
     }
 }

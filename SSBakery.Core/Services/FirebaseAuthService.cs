@@ -73,8 +73,12 @@ namespace SSBakery.Services
                 .Select(_ => Unit.Default);
         }
 
-        public IObservable<IPhoneNumberVerificationResult> LinkPhoneNumberWithCurrentUser(string phoneNumber)
+        public IObservable<IPhoneNumberVerificationResult> LinkPhoneNumberToCurrentUser(string phoneNumber)
         {
+            return Observable
+                .Return(new PhoneNumberVerificationResult(false, "123456"))
+                .Delay(TimeSpan.FromSeconds(2));
+
             return CrossFirebaseAuth.Current.LinkPhoneNumberWithCurrentUserAsync(phoneNumber)
                 .ToObservable()
                 .Select(
@@ -84,8 +88,12 @@ namespace SSBakery.Services
                     });
         }
 
-        public IObservable<Unit> LinkPhoneNumberWithCurrentUser(string verificationId, string verificationCode)
+        public IObservable<Unit> LinkPhoneNumberToCurrentUser(string verificationId, string verificationCode)
         {
+            return Observable
+                .Return(Unit.Default)
+                .Delay(TimeSpan.FromSeconds(1));
+
             return CrossFirebaseAuth.Current.CurrentUser.LinkWithPhoneNumberAsync(verificationId, verificationCode)
                 .ToObservable()
                 .Select(_ => Unit.Default);

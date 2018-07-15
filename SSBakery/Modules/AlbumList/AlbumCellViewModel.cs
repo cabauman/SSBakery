@@ -8,6 +8,7 @@ using SSBakery;
 using SSBakery.Models;
 using SSBakery.Services;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
@@ -16,8 +17,8 @@ namespace SSBakery.UI.Modules
         private FacebookAlbum _model;
         private string _imageUrl;
 
-        public AlbumCellViewModel(FacebookAlbum model, IScreen hostScreen = null)
-            : base(hostScreen)
+        public AlbumCellViewModel(FacebookAlbum model, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             _model = model;
         }

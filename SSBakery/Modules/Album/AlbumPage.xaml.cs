@@ -18,7 +18,9 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
             return;
-            //HeightRequest = Application.Current.MainPage.Width / 3;
+
+            /*
+            HeightRequest = Application.Current.MainPage.Width / 3;
 
             this.WhenActivated(
                 disposables =>
@@ -36,6 +38,7 @@ namespace SSBakery.UI.Modules
                     //    .Where(x => x != null)
                     //    .Subscribe(LayoutGrid);
                 });
+            */
         }
 
         private void LayoutGrid(IList<PhotoCellViewModel> photos)
@@ -57,7 +60,7 @@ namespace SSBakery.UI.Modules
                 tapGesture.Tapped += TapGesture_Tapped;
                 image.GestureRecognizers.Add(tapGesture);
 
-                //wrapLayout.Children.Add(image);
+                // wrapLayout.Children.Add(image);
             }
         }
 

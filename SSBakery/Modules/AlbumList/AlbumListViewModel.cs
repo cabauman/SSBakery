@@ -8,16 +8,17 @@ using Splat;
 using SSBakery;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class AlbumListViewModel : ViewModelBase, IAlbumListViewModel
+    public class AlbumListViewModel : PageViewModel, IAlbumListViewModel
     {
         private ObservableAsPropertyHelper<List<AlbumCellViewModel>> _albums;
         private AlbumCellViewModel _selectedItem;
 
-        public AlbumListViewModel(IFacebookPhotoService photoService = null, IScreen hostScreen = null)
-            : base(hostScreen)
+        public AlbumListViewModel(IFacebookPhotoService photoService = null, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             photoService = photoService ?? Locator.Current.GetService<IFacebookPhotoService>();
 
@@ -46,12 +47,8 @@ namespace SSBakery.UI.Modules
                     this
                         .WhenAnyValue(vm => vm.SelectedItem)
                         .Where(x => x != null)
-                        .Subscribe(
-                            x => LoadSelectedPage(x),
-                            ex =>
-                            {
-                                this.Log().Debug(ex.Message);
-                            })
+                        .SelectMany(x => LoadSelectedPage(x))
+                        .Subscribe()
                         .DisposeWith(disposables);
 
                     LoadAlbums
@@ -74,13 +71,9 @@ namespace SSBakery.UI.Modules
             set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
         }
 
-        private void LoadSelectedPage(AlbumCellViewModel viewModel)
+        private IObservable<Unit> LoadSelectedPage(AlbumCellViewModel viewModel)
         {
-            HostScreen
-                .Router
-                .Navigate
-                .Execute(new AlbumViewModel(viewModel.FacebookAlbum.Id))
-                .Subscribe();
+            return ViewStackService.PushPage(new AlbumViewModel(viewModel.FacebookAlbum.Id));
         }
     }
 }

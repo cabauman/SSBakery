@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PhoneAuthenticationPage : ContentPageBase<IPhoneAuthenticationViewModel>
+    public partial class PhoneAuthPhoneNumberEntryPage : ContentPageBase<IPhoneAuthPhoneNumberEntryViewModel>
     {
-        public PhoneAuthenticationPage()
+        public PhoneAuthPhoneNumberEntryPage()
         {
             InitializeComponent();
 
@@ -20,10 +20,10 @@ namespace SSBakery.UI.Modules
                 disposables =>
                 {
                     this
-                        .Bind(ViewModel, vm => vm.VerificationCode, v => v.VerificationCodeEntry.Text)
+                        .Bind(ViewModel, vm => vm.PhoneNumber, v => v.PhoneNumberEntry.Text)
                         .DisposeWith(disposables);
                     this
-                        .BindCommand(ViewModel, vm => vm.VerifyCode, v => v.VerifyCodeButton)
+                        .BindCommand(ViewModel, vm => vm.VerifyPhoneNumber, v => v.PhoneNumberVerificationButton)
                         .DisposeWith(disposables);
                 });
         }

@@ -1,12 +1,11 @@
-﻿using Square.Connect.Api;
-using Square.Connect.Model;
-using SSBakery.Repositories.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using Square.Connect.Api;
+using Square.Connect.Model;
+using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {

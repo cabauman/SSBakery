@@ -7,11 +7,12 @@ using SSBakery.Config;
 using SSBakery.Core.Common;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 using Xamarin.Auth;
 
 namespace SSBakery.UI.Modules
 {
-    public class SignInViewModel : ViewModelBase, ISignInViewModel
+    public class SignInViewModel : PageViewModel, ISignInViewModel
     {
         private const string PhoneNum = "+1 653-555-4117";
         private const string VerificationCode = "897604";
@@ -22,8 +23,8 @@ namespace SSBakery.UI.Modules
         private IObservable<AuthenticatorErrorEventArgs> _signInFailed;
         private string _provider;
 
-        public SignInViewModel(IFirebaseAuthService firebaseAuthService = null, IScreen hostScreen = null)
-            : base(hostScreen)
+        public SignInViewModel(IFirebaseAuthService firebaseAuthService = null, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             _firebaseAuthService = firebaseAuthService ?? Locator.Current.GetService<IFirebaseAuthService>();
 
@@ -31,7 +32,7 @@ namespace SSBakery.UI.Modules
                 () =>
                 {
                     return SignInAnonymously()
-                        .SelectMany(_ => NavigateAndReset(new MainViewModel()));
+                        .SelectMany(_ => ViewStackService.PushPage(new MainViewModel()));
                 });
 
             ContinueAsGuest.ThrownExceptions.Subscribe(
@@ -43,10 +44,11 @@ namespace SSBakery.UI.Modules
             NavigateToPhoneNumberVerificationPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    var page = new PhoneNumberVerificationViewModel(
-                        PhoneNumberVerificationViewModel.AuthAction.SignIn,
-                        NavigateAndReset(new MainViewModel()));
-                    return Navigate(page);
+                    return Observable.Return(Unit.Default);
+                    //var page = new PhoneNumberVerificationForAccountLinkViewModel(
+                    //    PhoneNumberVerificationForAccountLinkViewModel.AuthAction.SignIn,
+                    //    ViewStackService.PushPage(new MainViewModel(), null, true));
+                    //return ViewStackService.PushPage(page);
                 });
 
             TriggerGoogleAuthFlow = ReactiveCommand.Create(
@@ -116,7 +118,7 @@ namespace SSBakery.UI.Modules
                 });
 
             this.WhenAnyObservable(x => x.SignInSuccessful)
-                .SelectMany(x => NavigateAndReset(new MainViewModel()))
+                .SelectMany(x => ViewStackService.PushPage(new MainViewModel(), null, true))
                 .Subscribe();
         }
 

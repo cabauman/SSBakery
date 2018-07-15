@@ -1,5 +1,4 @@
-﻿
-namespace SSBakery.Services.Interfaces
+﻿namespace SSBakery.Services.Interfaces
 {
     public interface IPhoneNumberVerificationResult
     {

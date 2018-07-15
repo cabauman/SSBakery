@@ -1,12 +1,6 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using FFImageLoading.Forms.Droid;
 using Firebase;
 using Plugin.CurrentActivity;
 
@@ -22,7 +16,7 @@ namespace SSBakery.Droid
 
             base.OnCreate(bundle);
 
-            CachedImageRenderer.Init(enableFastRenderer: true);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);

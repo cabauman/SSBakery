@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reactive;
-using System.Reactive.Disposables;
 using ReactiveUI;
 using Splat;
-using SSBakery;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class AlbumViewModel : ViewModelBase
+    public class AlbumViewModel : PageViewModel
     {
         private ObservableAsPropertyHelper<IList<PhotoCellViewModel>> _photos;
         private PhotoCellViewModel _selectedItem;
 
-        public AlbumViewModel(string albumId, IFacebookPhotoService photoService = null, IScreen hostScreen = null)
-            : base(hostScreen)
+        public AlbumViewModel(string albumId, IFacebookPhotoService photoService = null, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             photoService = photoService ?? Locator.Current.GetService<IFacebookPhotoService>();
 

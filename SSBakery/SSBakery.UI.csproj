@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,19 +13,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="stylecop.json" />
+    <Compile Remove="Modules\PhoneAuthAccountLink\**" />
+    <EmbeddedResource Remove="Modules\PhoneAuthAccountLink\**" />
+    <None Remove="Modules\PhoneAuthAccountLink\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.10" />
     <PackageReference Include="GameCtor.Firebase.AuthWrapper" Version="1.0.2" />
+    <PackageReference Include="Genesis.Ensure" Version="2.0.0" />
     <PackageReference Include="ReactiveUI" Version="8.2.1" />
     <PackageReference Include="ReactiveUI.XamForms" Version="8.2.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
@@ -40,6 +40,12 @@
     <EmbeddedResource Update="Modules\StoreInfo\StoreInfoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
   </ItemGroup>
 
   <ItemGroup>
@@ -61,17 +67,17 @@
     <Compile Update="Modules\Album\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\PhoneNumberVerification\PhoneAuthenticationPage.xaml.cs">
-      <DependentUpon>PhoneAuthenticationPage.xaml</DependentUpon>
+    <Compile Update="Modules\PhoneAuthVerificationCodeEntry\PhoneAuthVerificationCodeEntryPage.xaml.cs">
+      <DependentUpon>PhoneAuthVerificationCodeEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\PhoneAuthPhoneNumberEntry\PhoneAuthPhoneNumberEntryPage.xaml.cs">
+      <DependentUpon>PhoneAuthPhoneNumberEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\RewardsProgramActivation\RewardsProgramActivationPage.xaml.cs">
       <DependentUpon>RewardsProgramActivationPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\Rewards\RewardsPage.xaml.cs">
       <DependentUpon>RewardsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Modules\PhoneNumberVerification\PhoneNumberVerificationPage.xaml.cs">
-      <DependentUpon>PhoneNumberVerificationPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\SignIn\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
@@ -82,6 +88,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Interfaces\" />
     <Folder Include="Layout\" />
   </ItemGroup>
 </Project>

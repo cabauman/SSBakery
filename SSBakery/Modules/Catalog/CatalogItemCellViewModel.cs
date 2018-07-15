@@ -1,10 +1,6 @@
-﻿using System;
-using System.Reactive.Disposables;
-using ReactiveUI;
-using Splat;
-using Square.Connect.Model;
-using SSBakery;
+﻿using Square.Connect.Model;
 using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
@@ -12,8 +8,8 @@ namespace SSBakery.UI.Modules
     {
         private CatalogObject _model;
 
-        public CatalogItemCellViewModel(CatalogObject model, IScreen hostScreen = null)
-            : base(hostScreen)
+        public CatalogItemCellViewModel(CatalogObject model, IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
             _model = model;
         }

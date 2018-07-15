@@ -1,16 +1,12 @@
-﻿using System;
-using System.Reactive.Disposables;
-using ReactiveUI;
-using Splat;
-using SSBakery;
-using SSBakery.UI.Common;
+﻿using SSBakery.UI.Common;
+using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class StoreInfoViewModel : ViewModelBase
+    public class StoreInfoViewModel : PageViewModel
     {
-        public StoreInfoViewModel(IScreen hostScreen = null)
-            : base(hostScreen)
+        public StoreInfoViewModel(IViewStackService viewStackService = null)
+            : base(viewStackService)
         {
         }
     }

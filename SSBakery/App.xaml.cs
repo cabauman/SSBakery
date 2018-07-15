@@ -4,7 +4,7 @@ using SSBakery.UI.Modules;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SSBakery
 {
     public partial class App : Application
