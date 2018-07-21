@@ -24,21 +24,23 @@ namespace SSBakery.UI.Modules
             NavigateToPhoneNumberVerificationPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    IObservable<Unit> whenLinked = Observable
-                        .Defer(
-                            () =>
-                            {
-                                return ViewStackService
-                                    .PopToPageAndPush<MainViewModel>(new RewardsViewModel());
-                                    //.PopToPage<MainViewModel>(false)
-                                    //.SelectMany(_ => ViewStackService.PushPage(new RewardsViewModel()));
-                            });
-
                     return ViewStackService
-                        .PushPage(new PhoneAuthPhoneNumberEntryViewModel(AuthAction.LinkAccount, whenLinked));
+                        .PushPage(new PhoneAuthPhoneNumberEntryViewModel(AuthAction.LinkAccount, WhenLinked()));
                 });
         }
 
         public ReactiveCommand NavigateToPhoneNumberVerificationPage { get; }
+
+        private IObservable<Unit> WhenLinked()
+        {
+            return Observable
+                .Defer(
+                    () =>
+                    {
+                        return ViewStackService
+                            .InsertPage(1, new RewardsViewModel())
+                            .Concat(ViewStackService.PopToPage(1));
+                    });
+        }
     }
 }

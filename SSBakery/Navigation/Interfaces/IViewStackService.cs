@@ -28,11 +28,14 @@ namespace SSBakery.UI.Navigation.Interfaces
             bool animateLastPage = true)
                 where TViewModel : IPageViewModel;
 
-        IObservable<Unit> PopToPageAndPush<TPageToPopTo>(
-            IPageViewModel pageToPush,
-            string contract = null,
-            bool animateLastPage = true)
-                where TPageToPopTo : IPageViewModel;
+        IObservable<Unit> PopToPage(
+            int index,
+            bool animateLastPage = true);
+
+        IObservable<Unit> InsertPage(
+            int index,
+            IPageViewModel page,
+            string contract = null);
 
         IObservable<Unit> PushModal(
             IModalViewModel modal,

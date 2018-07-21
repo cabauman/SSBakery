@@ -50,6 +50,10 @@ namespace SSBakery.Services
 
         public IObservable<IPhoneNumberVerificationResult> SignInWithPhoneNumber(string phoneNumber)
         {
+            return Observable
+                .Return(new PhoneNumberVerificationResult(false, "123456"))
+                .Delay(TimeSpan.FromSeconds(1));
+
             return CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(phoneNumber)
                 .ToObservable()
                 .Select(
@@ -61,6 +65,10 @@ namespace SSBakery.Services
 
         public IObservable<Unit> SignInWithPhoneNumber(string verificationId, string verificationCode)
         {
+            return Observable
+                .Return(Unit.Default)
+                .Delay(TimeSpan.FromSeconds(1));
+
             return CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(verificationId, verificationCode)
                 .ToObservable()
                 .Select(_ => Unit.Default);
@@ -77,7 +85,7 @@ namespace SSBakery.Services
         {
             return Observable
                 .Return(new PhoneNumberVerificationResult(false, "123456"))
-                .Delay(TimeSpan.FromSeconds(2));
+                .Delay(TimeSpan.FromSeconds(1));
 
             return CrossFirebaseAuth.Current.LinkPhoneNumberWithCurrentUserAsync(phoneNumber)
                 .ToObservable()

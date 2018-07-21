@@ -64,16 +64,6 @@ namespace SSBakery.UI.Navigation
                     });
         }
 
-        public IObservable<Unit> PopPages(int count = 1, bool animateLastPage = true)
-        {
-            Ensure.ArgumentCondition(count > 0, "Number of pages should be greater than 0.", nameof(count));
-
-            return Observable
-                .Range(1, count)
-                .SelectMany(x => _view.PopPage(x == count && animateLastPage))
-                .Skip(count - 1);
-        }
-
         public IObservable<Unit> PopToPage<TViewModel>(bool animateLastPage = true)
             where TViewModel : IPageViewModel
         {
@@ -89,7 +79,7 @@ namespace SSBakery.UI.Navigation
                         if(x != null)
                         {
                             int numPagesToPop = idxOfLastPage - stack.LastIndexOf(x);
-                            return PopPages2(numPagesToPop, animateLastPage);
+                            return PopPages(numPagesToPop, animateLastPage);
                         }
                         else
                         {
@@ -98,35 +88,16 @@ namespace SSBakery.UI.Navigation
                     });
         }
 
-        public IObservable<Unit> PopToPageAndPush<TPageToPopTo>(IPageViewModel pageToPush, string contract = null, bool animateLastPage = true)
-            where TPageToPopTo : IPageViewModel
+        public IObservable<Unit> PopToPage(int index, bool animateLastPage = true)
         {
             var stack = _pageStack.Value;
+            int idxOfLastPage = stack.Count - 1;
+            int numPagesToPop = idxOfLastPage - index;
 
-            return stack
-                .ToObservable()
-                .Take(stack.Count - 1)
-                .LastOrDefaultAsync(x => x is TPageToPopTo)
-                .SelectMany(x =>
-                {
-                    if(x != null)
-                    {
-                        int idxOfPageToPopTo = stack.LastIndexOf(x);
-                        stack = stack.Insert(idxOfPageToPopTo + 1, pageToPush);
-                        _pageStack.OnNext(stack);
-                        _view.InsertPage(idxOfPageToPopTo + 1, pageToPush);
-                        int idxOfLastPage = stack.Count - 1;
-                        int numPagesToPop = idxOfLastPage - idxOfPageToPopTo;
-                        return PopPages2(numPagesToPop, animateLastPage);
-                    }
-                    else
-                    {
-                        return Observable.Return(Unit.Default);
-                    }
-                });
+            return PopPages(numPagesToPop, animateLastPage);
         }
 
-        public IObservable<Unit> PopPages2(int count = 1, bool animateLastPage = true)
+        public IObservable<Unit> PopPages(int count = 1, bool animateLastPage = true)
         {
             Ensure.ArgumentCondition(count > 0 && count < PageCount, "Page pop count should be less than the size of the stack.", nameof(count));
 
@@ -149,6 +120,16 @@ namespace SSBakery.UI.Navigation
             return this
                 ._view
                 .PopPage(animateLastPage);
+        }
+
+        public IObservable<Unit> InsertPage(int idx, IPageViewModel page, string contract = null)
+        {
+            _view.InsertPage(idx, page);
+            var stack = _pageStack.Value;
+            stack = stack.Insert(idx, page);
+            _pageStack.OnNext(stack);
+
+            return Observable.Return(Unit.Default);
         }
 
         public IObservable<Unit> PushModal(IModalViewModel modal, string contract = null)

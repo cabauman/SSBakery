@@ -44,11 +44,16 @@ namespace SSBakery.UI.Modules
             NavigateToPhoneNumberVerificationPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return Observable.Return(Unit.Default);
-                    //var page = new PhoneNumberVerificationForAccountLinkViewModel(
-                    //    PhoneNumberVerificationForAccountLinkViewModel.AuthAction.SignIn,
-                    //    ViewStackService.PushPage(new MainViewModel(), null, true));
-                    //return ViewStackService.PushPage(page);
+                    IObservable<Unit> whenSignedIn = Observable
+                        .Defer(
+                            () =>
+                            {
+                                return ViewStackService
+                                    .PushPage(new MainViewModel(), null, true);
+                            });
+
+                    return ViewStackService
+                        .PushPage(new PhoneAuthPhoneNumberEntryViewModel(AuthAction.SignIn, whenSignedIn));
                 });
 
             TriggerGoogleAuthFlow = ReactiveCommand.Create(
