@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignInPage : ContentPageBase<SignInViewModel>
+    public partial class SignInPage : ContentPageBase<ISignInViewModel>
     {
         public SignInPage()
         {

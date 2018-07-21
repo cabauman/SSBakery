@@ -6,7 +6,7 @@
             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-            x:TypeArguments="modules:AlbumViewModel"
+            x:TypeArguments="modules:IAlbumViewModel"
             x:Class="SSBakery.UI.Modules.AlbumPage">
     <ContentPage.Content>
 

@@ -4,7 +4,7 @@
                        xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                        xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
                        xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-                       x:TypeArguments="modules:CatalogItemCellViewModel"
+                       x:TypeArguments="modules:ICatalogItemCellViewModel"
                        x:Class="SSBakery.UI.Modules.CatalogItemCell">
 
     <Grid HeightRequest="100">
@@ -19,6 +19,7 @@
                                     Margin="10"
                                     VerticalOptions="FillAndExpand"
                                     Aspect="AspectFill"
+                                    CacheDuration="30"
                                     DownsampleToViewSize="true" />
 
         <StackLayout Grid.Row="0" Grid.Column="1">

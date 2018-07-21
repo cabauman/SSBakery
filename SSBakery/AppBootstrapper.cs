@@ -33,14 +33,14 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new PhoneAuthPhoneNumberEntryPage(), typeof(IViewFor<IPhoneAuthPhoneNumberEntryViewModel>));
             Locator.CurrentMutable.Register(() => new PhoneAuthVerificationCodeEntryPage(), typeof(IViewFor<IPhoneAuthVerificationCodeEntryViewModel>));
             Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<IMainViewModel>));
-            Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<CatalogViewModel>));
-            Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<CatalogItemDetailsViewModel>));
-            Locator.CurrentMutable.Register(() => new CatalogItemCell(), typeof(IViewFor<CatalogItemCellViewModel>));
-            Locator.CurrentMutable.Register(() => new StoreInfoPage(), typeof(IViewFor<StoreInfoViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<ICatalogViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<ICatalogItemDetailsViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogItemCell(), typeof(IViewFor<ICatalogItemCellViewModel>));
+            Locator.CurrentMutable.Register(() => new StoreInfoPage(), typeof(IViewFor<IStoreInfoViewModel>));
             Locator.CurrentMutable.Register(() => new AlbumListPage(), typeof(IViewFor<IAlbumListViewModel>));
-            Locator.CurrentMutable.Register(() => new AlbumCell(), typeof(IViewFor<AlbumCellViewModel>));
-            Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<AlbumViewModel>));
-            Locator.CurrentMutable.Register(() => new RewardsPage(), typeof(IViewFor<RewardsViewModel>));
+            Locator.CurrentMutable.Register(() => new AlbumCell(), typeof(IViewFor<IAlbumCellViewModel>));
+            Locator.CurrentMutable.Register(() => new AlbumPage(), typeof(IViewFor<IAlbumViewModel>));
+            Locator.CurrentMutable.Register(() => new RewardsPage(), typeof(IViewFor<IRewardsViewModel>));
             Locator.CurrentMutable.Register(() => new RewardsProgramActivationPage(), typeof(IViewFor<IRewardsProgramActivationViewModel>));
 
             //Locator.CurrentMutable.RegisterConstant(new XamarinAuthCredentialsService(), typeof(ICredentialsService));
@@ -51,7 +51,7 @@ namespace SSBakery
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
-            viewStackService.PushPage(new MainViewModel())
+            viewStackService.PushPage(new SignInViewModel())
                 .Subscribe();
 
             return;

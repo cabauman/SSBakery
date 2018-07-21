@@ -4,7 +4,7 @@
                        xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                        xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
                        xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-                       x:TypeArguments="modules:AlbumCellViewModel"
+                       x:TypeArguments="modules:IAlbumCellViewModel"
                        x:Class="SSBakery.UI.Modules.AlbumCell">
 
     <Grid HeightRequest="100">

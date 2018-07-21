@@ -12,7 +12,7 @@ using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class AlbumCellViewModel : ViewModelBase
+    public class AlbumCellViewModel : ViewModelBase, IAlbumCellViewModel
     {
         private FacebookAlbum _model;
         private string _imageUrl;

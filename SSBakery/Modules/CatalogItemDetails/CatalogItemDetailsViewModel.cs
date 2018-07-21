@@ -4,7 +4,7 @@ using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class CatalogItemDetailsViewModel : PageViewModel
+    public class CatalogItemDetailsViewModel : PageViewModel, ICatalogItemDetailsViewModel
     {
         private readonly CatalogObject _model;
 

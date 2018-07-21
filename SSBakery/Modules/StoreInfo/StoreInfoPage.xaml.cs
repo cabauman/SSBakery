@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StoreInfoPage : ContentPageBase<StoreInfoViewModel>
+    public partial class StoreInfoPage : ContentPageBase<IStoreInfoViewModel>
     {
         public StoreInfoPage()
         {

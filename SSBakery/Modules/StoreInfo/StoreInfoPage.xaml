@@ -3,7 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:ui="clr-namespace:SSBakery.UI.Common"
             xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-            x:TypeArguments="modules:StoreInfoViewModel"
+            x:TypeArguments="modules:IStoreInfoViewModel"
             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
             x:Class="SSBakery.UI.Modules.StoreInfoPage">
     <ContentPage.Content>

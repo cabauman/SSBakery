@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CatalogItemDetailsPage : ContentPageBase<CatalogItemDetailsViewModel>
+    public partial class CatalogItemDetailsPage : ContentPageBase<ICatalogItemDetailsViewModel>
     {
         public CatalogItemDetailsPage()
         {

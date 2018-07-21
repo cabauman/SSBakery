@@ -8,7 +8,7 @@
             x:TypeArguments="modules:IAlbumListViewModel"
             x:Class="SSBakery.UI.Modules.AlbumListPage">
     <ContentPage.Content>
-        <ListView x:Name="Albums"
+        <ListView x:Name="AlbumListView"
               RowHeight="100"
               SeparatorVisibility="None"
               CachingStrategy="RetainElement">

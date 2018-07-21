@@ -16,7 +16,7 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogViewModel : PageViewModel, ICatalogViewModel
     {
-        private CatalogItemCellViewModel _selectedItem;
+        private ICatalogItemCellViewModel _selectedItem;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
 
         public CatalogViewModel(IRepoContainer dataStore = null, IViewStackService viewStackService = null)
@@ -73,7 +73,7 @@ namespace SSBakery.UI.Modules
 
         public IRepoContainer RepoContainer { get; }
 
-        public CatalogItemCellViewModel SelectedItem
+        public ICatalogItemCellViewModel SelectedItem
         {
             get { return _selectedItem; }
             set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
@@ -81,7 +81,7 @@ namespace SSBakery.UI.Modules
 
         public bool IsRefreshing => _isRefreshing.Value;
 
-        private IObservable<Unit> LoadSelectedPage(CatalogItemCellViewModel viewModel)
+        private IObservable<Unit> LoadSelectedPage(ICatalogItemCellViewModel viewModel)
         {
             return ViewStackService.PushPage(new CatalogItemDetailsViewModel(viewModel.CatalogObject));
         }

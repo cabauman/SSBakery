@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RewardsPage : ContentPageBase<RewardsViewModel>
+    public partial class RewardsPage : ContentPageBase<IRewardsViewModel>
     {
         public RewardsPage()
         {

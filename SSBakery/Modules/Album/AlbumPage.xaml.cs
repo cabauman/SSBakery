@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AlbumPage : ContentPageBase<AlbumViewModel>
+    public partial class AlbumPage : ContentPageBase<IAlbumViewModel>
     {
         public AlbumPage()
         {

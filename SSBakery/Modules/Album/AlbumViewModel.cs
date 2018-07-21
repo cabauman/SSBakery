@@ -8,7 +8,7 @@ using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class AlbumViewModel : PageViewModel
+    public class AlbumViewModel : PageViewModel, IAlbumViewModel
     {
         private ObservableAsPropertyHelper<IList<PhotoCellViewModel>> _photos;
         private PhotoCellViewModel _selectedItem;

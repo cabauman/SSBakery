@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CatalogItemCell : ReactiveViewCell<CatalogItemCellViewModel>
+    public partial class CatalogItemCell : ReactiveViewCell<ICatalogItemCellViewModel>
     {
         public CatalogItemCell()
         {

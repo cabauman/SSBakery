@@ -26,10 +26,10 @@ namespace SSBakery.UI.Modules
                     ViewModel.SelectedItem = null;
 
                     this
-                        .OneWayBind(ViewModel, vm => vm.Albums, v => v.Albums.ItemsSource)
+                        .OneWayBind(ViewModel, vm => vm.Albums, v => v.AlbumListView.ItemsSource)
                         .DisposeWith(disposables);
                     this
-                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.Albums.SelectedItem)
+                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.AlbumListView.SelectedItem)
                         .DisposeWith(disposables);
                     this
                         .WhenAnyValue(x => x.ViewModel)

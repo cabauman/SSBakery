@@ -4,7 +4,7 @@ using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class CatalogItemCellViewModel : ViewModelBase
+    public class CatalogItemCellViewModel : ViewModelBase, ICatalogItemCellViewModel
     {
         private CatalogObject _model;
 

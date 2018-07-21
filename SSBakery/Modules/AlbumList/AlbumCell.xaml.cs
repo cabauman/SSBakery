@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AlbumCell : ReactiveViewCell<AlbumCellViewModel>
+    public partial class AlbumCell : ReactiveViewCell<IAlbumCellViewModel>
     {
         public AlbumCell()
         {
