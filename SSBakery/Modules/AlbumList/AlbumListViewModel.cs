@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading;
 using ReactiveUI;
 using Splat;
 using SSBakery;
@@ -25,7 +26,7 @@ namespace SSBakery.UI.Modules
             LoadAlbums = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    var albumData = await photoService.GetAlbumsAsync(Config.Constants.FACEBOOK_PAGE_ID, Config.Constants.FACEBOOK_PAGE_ACCESS_TOKEN);
+                    var albumData = await photoService.GetAlbumsAsync(Config.Constants.FACEBOOK_PAGE_ID, Config.Constants.FACEBOOK_PAGE_ACCESS_TOKEN, default(CancellationToken));
 
                     var viewModels = new List<AlbumCellViewModel>(albumData.Data.Count);
                     foreach(var model in albumData.Data)

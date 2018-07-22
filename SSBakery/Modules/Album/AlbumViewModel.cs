@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reactive;
+using System.Threading;
 using ReactiveUI;
 using Splat;
 using SSBakery.Services.Interfaces;
@@ -21,7 +22,7 @@ namespace SSBakery.UI.Modules
             LoadPhotos = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    var photos = await photoService.GetAlbumPhotos(albumId, Config.Constants.FACEBOOK_PAGE_ACCESS_TOKEN);
+                    var photos = await photoService.GetAlbumPhotos(albumId, Config.Constants.FACEBOOK_PAGE_ACCESS_TOKEN, default(CancellationToken));
 
                     var viewModels = new List<PhotoCellViewModel>(photos.Count);
                     foreach(var model in photos)
