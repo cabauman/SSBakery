@@ -5,8 +5,8 @@ using Xamarin.Auth;
 
 namespace SSBakery.Core.Common
 {
-    public class AuthenticationState
+    public static class AuthenticationState
     {
-        public static WebRedirectAuthenticator Authenticator;
+        public static WebRedirectAuthenticator Authenticator { get; set; }
     }
 }

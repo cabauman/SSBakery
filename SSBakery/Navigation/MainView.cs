@@ -149,23 +149,17 @@ namespace SSBakery.UI.Navigation
         {
             Ensure.ArgumentNotNull(viewModel, nameof(viewModel));
 
-            var view = _viewLocator.ResolveView(viewModel, contract);
-            var viewFor = view as IViewFor;
-            var page = view as Page;
+            var viewFor = _viewLocator.ResolveView(viewModel, contract);
+            var page = viewFor as Page;
 
-            if(view == null)
+            if(viewFor == null)
             {
                 throw new InvalidOperationException($"No view could be located for type '{viewModel.GetType().FullName}', contract '{contract}'. Be sure Splat has an appropriate registration.");
             }
 
-            if(viewFor == null)
-            {
-                throw new InvalidOperationException($"Resolved view '{view.GetType().FullName}' for type '{viewModel.GetType().FullName}', contract '{contract}' does not implement IViewFor.");
-            }
-
             if(page == null)
             {
-                throw new InvalidOperationException($"Resolved view '{view.GetType().FullName}' for type '{viewModel.GetType().FullName}', contract '{contract}' is not a Page.");
+                throw new InvalidOperationException($"Resolved view '{viewFor.GetType().FullName}' for type '{viewModel.GetType().FullName}', contract '{contract}' is not a Page.");
             }
 
             viewFor.ViewModel = viewModel;

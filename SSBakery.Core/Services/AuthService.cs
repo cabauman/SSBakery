@@ -1,40 +1,69 @@
-﻿/*
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using SSBakery.Models;
+using System.Reactive.Subjects;
+using SSBakery.Config;
+using SSBakery.Core.Common;
 using SSBakery.Services.Interfaces;
-using TTKoreanSchool.Config;
 using Xamarin.Auth;
 
 namespace SSBakery.Services
 {
     public class AuthService : IAuthService
     {
-        private string _provider;
+        private Subject<Unit> _authFlowTriggered;
 
-        public WebRedirectAuthenticator Authenticator { get; private set; }
-
-        public IObservable<Unit> TriggerGoogleAuthFlow()
+        public AuthService()
         {
-            if(_provider == "Google")
-            {
-                return Authenticator;
-            }
+            _authFlowTriggered = new Subject<Unit>();
 
-            _provider = "Google";
+            var authCompleted = _authFlowTriggered
+                .Select(
+                    _ =>
+                    {
+                        return Observable.FromEventPattern<AuthenticatorCompletedEventArgs>(
+                            x => AuthenticationState.Authenticator.Completed += x,
+                            x => AuthenticationState.Authenticator.Completed -= x);
+                    })
+                .Switch();
 
+            SignInCanceled = authCompleted
+                .Where(x => !x.EventArgs.IsAuthenticated)
+                .Select(_ => Unit.Default);
+
+            SignInSuccessful = authCompleted
+                .Where(x => x.EventArgs.IsAuthenticated)
+                .Select(x => ExtractAuthToken(x.EventArgs.Account));
+
+            SignInFailed = _authFlowTriggered
+                .Select(
+                    _ =>
+                    {
+                        return Observable.FromEventPattern<AuthenticatorErrorEventArgs>(
+                            x => AuthenticationState.Authenticator.Error += x,
+                            x => AuthenticationState.Authenticator.Error -= x)
+                                .Select(x => x.EventArgs.Exception);
+                    })
+                .Switch();
+        }
+
+        public IObservable<string> SignInSuccessful { get; private set; }
+
+        public IObservable<Unit> SignInCanceled { get; private set; }
+
+        public IObservable<Exception> SignInFailed { get; private set; }
+
+        public void TriggerGoogleAuthFlow()
+        {
             string clientId = GoogleAuthConfig.CLIENT_ID_ANDROID;
             string redirectUrl = GoogleAuthConfig.REDIRECT_URL_ANDROID;
-            if(Xamarin.Forms.Device.RuntimePlatform == "iOS")
-            {
-                clientId = GoogleAuthConfig.CLIENT_ID_IOS;
-                redirectUrl = GoogleAuthConfig.REDIRECT_URL_IOS;
-            }
+            //if(CrossDeviceInfo Xamarin.Forms.Device.RuntimePlatform == "iOS")
+            //{
+            //    clientId = GoogleAuthConfig.CLIENT_ID_IOS;
+            //    redirectUrl = GoogleAuthConfig.REDIRECT_URL_IOS;
+            //}
 
-            var authenticator = new OAuth2Authenticator(
+            AuthenticationState.Authenticator = new OAuth2Authenticator(
                 clientId,
                 string.Empty,
                 GoogleAuthConfig.SCOPE,
@@ -44,42 +73,35 @@ namespace SSBakery.Services
                 null,
                 true);
 
-            Observe(authenticator);
-
-            return authenticator;
-        }
-
-        public IObservable<Unit> SignInWithFacebook()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Observe(WebRedirectAuthenticator authenticator)
-        {
-            Authenticator = authenticator;
-
-            var authCompleted = Observable.FromEventPattern<AuthenticatorCompletedEventArgs>(
-                x => authenticator.Completed += x,
-                x => authenticator.Completed -= x);
-
-            SignInSuccessful = authCompleted
-                .Where(x => x.EventArgs.IsAuthenticated)
-                .Select(x => x.EventArgs.Account)
-                .Select(authAccount => ConvertToBakeryUser(authAccount))
-                .SelectMany(bakeryUser => AuthenticateWithFirebase(bakeryUser));
-
-            SignInCanceled = authCompleted
-                .Where(x => !x.EventArgs.IsAuthenticated)
-                .Select(_ => Unit.Default);
-
-            SignInFailed = Observable.FromEventPattern<AuthenticatorErrorEventArgs>(
-                x => authenticator.Error += x,
-                x => authenticator.Error -= x)
-                    .Select(x => x.EventArgs);
-
+            _authFlowTriggered.OnNext(Unit.Default);
             var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-            presenter.Login(Authenticator);
+            presenter.Login(AuthenticationState.Authenticator);
+        }
+
+        public void TriggerFacebookAuthFlow()
+        {
+                AuthenticationState.Authenticator = new OAuth2Authenticator(
+                    FacebookAuthConfig.CLIENT_ID,
+                    FacebookAuthConfig.SCOPE,
+                    new Uri(FacebookAuthConfig.AUTHORIZE_URL),
+                    new Uri(FacebookAuthConfig.REDIRECT_URL),
+                    null,
+                    true);
+
+            _authFlowTriggered.OnNext(Unit.Default);
+            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+            presenter.Login(AuthenticationState.Authenticator);
+        }
+
+        private string ExtractAuthToken(Xamarin.Auth.Account account)
+        {
+            string authToken = account.Properties["access_token"];
+            if(AuthenticationState.Authenticator.GetType() == typeof(OAuth1Authenticator))
+            {
+                authToken = account.Properties["oauth_token"];
+            }
+
+            return authToken;
         }
     }
 }
-*/

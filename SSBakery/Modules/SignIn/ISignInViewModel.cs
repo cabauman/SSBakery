@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive;
 using ReactiveUI;
-using Xamarin.Auth;
 
 namespace SSBakery.UI.Modules
 {
@@ -14,13 +13,5 @@ namespace SSBakery.UI.Modules
         ReactiveCommand NavigateToPhoneNumberVerificationPage { get; }
 
         ReactiveCommand ContinueAsGuest { get; }
-
-        IObservable<Unit> SignInSuccessful { get; }
-
-        IObservable<Unit> SignInCanceled { get; }
-
-        IObservable<AuthenticatorErrorEventArgs> SignInFailed { get; }
-
-        WebRedirectAuthenticator Authenticator { get; }
     }
 }

@@ -43,7 +43,7 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new RewardsPage(), typeof(IViewFor<IRewardsViewModel>));
             Locator.CurrentMutable.Register(() => new RewardsProgramActivationPage(), typeof(IViewFor<IRewardsProgramActivationViewModel>));
 
-            //Locator.CurrentMutable.RegisterConstant(new XamarinAuthCredentialsService(), typeof(ICredentialsService));
+            Locator.CurrentMutable.Register(() => new AuthService(), typeof(IAuthService));
             var firebaseAuthService = new FirebaseAuthService();
             Locator.CurrentMutable.RegisterConstant(firebaseAuthService, typeof(IFirebaseAuthService));
             Locator.CurrentMutable.RegisterLazySingleton(() => new RepoContainer(), typeof(IRepoContainer));

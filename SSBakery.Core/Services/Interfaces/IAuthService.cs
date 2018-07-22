@@ -7,8 +7,14 @@ namespace SSBakery.Services.Interfaces
 {
     public interface IAuthService
     {
-        IObservable<Unit> TriggerGoogleAuthFlow();
+        IObservable<string> SignInSuccessful { get; }
 
-        IObservable<Unit> SignInWithFacebook();
+        IObservable<Unit> SignInCanceled { get; }
+
+        IObservable<Exception> SignInFailed { get; }
+
+        void TriggerGoogleAuthFlow();
+
+        void TriggerFacebookAuthFlow();
     }
 }
