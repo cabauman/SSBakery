@@ -31,12 +31,11 @@ namespace SSBakery.UI.Modules
                     this
                         .Bind(ViewModel, vm => vm.SelectedItem, v => v.CatalogItems.SelectedItem)
                         .DisposeWith(disposables);
-                    this
-                        .WhenAnyValue(x => x.ViewModel)
-                        .Where(x => x != null)
-                        .Select(x => Unit.Default)
-                        .InvokeCommand(this, x => x.ViewModel.LoadCatalogObjects)
-                        .DisposeWith(disposables);
+
+                    ViewModel
+                        .LoadCatalogObjects
+                        .Execute()
+                        .Subscribe();
                 });
         }
     }
