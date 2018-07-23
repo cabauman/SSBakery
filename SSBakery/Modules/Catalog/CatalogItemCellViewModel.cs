@@ -34,7 +34,7 @@ namespace SSBakery.UI.Modules
             get
             {
                 long? unformattedAmount = _model.ItemData?.Variations?[0]?.ItemVariationData?.PriceMoney?.Amount;
-                return unformattedAmount != null ? string.Format("{0:C}", unformattedAmount) : null;
+                return unformattedAmount != null ? string.Format("{0:C}", unformattedAmount / 100) : null;
             }
         }
 
