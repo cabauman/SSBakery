@@ -17,6 +17,7 @@ namespace SSBakery.UI.Modules
     public class CatalogViewModel : PageViewModel, ICatalogViewModel
     {
         private ICatalogItemCellViewModel _selectedItem;
+        private ObservableAsPropertyHelper<IEnumerable<ICatalogItemCellViewModel>> _catalogItems;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
 
         public CatalogViewModel(IRepoContainer dataStore = null, IViewStackService viewStackService = null)
@@ -24,32 +25,27 @@ namespace SSBakery.UI.Modules
         {
             RepoContainer = dataStore ?? Locator.Current.GetService<IRepoContainer>();
 
-            LoadCatalogObjects = ReactiveCommand.CreateFromObservable<Unit, IEnumerable<CatalogObject>>(
-                _ =>
+            LoadCatalogItems = ReactiveCommand.CreateFromObservable(
+                () =>
                 {
-                    return RepoContainer.CatalogObjectRepo.GetAll();
+                    return RepoContainer.CatalogObjectRepo.GetAll()
+                        .Where(items => items != null)
+                        .SelectMany(x => x)
+                        .Where(x => x.Type == CatalogObject.TypeEnum.ITEM)
+                        .Select(item => new CatalogItemCellViewModel(item) as ICatalogItemCellViewModel)
+                        .ToList()
+                        .Select(x => x.AsEnumerable());
                 });
+
+            LoadCatalogItems
+                .ToProperty(this, x => x.CatalogItems, out _catalogItems);
 
             this.WhenActivated(
                 disposables =>
                 {
                     SelectedItem = null;
 
-                    LoadCatalogObjects
-                        .Where(items => items != null)
-                        .SelectMany(x => x)
-                        .Where(x => x.Type == CatalogObject.TypeEnum.ITEM)
-                        .Select(item => new CatalogItemCellViewModel(item))
-                        .Log(this, "Adding catalog item view model")
-                        .Subscribe(
-                            itemViewModel => CatalogItems.Add(itemViewModel),
-                            ex =>
-                            {
-                                this.Log().Debug(ex.Message);
-                            })
-                        .DisposeWith(disposables);
-
-                    LoadCatalogObjects
+                    LoadCatalogItems
                         .ThrownExceptions
                         .Subscribe(
                             ex =>
@@ -67,9 +63,9 @@ namespace SSBakery.UI.Modules
                 });
         }
 
-        public ReactiveList<CatalogItemCellViewModel> CatalogItems { get; } = new ReactiveList<CatalogItemCellViewModel>();
+        public IEnumerable<ICatalogItemCellViewModel> CatalogItems => _catalogItems?.Value;
 
-        public ReactiveCommand<Unit, IEnumerable<CatalogObject>> LoadCatalogObjects { get; }
+        public ReactiveCommand<Unit, IEnumerable<ICatalogItemCellViewModel>> LoadCatalogItems { get; }
 
         public IRepoContainer RepoContainer { get; }
 

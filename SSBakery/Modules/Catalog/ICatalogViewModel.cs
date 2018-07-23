@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Reactive;
 using ReactiveUI;
-using Square.Connect.Model;
 using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
     public interface ICatalogViewModel
     {
-        ReactiveList<CatalogItemCellViewModel> CatalogItems { get; }
+        IEnumerable<ICatalogItemCellViewModel> CatalogItems { get; }
 
-        ReactiveCommand<Unit, IEnumerable<CatalogObject>> LoadCatalogObjects { get; }
+        ReactiveCommand<Unit, IEnumerable<ICatalogItemCellViewModel>> LoadCatalogItems { get; }
 
         IRepoContainer RepoContainer { get; }
 

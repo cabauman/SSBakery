@@ -33,7 +33,7 @@ namespace SSBakery.UI.Modules
                         .DisposeWith(disposables);
 
                     ViewModel
-                        .LoadCatalogObjects
+                        .LoadCatalogItems
                         .Execute()
                         .Subscribe();
                 });

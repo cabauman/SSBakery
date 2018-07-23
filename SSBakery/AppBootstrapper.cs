@@ -17,7 +17,7 @@ using Xamarin.Forms;
 
 namespace SSBakery
 {
-    public class AppBootstrapper : ReactiveObject, IScreen
+    public class AppBootstrapper : ReactiveObject
     {
         private readonly IView _mainView;
 
@@ -51,7 +51,7 @@ namespace SSBakery
 
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
-            viewStackService.PushPage(new SignInViewModel())
+            viewStackService.PushPage(new MainViewModel())
                 .Subscribe();
 
             return;
