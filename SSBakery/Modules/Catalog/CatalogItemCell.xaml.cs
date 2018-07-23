@@ -48,7 +48,7 @@ namespace SSBakery.UI.Modules
                 return;
             }
 
-            Image.Source = item.ImageUrl;
+            Image.Source = ImageSource.FromFile("Icon.png"); // item.ImageUrl;
         }
     }
 }
