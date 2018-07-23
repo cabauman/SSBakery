@@ -33,9 +33,11 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new PhoneAuthPhoneNumberEntryPage(), typeof(IViewFor<IPhoneAuthPhoneNumberEntryViewModel>));
             Locator.CurrentMutable.Register(() => new PhoneAuthVerificationCodeEntryPage(), typeof(IViewFor<IPhoneAuthVerificationCodeEntryViewModel>));
             Locator.CurrentMutable.Register(() => new MainPage(), typeof(IViewFor<IMainViewModel>));
-            Locator.CurrentMutable.Register(() => new CatalogPage(), typeof(IViewFor<ICatalogViewModel>));
-            Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<ICatalogItemDetailsViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogCategoryListPage(), typeof(IViewFor<ICatalogCategoryListViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogCategoryCell(), typeof(IViewFor<ICatalogCategoryCellViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogCategoryPage(), typeof(IViewFor<ICatalogCategoryViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemCell(), typeof(IViewFor<ICatalogItemCellViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogItemDetailsPage(), typeof(IViewFor<ICatalogItemDetailsViewModel>));
             Locator.CurrentMutable.Register(() => new StoreInfoPage(), typeof(IViewFor<IStoreInfoViewModel>));
             Locator.CurrentMutable.Register(() => new AlbumListPage(), typeof(IViewFor<IAlbumListViewModel>));
             Locator.CurrentMutable.Register(() => new AlbumCell(), typeof(IViewFor<IAlbumCellViewModel>));

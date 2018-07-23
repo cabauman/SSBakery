@@ -18,7 +18,7 @@ namespace SSBakery.UI.Modules
             NavigateToCatalogPage = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return ViewStackService.PushPage(new CatalogViewModel());
+                    return ViewStackService.PushPage(new CatalogCategoryListViewModel());
                 });
             NavigateToAlbumPage = ReactiveCommand.CreateFromObservable(
                 () =>

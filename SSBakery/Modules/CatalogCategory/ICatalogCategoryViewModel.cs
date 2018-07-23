@@ -5,7 +5,7 @@ using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public interface ICatalogViewModel
+    public interface ICatalogCategoryViewModel
     {
         IEnumerable<ICatalogItemCellViewModel> CatalogItems { get; }
 

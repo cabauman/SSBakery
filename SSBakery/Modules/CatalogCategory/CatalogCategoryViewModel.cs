@@ -14,13 +14,13 @@ using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class CatalogViewModel : PageViewModel, ICatalogViewModel
+    public class CatalogCategoryViewModel : PageViewModel, ICatalogCategoryViewModel
     {
         private ICatalogItemCellViewModel _selectedItem;
         private ObservableAsPropertyHelper<IEnumerable<ICatalogItemCellViewModel>> _catalogItems;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
 
-        public CatalogViewModel(IRepoContainer dataStore = null, IViewStackService viewStackService = null)
+        public CatalogCategoryViewModel(IRepoContainer dataStore = null, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
             RepoContainer = dataStore ?? Locator.Current.GetService<IRepoContainer>();
@@ -28,10 +28,8 @@ namespace SSBakery.UI.Modules
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return RepoContainer.CatalogObjectRepo.GetAll()
+                    return RepoContainer.CatalogObjectRepo.GetAll(null, "CATEGORY")
                         .Where(items => items != null)
-                        .SelectMany(x => x)
-                        .Where(x => x.Type == CatalogObject.TypeEnum.ITEM)
                         .Select(item => new CatalogItemCellViewModel(item) as ICatalogItemCellViewModel)
                         .ToList()
                         .Select(x => x.AsEnumerable());

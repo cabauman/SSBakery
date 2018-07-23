@@ -56,13 +56,19 @@
     <Compile Update="Modules\AlbumList\AlbumCell.xaml.cs">
       <DependentUpon>AlbumCell.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Modules\CatalogCategoryList\CatalogCategoryListPage.xaml.cs">
+      <DependentUpon>CatalogCategoryListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\CatalogCategoryList\CatalogCategoryCell.xaml.cs">
+      <DependentUpon>CatalogCategoryCell.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Modules\CatalogItemDetails\CatalogItemDetailsPage.xaml.cs">
       <DependentUpon>CatalogItemDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\Catalog\CatalogPage.xaml.cs">
-      <DependentUpon>CatalogPage.xaml</DependentUpon>
+    <Compile Update="Modules\CatalogCategory\CatalogCategoryPage.xaml.cs">
+      <DependentUpon>CatalogCategoryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\Catalog\CatalogItemCell.xaml.cs">
+    <Compile Update="Modules\CatalogCategory\CatalogItemCell.xaml.cs">
       <DependentUpon>CatalogItemCell.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\Album\AlbumPage.xaml.cs">

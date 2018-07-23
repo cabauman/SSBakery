@@ -14,9 +14,9 @@ using Xamarin.Forms.Xaml;
 namespace SSBakery.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CatalogPage : ContentPageBase<ICatalogViewModel>
+    public partial class CatalogCategoryPage : ContentPageBase<ICatalogCategoryViewModel>
     {
-        public CatalogPage()
+        public CatalogCategoryPage()
         {
             InitializeComponent();
 

@@ -4,8 +4,8 @@
                     xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
                     xmlns:ui="clr-namespace:SSBakery.UI.Common"
                     xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-                    x:TypeArguments="modules:ICatalogViewModel"
-                    x:Class="SSBakery.UI.Modules.CatalogPage">
+                    x:TypeArguments="modules:ICatalogCategoryViewModel"
+                    x:Class="SSBakery.UI.Modules.CatalogCategoryPage">
 
     <ListView x:Name="CatalogItems"
               RowHeight="100"
