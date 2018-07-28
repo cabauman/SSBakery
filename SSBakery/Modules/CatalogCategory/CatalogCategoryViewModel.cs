@@ -6,8 +6,6 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using Splat;
-using Square.Connect.Model;
-using SSBakery;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Common;
 using SSBakery.UI.Navigation.Interfaces;
@@ -16,32 +14,34 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogCategoryViewModel : PageViewModel, ICatalogCategoryViewModel
     {
-        private ICatalogItemCellViewModel _selectedItem;
         private ObservableAsPropertyHelper<IEnumerable<ICatalogItemCellViewModel>> _catalogItems;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
+        private ICatalogItemCellViewModel _selectedItem;
+        private ICatalogItemCellViewModel _itemAppearing;
+        private string _cursor = null;
 
-        public CatalogCategoryViewModel(IRepoContainer dataStore = null, IViewStackService viewStackService = null)
+        public CatalogCategoryViewModel(string categoryId, ICatalogObjectRepo catalogObjectRepo = null, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
-            RepoContainer = dataStore ?? Locator.Current.GetService<IRepoContainer>();
+            catalogObjectRepo = catalogObjectRepo ?? Locator.Current.GetService<ICatalogObjectRepo>();
 
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return RepoContainer.CatalogObjectRepo.GetAll(null, "CATEGORY")
-                        .Where(items => items != null)
-                        .Select(item => new CatalogItemCellViewModel(item) as ICatalogItemCellViewModel)
-                        .ToList()
-                        .Select(x => x.AsEnumerable());
+                    return catalogObjectRepo.GetAll(_cursor, "ITEM")
+                        .Do(x => _cursor = x.Cursor)
+                        .SelectMany(x => x.Objects)
+                        .Where(x => x.ItemData.CategoryId == categoryId)
+                        .Select(x => new CatalogItemCellViewModel(x) as ICatalogItemCellViewModel);
                 });
-
-            LoadCatalogItems
-                .ToProperty(this, x => x.CatalogItems, out _catalogItems);
 
             this.WhenActivated(
                 disposables =>
                 {
                     SelectedItem = null;
+
+                    LoadCatalogItems
+                        .Subscribe(x => CatalogItems.Add(x));
 
                     LoadCatalogItems
                         .ThrownExceptions
@@ -53,17 +53,30 @@ namespace SSBakery.UI.Modules
                         .DisposeWith(disposables);
 
                     this
-                        .WhenAnyValue(x => x.SelectedItem)
+                        .WhenAnyValue(vm => vm.SelectedItem)
                         .Where(x => x != null)
                         .SelectMany(x => LoadSelectedPage(x))
                         .Subscribe()
                         .DisposeWith(disposables);
+
+                    this
+                        .WhenAnyValue(vm => vm.ItemAppearing)
+                        .Where(item => item != null && item.Id == CatalogItems[CatalogItems.Count - 1].Id)
+                        .Select(_ => Unit.Default)
+                        .InvokeCommand(LoadCatalogItems)
+                        .DisposeWith(disposables);
+
+                    _isRefreshing = LoadCatalogItems
+                        .IsExecuting
+                        .ToProperty(this, vm => vm.IsRefreshing, true);
                 });
         }
 
-        public IEnumerable<ICatalogItemCellViewModel> CatalogItems => _catalogItems?.Value;
+        public IList<ICatalogItemCellViewModel> CatalogItems { get; }
 
-        public ReactiveCommand<Unit, IEnumerable<ICatalogItemCellViewModel>> LoadCatalogItems { get; }
+        public bool IsRefreshing => _isRefreshing.Value;
+
+        public ReactiveCommand<Unit, ICatalogItemCellViewModel> LoadCatalogItems { get; }
 
         public IRepoContainer RepoContainer { get; }
 
@@ -73,7 +86,11 @@ namespace SSBakery.UI.Modules
             set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
         }
 
-        public bool IsRefreshing => _isRefreshing.Value;
+        public ICatalogItemCellViewModel ItemAppearing
+        {
+            get { return _itemAppearing; }
+            set { this.RaiseAndSetIfChanged(ref _itemAppearing, value); }
+        }
 
         private IObservable<Unit> LoadSelectedPage(ICatalogItemCellViewModel viewModel)
         {

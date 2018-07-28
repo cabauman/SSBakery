@@ -18,8 +18,6 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
-            return;
-
             this.WhenActivated(
                 disposables =>
                 {
@@ -36,6 +34,12 @@ namespace SSBakery.UI.Modules
                         .Where(x => x != null)
                         .Select(x => Unit.Default)
                         .InvokeCommand(this, x => x.ViewModel.LoadCatalogCategories)
+                        .DisposeWith(disposables);
+                    CatalogCategoryListView
+                        .Events()
+                        .ItemAppearing
+                        .Select(e => e.Item as ICatalogCategoryCellViewModel)
+                        .BindTo(this, x => x.ViewModel.ItemAppearing)
                         .DisposeWith(disposables);
                 });
         }

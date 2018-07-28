@@ -5,9 +5,9 @@ namespace SSBakery.UI.Modules
 {
     public interface ICatalogCategoryCellViewModel
     {
-        string Name { get; }
+        string Id { get; }
 
-        string Description { get; }
+        string Name { get; }
 
         CatalogObject CatalogObject { get; }
     }

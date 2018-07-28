@@ -19,14 +19,14 @@ namespace SSBakery.UI.Modules
             get { return _model; }
         }
 
+        public string Id
+        {
+            get { return _model.Id; }
+        }
+
         public string Name
         {
             get { return _model.ItemData.Name; }
-        }
-
-        public string Description
-        {
-            get { return _model.ItemData.Description; }
         }
 
         public string ImageUrl

@@ -14,5 +14,7 @@ namespace SSBakery.UI.Modules
         IRepoContainer RepoContainer { get; }
 
         ICatalogItemCellViewModel SelectedItem { get; set; }
+
+        ICatalogItemCellViewModel ItemAppearing { get; set; }
     }
 }
