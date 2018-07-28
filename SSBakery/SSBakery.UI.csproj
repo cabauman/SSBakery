@@ -80,6 +80,12 @@
     <Compile Update="Modules\PhoneAuthPhoneNumberEntry\PhoneAuthPhoneNumberEntryPage.xaml.cs">
       <DependentUpon>PhoneAuthPhoneNumberEntryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Modules\AboutUs\AboutUsPage.xaml.cs">
+      <DependentUpon>AboutUsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Modules\RewardsProgramActivation\RewardsProgramActivationPage.xaml.cs">
       <DependentUpon>RewardsProgramActivationPage.xaml</DependentUpon>
     </Compile>

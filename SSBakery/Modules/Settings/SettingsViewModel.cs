@@ -3,9 +3,9 @@ using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
-    public class RewardsViewModel : PageViewModel, IRewardsViewModel
+    public class SettingsViewModel : PageViewModel, ISettingsViewModel
     {
-        public RewardsViewModel(IViewStackService viewStackService = null)
+        public SettingsViewModel(IViewStackService viewStackService = null)
             : base(viewStackService)
         {
         }
