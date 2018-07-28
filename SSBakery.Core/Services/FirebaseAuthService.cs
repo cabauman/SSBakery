@@ -29,7 +29,7 @@ namespace SSBakery.Services
             }
         }
 
-        public async Task<string> GetFreshFirebaseToken()
+        public async Task<string> GetIdTokenAsync()
         {
             return await CrossFirebaseAuth.Current.CurrentUser.GetIdTokenAsync(false);
         }
@@ -44,6 +44,13 @@ namespace SSBakery.Services
         public IObservable<Unit> SignInWithGoogle(string authToken)
         {
             return CrossFirebaseAuth.Current.SignInWithGoogleAsync(null, authToken)
+                .ToObservable()
+                .Select(_ => Unit.Default);
+        }
+
+        public IObservable<Unit> SignInAnonymously()
+        {
+            return CrossFirebaseAuth.Current.SignInAnonymouslyAsync()
                 .ToObservable()
                 .Select(_ => Unit.Default);
         }
@@ -70,13 +77,6 @@ namespace SSBakery.Services
                 .Delay(TimeSpan.FromSeconds(1));
 
             return CrossFirebaseAuth.Current.SignInWithPhoneNumberAsync(verificationId, verificationCode)
-                .ToObservable()
-                .Select(_ => Unit.Default);
-        }
-
-        public IObservable<Unit> SignInAnonymously()
-        {
-            return CrossFirebaseAuth.Current.SignInAnonymouslyAsync()
                 .ToObservable()
                 .Select(_ => Unit.Default);
         }

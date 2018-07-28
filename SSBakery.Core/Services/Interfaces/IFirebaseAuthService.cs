@@ -11,7 +11,7 @@ namespace SSBakery.Services.Interfaces
 
         bool IsPhoneNumberLinkedToAccount { get; }
 
-        Task<string> GetFreshFirebaseToken();
+        Task<string> GetIdTokenAsync();
 
         IObservable<Unit> SignInWithFacebook(string authToken);
 
