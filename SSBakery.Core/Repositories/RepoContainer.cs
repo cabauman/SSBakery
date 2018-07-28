@@ -14,7 +14,7 @@ namespace SSBakery.Repositories
             UserRepo = new FirebaseRepo<SSBakeryUser>();
         }
 
-        public IRepository<CatalogObject> CatalogObjectRepo { get; }
+        public ICatalogObjectRepo CatalogObjectRepo { get; }
 
         public IRepository<Customer> CustomerRepo { get; }
 

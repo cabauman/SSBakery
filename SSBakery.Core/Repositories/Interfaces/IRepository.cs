@@ -16,5 +16,7 @@ namespace SSBakery.Repositories.Interfaces
         IObservable<T> Get(string id);
 
         IObservable<IEnumerable<T>> GetAll(bool forceRefresh = false);
+
+        //IObservable<T> GetAll(bool forceRefresh = false);
     }
 }

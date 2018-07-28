@@ -9,7 +9,7 @@ using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
-    public class CatalogObjectRepo : IRepository<CatalogObject>
+    public class CatalogObjectRepo : ICatalogObjectRepo
     {
         public CatalogObjectRepo()
         {
@@ -30,12 +30,15 @@ namespace SSBakery.Repositories
             throw new NotImplementedException();
         }
 
-        public IObservable<IEnumerable<CatalogObject>> GetAll(bool forceRefresh = false)
+        public IObservable<IEnumerable<CatalogObject>> GetAll(string categoryId)
         {
             var catalogApi = new CatalogApi();
+            var objectTypes = new List<SearchCatalogObjectsRequest.ObjectTypesEnum> { SearchCatalogObjectsRequest.ObjectTypesEnum.ITEM };
+            var query = new CatalogQuery(ExactQuery: new CatalogQueryExact("CategoryId", categoryId));
+            var request = new SearchCatalogObjectsRequest(ObjectTypes: objectTypes, Query: query);
 
             var catalog = catalogApi
-                .ListCatalogAsync()
+                .SearchCatalogObjectsAsync(request)
                 .ToObservable()
                 .Select(x => x.Objects);
 
@@ -45,6 +48,17 @@ namespace SSBakery.Repositories
         public IObservable<Unit> Update(CatalogObject obj)
         {
             throw new NotImplementedException();
+        }
+
+        public IObservable<ListCatalogResponse> GetAll(string cursor = null, string types = null, bool forceRefresh = false)
+        {
+            var catalogApi = new CatalogApi();
+
+            var catalog = catalogApi
+                .ListCatalogAsync(cursor, types)
+                .ToObservable();
+
+            return catalog;
         }
     }
 }

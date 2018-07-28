@@ -10,28 +10,39 @@ using Firebase.Database.Offline;
 using Firebase.Database.Query;
 using ReactiveUI;
 using Splat;
+using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
     public class FirebaseRepo<T> : IRepository<T>, IEnableLogger
-        where T : class
+        where T : class, IModel
     {
-        protected RealtimeDatabase<T> RealtimeDb { get; set; }
+        private ChildQuery _childQuery { get; set; }
 
         public IObservable<Unit> Add(T item)
         {
-            throw new NotImplementedException();
+            return _childQuery
+                .PostAsync(item)
+                .ToObservable()
+                .Do(MapKeyToId)
+                .Select(_ => Unit.Default);
         }
 
         public IObservable<Unit> Delete(string id)
         {
-            throw new NotImplementedException();
+            return _childQuery
+                .Child(id)
+                .DeleteAsync()
+                .ToObservable();
         }
 
         public IObservable<T> Get(string id)
         {
-            throw new NotImplementedException();
+            return _childQuery
+                .OnceSingleAsync<T>()
+                .ToObservable()
+                .Do(item => item.Id = id);
         }
 
         public IObservable<IEnumerable<T>> GetAll(bool forceRefresh = false)
@@ -41,32 +52,17 @@ namespace SSBakery.Repositories
 
         public IObservable<Unit> Update(T item)
         {
-            throw new NotImplementedException();
+            return _childQuery
+                .Child(item.Id)
+                .PutAsync(item)
+                .ToObservable();
         }
 
-        protected IObservable<T> ReadAll(ChildQuery childQuery, string filenameModifier = "")
+        public IObservable<Unit> ReplaceAll(IDictionary<string, T> idToItemDict)
         {
-            RealtimeDb = childQuery
-                .AsRealtimeDatabase<T>(filenameModifier, string.Empty, StreamingOptions.LatestOnly, InitialPullStrategy.Everything, true);
-
-            RealtimeDb.SyncExceptionThrown +=
-                (s, ex) =>
-                {
-                    this.Log().Error(ex.Exception);
-                };
-
-            return RealtimeDb
-                .PullAsync()
-                .ToObservable()
-                .SelectMany(_ => ReadAll(RealtimeDb));
-        }
-
-        protected IObservable<T> Read(ChildQuery childQuery, string key)
-        {
-            return childQuery
-                .OnceSingleAsync<T>()
-                .ToObservable()
-                .Do(obj => MapKeyToId(obj, key));
+            return _childQuery
+                .PutAsync(idToItemDict)
+                .ToObservable();
         }
 
         protected IObservable<Unit> Add(ChildQuery childQuery, T obj)
@@ -75,7 +71,7 @@ namespace SSBakery.Repositories
                 .PostAsync(obj)
                 .ToObservable()
                 .Do(MapKeyToId)
-                .Select(x => Unit.Default);
+                .Select(_ => Unit.Default);
         }
 
         protected IObservable<Unit> Update(ChildQuery childQuery, T obj)
@@ -105,26 +101,9 @@ namespace SSBakery.Repositories
                 .Select(x => x.Object);
         }
 
-        protected IObservable<T> ReadAll(RealtimeDatabase<T> realtimeDb)
-        {
-            return realtimeDb
-                .Once()
-                .ToObservable()
-                .Do(MapKeyToId)
-                .Select(x => x.Object);
-        }
-
         private void MapKeyToId(FirebaseObject<T> firebaseObj)
         {
-            MapKeyToId(firebaseObj.Object, firebaseObj.Key);
-        }
-
-        private void MapKeyToId(T obj, string key)
-        {
-            // if(obj is BaseEntity model)
-            // {
-            //    model.Id = key;
-            // }
+            firebaseObj.Object.Id = firebaseObj.Key;
         }
     }
 }
