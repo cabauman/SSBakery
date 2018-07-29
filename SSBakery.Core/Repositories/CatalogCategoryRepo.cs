@@ -4,55 +4,38 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using Square.Connect.Api;
-using Square.Connect.Model;
+using Firebase.Database;
+using Firebase.Database.Offline;
+using Splat;
+using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
-    public class CatalogCategoryRepo
+    public class CatalogCategoryRepo : FirebaseOfflineRepo<CatalogCategory>
     {
-        public CatalogCategoryRepo()
+        private const string PathFmt = "catalogItems/{0}";
+
+        public CatalogCategoryRepo(FirebaseClient client, string pathFmt)
+            : base(client, "")
         {
         }
 
-        public IObservable<IEnumerable<SSBakery.Models.CatalogCategory>> GetAll(bool syncWithPos)
-        {
-            return Observable
-                .Return(syncWithPos ? PullFromPosAndStoreInFirebase() : PullFromFirebase())
-                .SelectMany(x => x);
-        }
+        //public string CatalogCategoryId
+        //{
+        //    get
+        //    {
+        //        return "";
+        //    }
 
-        private IObservable<IEnumerable<SSBakery.Models.CatalogCategory>> PullFromPosAndStoreInFirebase()
-        {
-            var firebaseRepo = new FirebaseOfflineRepo<SSBakery.Models.CatalogCategory>(null, null);
-            var catalogApi = new CatalogApi();
-
-            return catalogApi
-                .ListCatalogAsync(null, "CATEGORY")
-                .ToObservable()
-                .SelectMany(x => x.Objects)
-                .Select(MapDtoToModel)
-                .ToList()
-                .SelectMany(categories => firebaseRepo.Populate(categories).Select(_ => categories));
-        }
-
-        private IObservable<IEnumerable<SSBakery.Models.CatalogCategory>> PullFromFirebase()
-        {
-            var firebaseRepo = new FirebaseOfflineRepo<SSBakery.Models.CatalogCategory>(null, null);
-
-            return firebaseRepo
-                .GetAll()
-                .ToList();
-        }
-
-        private SSBakery.Models.CatalogCategory MapDtoToModel(CatalogObject dto)
-        {
-            return new SSBakery.Models.CatalogCategory()
-            {
-                Id = dto.Id,
-                Name = dto.CategoryData.Name
-            };
-        }
+        //    set
+        //    {
+        //        _realtimeDb?.Dispose();
+        //        string path = string.Format(PathFmt, value);
+        //        _baseQuery = _client.Child(path);
+        //        _realtimeDb = _baseQuery
+        //            .AsRealtimeDatabase<CatalogCategory>(value, string.Empty, StreamingOptions.Everything, InitialPullStrategy.MissingOnly, true);
+        //    }
+        //}
     }
 }

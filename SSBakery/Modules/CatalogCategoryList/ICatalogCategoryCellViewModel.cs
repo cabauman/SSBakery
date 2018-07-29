@@ -1,5 +1,5 @@
-﻿using ReactiveUI;
-using Square.Connect.Model;
+﻿
+using SSBakery.Models;
 
 namespace SSBakery.UI.Modules
 {
@@ -9,6 +9,6 @@ namespace SSBakery.UI.Modules
 
         string Name { get; }
 
-        CatalogObject CatalogObject { get; }
+        CatalogCategory CatalogCategory { get; }
     }
 }

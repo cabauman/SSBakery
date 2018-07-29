@@ -1,4 +1,4 @@
-﻿using Square.Connect.Model;
+﻿using SSBakery.Models;
 using SSBakery.UI.Common;
 using SSBakery.UI.Navigation.Interfaces;
 
@@ -6,15 +6,15 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogItemDetailsViewModel : PageViewModel, ICatalogItemDetailsViewModel
     {
-        private readonly CatalogObject _model;
+        private readonly CatalogItem _model;
 
-        public CatalogItemDetailsViewModel(CatalogObject model, IViewStackService viewStackService = null)
+        public CatalogItemDetailsViewModel(CatalogItem model, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
             _model = model;
         }
 
-        public CatalogObject CatalogObject
+        public CatalogItem CatalogItem
         {
             get { return _model; }
         }

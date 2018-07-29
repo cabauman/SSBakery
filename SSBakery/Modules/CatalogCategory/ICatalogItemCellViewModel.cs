@@ -1,5 +1,5 @@
 ﻿using ReactiveUI;
-using Square.Connect.Model;
+using SSBakery.Models;
 
 namespace SSBakery.UI.Modules
 {
@@ -13,6 +13,8 @@ namespace SSBakery.UI.Modules
 
         string Price { get; }
 
-        CatalogObject CatalogObject { get; }
+        string ImageUrl { get; }
+
+        CatalogItem CatalogItem { get; }
     }
 }

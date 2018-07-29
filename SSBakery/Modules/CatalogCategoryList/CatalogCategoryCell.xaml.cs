@@ -22,9 +22,6 @@ namespace SSBakery.UI.Modules
                 {
                     this.OneWayBind(ViewModel, vm => vm.Name, v => v.Name.Text)
                         .DisposeWith(disposables);
-
-                    this.OneWayBind(ViewModel, vm => vm.Description, v => v.Description.Text)
-                        .DisposeWith(disposables);
                 });
         }
 

@@ -8,6 +8,7 @@ using System.Threading;
 using ReactiveUI;
 using Splat;
 using SSBakery;
+using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
@@ -23,18 +24,17 @@ namespace SSBakery.UI.Modules
         private ICatalogCategoryCellViewModel _itemAppearing;
         private string _cursor = null;
 
-        public CatalogCategoryListViewModel(ICatalogObjectRepo catalogObjectRepo = null, IViewStackService viewStackService = null)
+        public CatalogCategoryListViewModel(IRepository<CatalogCategory> catalogCategoryRepo = null, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
-            catalogObjectRepo = catalogObjectRepo ?? Locator.Current.GetService<ICatalogObjectRepo>();
+            catalogCategoryRepo = catalogCategoryRepo ?? Locator.Current.GetService<IRepository<CatalogCategory>>();
 
             LoadCatalogCategories = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return catalogObjectRepo.GetAll(null, "CATEGORY")
-                        .Do(x => _cursor = x.Cursor)
-                        .SelectMany(x => x.Objects)
-                        .Select(item => new CatalogCategoryCellViewModel(item) as ICatalogCategoryCellViewModel)
+                    return catalogCategoryRepo.GetAll()
+                        .SelectMany(x => x)
+                        .Select(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
                         .ToList()
                         .Select(x => x.AsEnumerable());
                 });

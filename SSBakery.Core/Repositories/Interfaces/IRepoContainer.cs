@@ -5,8 +5,6 @@ namespace SSBakery.Repositories.Interfaces
 {
     public interface IRepoContainer
     {
-        ICatalogObjectRepo CatalogObjectRepo { get; }
-
         IRepository<Customer> CustomerRepo { get; }
 
         IRepository<RewardData> RewardDataRepo { get; }

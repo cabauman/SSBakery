@@ -1,4 +1,4 @@
-﻿using Square.Connect.Model;
+﻿using SSBakery.Models;
 using SSBakery.UI.Common;
 using SSBakery.UI.Navigation.Interfaces;
 
@@ -6,41 +6,51 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogItemCellViewModel : ViewModelBase, ICatalogItemCellViewModel
     {
-        private CatalogObject _model;
+        private CatalogItem _model;
 
-        public CatalogItemCellViewModel(CatalogObject model, IViewStackService viewStackService = null)
+        public CatalogItemCellViewModel(CatalogItem model, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
             _model = model;
         }
 
-        public CatalogObject CatalogObject
+        public CatalogItem CatalogItem
         {
             get { return _model; }
         }
 
+        public string Id
+        {
+            get { return _model.Id; }
+        }
+
         public string Name
         {
-            get { return _model.ItemData.Name; }
+            get { return _model.Name; }
         }
 
         public string Description
         {
-            get { return _model.ItemData.Description; }
+            get { return _model.Description; }
         }
 
         public string Price
         {
-            get
-            {
-                long? unformattedAmount = _model.ItemData?.Variations?[0]?.ItemVariationData?.PriceMoney?.Amount;
-                return unformattedAmount != null ? string.Format("{0:C}", unformattedAmount / 100) : null;
-            }
+            get { return _model.Price; }
         }
+
+        //public string Price1
+        //{
+        //    get
+        //    {
+        //        long? unformattedAmount = _model.ItemData?.Variations?[0]?.ItemVariationData?.PriceMoney?.Amount;
+        //        return unformattedAmount != null ? string.Format("{0:C}", unformattedAmount / 100) : null;
+        //    }
+        //}
 
         public string ImageUrl
         {
-            get { return _model.ItemData.ImageUrl; }
+            get { return _model.ImageUrl; }
         }
     }
 }

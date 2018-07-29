@@ -1,4 +1,4 @@
-﻿using Square.Connect.Model;
+﻿using SSBakery.Models;
 using SSBakery.UI.Common;
 using SSBakery.UI.Navigation.Interfaces;
 
@@ -6,15 +6,15 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogCategoryCellViewModel : ViewModelBase, ICatalogCategoryCellViewModel
     {
-        private CatalogObject _model;
+        private CatalogCategory _model;
 
-        public CatalogCategoryCellViewModel(CatalogObject model, IViewStackService viewStackService = null)
+        public CatalogCategoryCellViewModel(CatalogCategory model, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
             _model = model;
         }
 
-        public CatalogObject CatalogObject
+        public CatalogCategory CatalogCategory
         {
             get { return _model; }
         }
@@ -26,12 +26,12 @@ namespace SSBakery.UI.Modules
 
         public string Name
         {
-            get { return _model.ItemData.Name; }
+            get { return _model.Name; }
         }
 
         public string ImageUrl
         {
-            get { return _model.ItemData.ImageUrl; }
+            get { return _model.ImageUrl; }
         }
     }
 }

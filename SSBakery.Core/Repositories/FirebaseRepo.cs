@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using System.Threading;
-using System.Threading.Tasks;
 using Firebase.Database;
-using Firebase.Database.Offline;
 using Firebase.Database.Query;
-using ReactiveUI;
 using Splat;
 using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
@@ -18,7 +14,7 @@ namespace SSBakery.Repositories
     public class FirebaseRepo<T> : IRepository<T>, IEnableLogger
         where T : class, IModel
     {
-        private ChildQuery _childQuery { get; set; }
+        private ChildQuery _childQuery;
 
         public IObservable<Unit> Add(T item)
         {
@@ -47,7 +43,13 @@ namespace SSBakery.Repositories
 
         public IObservable<IEnumerable<T>> GetAll(bool forceRefresh = false)
         {
-            throw new NotImplementedException();
+            return _childQuery
+                .OnceAsync<T>()
+                .ToObservable()
+                .SelectMany(x => x)
+                .Do(MapKeyToId)
+                .Select(x => x.Object)
+                .ToList();
         }
 
         public IObservable<Unit> Update(T item)
@@ -58,47 +60,19 @@ namespace SSBakery.Repositories
                 .ToObservable();
         }
 
-        public IObservable<Unit> ReplaceAll(IDictionary<string, T> idToItemDict)
+        public IObservable<T> Observe()
+        {
+            return _childQuery
+                .AsObservable<T>()
+                .Do(MapKeyToId)
+                .Select(x => x.Object);
+        }
+
+        public IObservable<Unit> Populate(IDictionary<string, T> idToItemDict)
         {
             return _childQuery
                 .PutAsync(idToItemDict)
                 .ToObservable();
-        }
-
-        protected IObservable<Unit> Add(ChildQuery childQuery, T obj)
-        {
-            return childQuery
-                .PostAsync(obj)
-                .ToObservable()
-                .Do(MapKeyToId)
-                .Select(_ => Unit.Default);
-        }
-
-        protected IObservable<Unit> Update(ChildQuery childQuery, T obj)
-        {
-            return childQuery
-                .PutAsync(obj)
-                .ToObservable();
-        }
-
-        protected IObservable<Unit> Delete(ChildQuery childQuery)
-        {
-            return childQuery
-                .DeleteAsync()
-                .ToObservable();
-        }
-
-        protected IObservable<T> Observe(ChildQuery childQuery)
-        {
-            var realtimeDb = childQuery
-                .AsRealtimeDatabase<T>(string.Empty, string.Empty, StreamingOptions.LatestOnly, InitialPullStrategy.Everything, true);
-
-            realtimeDb.SyncExceptionThrown += (s, ex) => Console.WriteLine(ex.Exception);
-
-            return realtimeDb
-                .AsObservable()
-                .Do(MapKeyToId)
-                .Select(x => x.Object);
         }
 
         private void MapKeyToId(FirebaseObject<T> firebaseObj)

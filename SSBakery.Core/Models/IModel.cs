@@ -4,6 +4,6 @@ namespace SSBakery.Models
 {
     public interface IModel
     {
-        public string Id { get; set; }
+        string Id { get; set; }
     }
 }

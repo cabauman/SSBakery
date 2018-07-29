@@ -6,6 +6,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using Splat;
+using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Common;
 using SSBakery.UI.Navigation.Interfaces;
@@ -20,18 +21,17 @@ namespace SSBakery.UI.Modules
         private ICatalogItemCellViewModel _itemAppearing;
         private string _cursor = null;
 
-        public CatalogCategoryViewModel(string categoryId, ICatalogObjectRepo catalogObjectRepo = null, IViewStackService viewStackService = null)
+        public CatalogCategoryViewModel(string categoryId, ICatalogItemRepoFactory catalogItemRepoFactory = null, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
-            catalogObjectRepo = catalogObjectRepo ?? Locator.Current.GetService<ICatalogObjectRepo>();
+            catalogItemRepoFactory = catalogItemRepoFactory ?? Locator.Current.GetService<ICatalogItemRepoFactory>();
+            IRepository<CatalogItem> catalogItemRepo = catalogItemRepoFactory.Create(categoryId);
 
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return catalogObjectRepo.GetAll(_cursor, "ITEM")
-                        .Do(x => _cursor = x.Cursor)
-                        .SelectMany(x => x.Objects)
-                        .Where(x => x.ItemData.CategoryId == categoryId)
+                    return catalogItemRepo.GetAll()
+                        .SelectMany(x => x)
                         .Select(x => new CatalogItemCellViewModel(x) as ICatalogItemCellViewModel);
                 });
 
@@ -94,7 +94,7 @@ namespace SSBakery.UI.Modules
 
         private IObservable<Unit> LoadSelectedPage(ICatalogItemCellViewModel viewModel)
         {
-            return ViewStackService.PushPage(new CatalogItemDetailsViewModel(viewModel.CatalogObject));
+            return ViewStackService.PushPage(new CatalogItemDetailsViewModel(viewModel.CatalogItem));
         }
     }
 }
