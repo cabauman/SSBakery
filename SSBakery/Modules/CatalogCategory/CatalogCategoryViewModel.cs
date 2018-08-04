@@ -15,14 +15,18 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogCategoryViewModel : PageViewModel, ICatalogCategoryViewModel
     {
-        private ObservableAsPropertyHelper<IEnumerable<ICatalogItemCellViewModel>> _catalogItems;
+        private static readonly int BatchSize = 10;
+
         private ObservableAsPropertyHelper<bool> _isRefreshing;
         private ICatalogItemCellViewModel _selectedItem;
         private ICatalogItemCellViewModel _itemAppearing;
-        private string _cursor = null;
+        private int _cursor = 0;
 
-        public CatalogCategoryViewModel(string categoryId, ICatalogItemRepoFactory catalogItemRepoFactory = null, IViewStackService viewStackService = null)
-            : base(viewStackService)
+        public CatalogCategoryViewModel(
+            string categoryId,
+            ICatalogItemRepoFactory catalogItemRepoFactory = null,
+            IViewStackService viewStackService = null)
+                : base(viewStackService)
         {
             catalogItemRepoFactory = catalogItemRepoFactory ?? Locator.Current.GetService<ICatalogItemRepoFactory>();
             IRepository<CatalogItem> catalogItemRepo = catalogItemRepoFactory.Create(categoryId);
@@ -30,8 +34,9 @@ namespace SSBakery.UI.Modules
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return catalogItemRepo.GetAll()
-                        .SelectMany(x => x)
+                    return catalogItemRepo.GetItems(_cursor, BatchSize)
+                        .Do(x => _cursor = x.Cursor)
+                        .SelectMany(x => x.Items)
                         .Select(x => new CatalogItemCellViewModel(x) as ICatalogItemCellViewModel);
                 });
 

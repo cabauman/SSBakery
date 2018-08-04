@@ -21,8 +21,6 @@ namespace SSBakery.UI.Modules
         private ObservableAsPropertyHelper<IEnumerable<ICatalogCategoryCellViewModel>> _catalogCategories;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
         private ICatalogCategoryCellViewModel _selectedItem;
-        private ICatalogCategoryCellViewModel _itemAppearing;
-        private string _cursor = null;
 
         public CatalogCategoryListViewModel(IRepository<CatalogCategory> catalogCategoryRepo = null, IViewStackService viewStackService = null)
             : base(viewStackService)
@@ -32,12 +30,15 @@ namespace SSBakery.UI.Modules
             LoadCatalogCategories = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return catalogCategoryRepo.GetAll()
+                    return catalogCategoryRepo.GetItems()
                         .SelectMany(x => x)
                         .Select(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
                         .ToList()
                         .Select(x => x.AsEnumerable());
                 });
+
+            _catalogCategories = LoadCatalogCategories
+                .ToProperty(this, x => x.CatalogCategories);
 
             this
                 .WhenAnyValue(vm => vm.SelectedItem)
@@ -60,12 +61,6 @@ namespace SSBakery.UI.Modules
         {
             get { return _selectedItem; }
             set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
-        }
-
-        public ICatalogCategoryCellViewModel ItemAppearing
-        {
-            get { return _itemAppearing; }
-            set { this.RaiseAndSetIfChanged(ref _itemAppearing, value); }
         }
     }
 }

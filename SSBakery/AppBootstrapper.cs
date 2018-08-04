@@ -68,8 +68,6 @@ namespace SSBakery
             }
         }
 
-        public RoutingState Router { get; }
-
         public Page CreateMainPage()
         {
             return _mainView as NavigationPage;

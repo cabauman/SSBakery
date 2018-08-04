@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive;
-using System.Threading.Tasks;
 
 namespace SSBakery.Repositories.Interfaces
 {
@@ -13,9 +11,9 @@ namespace SSBakery.Repositories.Interfaces
 
         IObservable<Unit> Delete(string id);
 
-        IObservable<T> Get(string id);
+        IObservable<T> GetItem(string id);
 
-        IObservable<IEnumerable<T>> GetAll(bool forceRefresh = false);
+        IObservable<RepoItemCollection<T>> GetItems(int? cursor = null, int? count = null, bool fetchOnline = false);
 
         //IObservable<T> GetAll(bool forceRefresh = false);
     }

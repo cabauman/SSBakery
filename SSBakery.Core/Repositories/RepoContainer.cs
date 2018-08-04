@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Firebase.Database;
 using Firebase.Database.Offline;
 using SSBakery.Models;
@@ -8,18 +9,32 @@ using SSBakery.Services.Interfaces;
 
 namespace SSBakery.Repositories
 {
-    //using Cat = FirebaseOfflineRepo<CatalogCategory>;
-
     public class RepoContainer // : IRepoContainer
     {
-        private FirebaseClient _firebaseClient;
-        private Lazy<FirebaseOfflineRepo<CatalogCategory>> _catalogCategoryRepo;
+        private const string NODE_USER_READABLE = "userReadable";
+        private const string NODE_AUTH_READABLE = "authReadable";
+        private const string NODE_USER_OWNED = "userOwned";
+
+        private const string USERS = "users";
+        private const string NODE_CATALOG_CATAGORIES = "catalogCategories";
+        private const string NODE_CATALOG_ITEMS = "catalogItems";
+
+        private static readonly string PATH_CATALOG_CATEGORIES = Path.Combine(NODE_AUTH_READABLE, NODE_CATALOG_CATAGORIES);
+        private static readonly string PATH_CATALOG_ITEMS = Path.Combine(NODE_AUTH_READABLE, NODE_CATALOG_ITEMS);
+        private static readonly string PATHFMT_CATALOG_ITEMS_FOR_CATEGORY =
+            Path.Combine(PATH_CATALOG_ITEMS, "{0}");
+
+        private readonly FirebaseClient _firebaseClient;
 
         public RepoContainer()
         {
+            _firebaseClient = InitFirebaseClient();
         }
 
-        public IRepository<Models.CatalogCategory> CatalogCategoryRepo => _catalogCategoryRepo.Value;
+        public IRepository<CatalogCategory> CatalogCategoryRepo
+        {
+            get { return new FirebaseOfflineRepo<CatalogCategory>(_firebaseClient, PATH_CATALOG_CATEGORIES); }
+        }
 
         public IRepository<RewardData> RewardDataRepo
         {
@@ -28,18 +43,18 @@ namespace SSBakery.Repositories
 
         public IRepository<SSBakeryUser> UserRepo
         {
-            get { return new FirebaseOfflineRepo<SSBakeryUser>(_firebaseClient, "users"); }
+            get { return new FirebaseOfflineRepo<SSBakeryUser>(_firebaseClient, USERS); }
         }
 
-        public FirebaseOfflineRepo<Models.CatalogItem> GetCatalogItemRepo(string catalogCategoryId)
+        public FirebaseOfflineRepo<CatalogItem> GetCatalogItemRepo(string catalogCategoryId)
         {
-            string path = string.Format("catalogItems/{0}", catalogCategoryId);
-            var repo = new FirebaseOfflineRepo<Models.CatalogItem>(_firebaseClient, path, catalogCategoryId);
+            string path = string.Format(PATHFMT_CATALOG_ITEMS_FOR_CATEGORY, catalogCategoryId);
+            var repo = new FirebaseOfflineRepo<CatalogItem>(_firebaseClient, path, catalogCategoryId);
 
             return repo;
         }
 
-        private void InitFirebaseClient()
+        private FirebaseClient InitFirebaseClient()
         {
             const string BaseUrl = "https://<YOUR PROJECT ID>.firebaseio.com";
             IFirebaseAuthService authService = null;
@@ -54,7 +69,7 @@ namespace SSBakery.Repositories
                 }
             };
 
-            _firebaseClient = new FirebaseClient(BaseUrl, options);
+            return new FirebaseClient(BaseUrl, options);
         }
     }
 }

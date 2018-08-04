@@ -43,13 +43,13 @@ namespace SSBakery.Repositories
                 .Start(() => _realtimeDb.Delete(id));
         }
 
-        public IObservable<T> Get(string id)
+        public IObservable<T> GetItem(string id)
         {
             return Observable
                 .Start(() => _realtimeDb.Database[id].Deserialize<T>());
         }
 
-        public IObservable<IEnumerable<T>> GetAll(bool forceRefresh = false)
+        public IObservable<IEnumerable<T>> GetItems(int? cursor, int? count, bool forceRefresh = false)
         {
             return Observable
                 .Return(forceRefresh ? Pull() : Observable.Return(Unit.Default))

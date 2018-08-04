@@ -33,7 +33,7 @@ namespace SSBakery.Repositories
                 .ToObservable();
         }
 
-        public IObservable<T> Get(string id)
+        public IObservable<T> GetItem(string id)
         {
             return _childQuery
                 .OnceSingleAsync<T>()
@@ -41,7 +41,7 @@ namespace SSBakery.Repositories
                 .Do(item => item.Id = id);
         }
 
-        public IObservable<IEnumerable<T>> GetAll(bool forceRefresh = false)
+        public IObservable<IEnumerable<T>> GetItems(int? cursor, int? count, bool forceRefresh = false)
         {
             return _childQuery
                 .OnceAsync<T>()

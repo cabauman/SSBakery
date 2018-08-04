@@ -18,6 +18,12 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
+            this
+                .WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Select(x => Unit.Default)
+                .InvokeCommand(this, x => x.ViewModel.LoadCatalogCategories);
+
             this.WhenActivated(
                 disposables =>
                 {
@@ -29,24 +35,7 @@ namespace SSBakery.UI.Modules
                     this
                         .Bind(ViewModel, vm => vm.SelectedItem, v => v.CatalogCategoryListView.SelectedItem)
                         .DisposeWith(disposables);
-                    this
-                        .WhenAnyValue(x => x.ViewModel)
-                        .Where(x => x != null)
-                        .Select(x => Unit.Default)
-                        .InvokeCommand(this, x => x.ViewModel.LoadCatalogCategories)
-                        .DisposeWith(disposables);
-                    CatalogCategoryListView
-                        .Events()
-                        .ItemAppearing
-                        .Select(e => e.Item as ICatalogCategoryCellViewModel)
-                        .BindTo(this, x => x.ViewModel.ItemAppearing)
-                        .DisposeWith(disposables);
                 });
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
         }
     }
 }

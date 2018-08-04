@@ -20,22 +20,30 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
+            this
+                .WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Select(x => Unit.Default)
+                .InvokeCommand(this, x => x.ViewModel.LoadCatalogItems);
+
             this.WhenActivated(
                 disposables =>
                 {
                     ViewModel.SelectedItem = null;
 
                     this
-                        .OneWayBind(ViewModel, vm => vm.CatalogItems, v => v.CatalogItems.ItemsSource)
+                        .OneWayBind(ViewModel, vm => vm.CatalogItems, v => v.CatalogItemListView.ItemsSource)
                         .DisposeWith(disposables);
                     this
-                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.CatalogItems.SelectedItem)
+                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.CatalogItemListView.SelectedItem)
                         .DisposeWith(disposables);
-
-                    ViewModel
-                        .LoadCatalogItems
-                        .Execute()
-                        .Subscribe();
+                    this
+                        .CatalogItemListView
+                        .Events()
+                        .ItemAppearing
+                        .Select(e => e.Item as ICatalogItemCellViewModel)
+                        .BindTo(this, x => x.ViewModel.ItemAppearing)
+                        .DisposeWith(disposables);
                 });
         }
     }

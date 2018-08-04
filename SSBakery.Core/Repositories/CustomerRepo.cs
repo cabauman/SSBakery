@@ -25,7 +25,7 @@ namespace SSBakery.Repositories
             throw new NotImplementedException();
         }
 
-        public IObservable<Customer> Get(string id)
+        public IObservable<Customer> GetItem(string id)
         {
             var customersApi = new CustomersApi();
 
@@ -35,7 +35,7 @@ namespace SSBakery.Repositories
                 .Select(x => x.Customer);
         }
 
-        public IObservable<IEnumerable<Customer>> GetAll(bool forceRefresh = false)
+        public IObservable<IEnumerable<Customer>> GetItems(int? cursor, int? count, bool forceRefresh = false)
         {
             var customersApi = new CustomersApi();
 

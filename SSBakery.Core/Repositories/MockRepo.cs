@@ -57,14 +57,14 @@ namespace SSBakery.Repositories
             return Observable.Return(Unit.Default);
         }
 
-        public IObservable<Item> Get(string id)
+        public IObservable<Item> GetItem(string id)
         {
             return _items
                 .ToObservable()
                 .FirstAsync(s => s.Id == id);
         }
 
-        public IObservable<IEnumerable<Item>> GetAll(bool forceRefresh = false)
+        public IObservable<IEnumerable<Item>> GetItems(int? cursor, int? count, bool forceRefresh = false)
         {
             return Observable
                 .Return(_items);
