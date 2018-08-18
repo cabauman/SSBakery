@@ -9,11 +9,5 @@ namespace SSBakery.Models
 
         [JsonProperty("customerId")]
         public string CustomerId { get; set; }
-
-        [JsonProperty("totalVisits")]
-        public int TotalVisits { get; set; }
-
-        [JsonProperty("unclaimedRewardCount")]
-        public int UnclaimedRewardCount { get; set; }
     }
 }
