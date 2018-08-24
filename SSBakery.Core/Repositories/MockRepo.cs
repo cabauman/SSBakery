@@ -10,7 +10,7 @@ using SSBakery.Repositories.Interfaces;
 // [assembly: Xamarin.Forms.Dependency(typeof(SSBakery.Services.MockDataStore))]
 namespace SSBakery.Repositories
 {
-    public class MockRepo : IRepository<Item>
+    public class MockRepo //: IRepository<Item>
     {
         private List<Item> _items;
 

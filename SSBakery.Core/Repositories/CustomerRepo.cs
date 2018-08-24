@@ -9,7 +9,7 @@ using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
-    public class CustomerRepo : IRepository<Customer>
+    public class CustomerRepo //: IRepository<Customer>
     {
         public CustomerRepo()
         {

@@ -31,7 +31,7 @@ namespace SSBakery.UI.Modules
                 () =>
                 {
                     return catalogCategoryRepo.GetItems()
-                        .SelectMany(x => x)
+                        .SelectMany(x => x.Items)
                         .Select(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
                         .ToList()
                         .Select(x => x.AsEnumerable());

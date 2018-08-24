@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
@@ -23,6 +24,13 @@ namespace SSBakery.Repositories
                 .ToObservable()
                 .Do(MapKeyToId)
                 .Select(_ => Unit.Default);
+        }
+
+        public IObservable<Unit> Add(IEnumerable<T> items)
+        {
+            return _childQuery
+                .PatchAsync(items.ToDictionary(_ => FirebaseKeyGenerator.Next()))
+                .ToObservable();
         }
 
         public IObservable<Unit> Delete(string id)
@@ -78,6 +86,11 @@ namespace SSBakery.Repositories
         private void MapKeyToId(FirebaseObject<T> firebaseObj)
         {
             firebaseObj.Object.Id = firebaseObj.Key;
+        }
+
+        IObservable<RepoItemCollection<T>> IRepository<T>.GetItems(int? cursor, int? count, bool fetchOnline)
+        {
+            throw new NotImplementedException();
         }
     }
 }

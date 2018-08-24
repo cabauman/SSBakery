@@ -7,7 +7,7 @@ namespace SSBakery.Repositories.Interfaces
     {
         IRepository<Customer> CustomerRepo { get; }
 
-        IRepository<RewardData> RewardDataRepo { get; }
+        IRepository<CustomerRewardData> RewardDataRepo { get; }
 
         IRepository<SSBakeryUser> UserRepo { get; }
     }

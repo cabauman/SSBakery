@@ -37,6 +37,15 @@ namespace SSBakery.Repositories
                 .Select(_ => Unit.Default);
         }
 
+        public IObservable<Unit> Add(IEnumerable<T> items)
+        {
+            // Doesn't work offline. Need offline solution.
+            return _baseQuery
+                .PatchAsync(items.ToDictionary(_ => FirebaseKeyGenerator.Next()))
+                .ToObservable()
+                .Concat(_realtimeDb.PullAsync().ToObservable());
+        }
+
         public IObservable<Unit> Delete(string id)
         {
             return Observable
@@ -80,6 +89,7 @@ namespace SSBakery.Repositories
         {
             _realtimeDb.Database.Clear();
 
+            // Doesn't work offline. Need offline solution.
             return _baseQuery
                 .PutAsync(items.ToDictionary(x => x.Id))
                 .ToObservable()
@@ -96,6 +106,11 @@ namespace SSBakery.Repositories
         private void MapKeyToId(FirebaseObject<T> firebaseObj)
         {
             firebaseObj.Object.Id = firebaseObj.Key;
+        }
+
+        IObservable<RepoItemCollection<T>> IRepository<T>.GetItems(int? cursor, int? count, bool fetchOnline)
+        {
+            throw new NotImplementedException();
         }
     }
 }

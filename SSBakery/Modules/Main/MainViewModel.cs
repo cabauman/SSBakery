@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System.Reactive.Disposables;
+using ReactiveUI;
 using Splat;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
@@ -47,6 +48,12 @@ namespace SSBakery.UI.Modules
                         return ViewStackService.PushPage(new RewardsProgramActivationViewModel());
                     });
             }
+
+            this.WhenActivated(
+                d =>
+                {
+                    Disposable.Empty.DisposeWith(d);
+                });
         }
 
         public ReactiveCommand NavigateToCatalogPage { get; }
