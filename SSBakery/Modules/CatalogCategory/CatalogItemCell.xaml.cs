@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Disposables;
-using System.Threading.Tasks;
+using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.XamForms;
 using Xamarin.Forms;
@@ -17,18 +14,9 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    this.OneWayBind(ViewModel, vm => vm.Name, v => v.Name.Text)
-                        .DisposeWith(disposables);
-
-                    this.OneWayBind(ViewModel, vm => vm.Description, v => v.Description.Text)
-                        .DisposeWith(disposables);
-
-                    this.OneWayBind(ViewModel, vm => vm.Price, v => v.Price.Text)
-                        .DisposeWith(disposables);
-                });
+            this.WhenAnyValue(x => x.ViewModel)
+                .Do(PopulateFromViewModel)
+                .Subscribe();
         }
 
         /// <summary>
@@ -36,19 +24,27 @@ namespace SSBakery.UI.Modules
         /// https://github.com/luberda-molinet/FFImageLoading/wiki/Xamarin.Forms-Advanced
         /// https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/performance/#RecycleElement
         /// </summary>
-        protected override void OnBindingContextChanged()
+        //protected override void OnBindingContextChanged()
+        //{
+        //    base.OnBindingContextChanged();
+
+        //    Image.Source = null;
+
+        //    var item = BindingContext as CatalogItemCellViewModel;
+        //    if(item == null)
+        //    {
+        //        return;
+        //    }
+
+        //    Image.Source = ImageSource.FromFile("Icon.png"); // item.ImageUrl;
+        //}
+
+        private void PopulateFromViewModel(ICatalogItemCellViewModel catalogItem)
         {
-            base.OnBindingContextChanged();
-
-            Image.Source = null;
-
-            var item = BindingContext as CatalogItemCellViewModel;
-            if(item == null)
-            {
-                return;
-            }
-
-            Image.Source = ImageSource.FromFile("Icon.png"); // item.ImageUrl;
+            NameLabel.Text = catalogItem.Name;
+            DescriptionLabel.Text = catalogItem.Description;
+            PriceLabel.Text = catalogItem.Price;
+            Image.Source = ImageSource.FromFile("Icon.png"); // catalogItem.ImageUrl;
         }
     }
 }

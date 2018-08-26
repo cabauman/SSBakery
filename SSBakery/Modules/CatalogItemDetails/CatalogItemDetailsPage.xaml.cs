@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reactive.Linq;
+using ReactiveUI;
 using SSBakery.UI.Common;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,6 +13,18 @@ namespace SSBakery.UI.Modules
         public CatalogItemDetailsPage()
         {
             InitializeComponent();
+
+            this.WhenAnyValue(x => x.ViewModel)
+                .Do(PopulateFromViewModel)
+                .Subscribe();
+        }
+
+        private void PopulateFromViewModel(ICatalogItemDetailsViewModel catalogItem)
+        {
+            NameLabel.Text = catalogItem.Name;
+            DescriptionLabel.Text = catalogItem.Description;
+            PriceLabel.Text = catalogItem.Price;
+            Image.Source = ImageSource.FromFile("Icon.png"); // catalogItem.ImageUrl;
         }
     }
 }

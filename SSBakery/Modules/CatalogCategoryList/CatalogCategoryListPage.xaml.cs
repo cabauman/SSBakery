@@ -1,11 +1,8 @@
-﻿using System;
-using System.Reactive;
+﻿using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using FFImageLoading;
 using ReactiveUI;
 using SSBakery.UI.Common;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SSBakery.UI.Modules

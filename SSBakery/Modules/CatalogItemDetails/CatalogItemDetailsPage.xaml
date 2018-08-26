@@ -1,15 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:ui="clr-namespace:SSBakery.UI.Common"
-            xmlns:modules="clr-namespace:SSBakery.UI.Modules"
-            x:TypeArguments="modules:ICatalogItemDetailsViewModel"
-            x:Class="SSBakery.UI.Modules.CatalogItemDetailsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                    xmlns:ui="clr-namespace:SSBakery.UI.Common"
+                    xmlns:modules="clr-namespace:SSBakery.UI.Modules"
+                    x:TypeArguments="modules:ICatalogItemDetailsViewModel"
+                    x:Class="SSBakery.UI.Modules.CatalogItemDetailsPage">
+    <Grid HeightRequest="100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ffimageloading:CachedImage x:Name="Image"
+                                    Margin="0,0,0,10"
+                                    VerticalOptions="FillAndExpand"
+                                    Aspect="AspectFill"
+                                    CacheDuration="30"
+                                    DownsampleToViewSize="true" />
+
+        <StackLayout Orientation="Horizontal" Grid.Row="1">
+            <Label FontSize="12" FontAttributes="Bold" Text="Name:"  />
+            <Label x:Name="NameLabel" FontSize="16" />
         </StackLayout>
-    </ContentPage.Content>
+        <StackLayout Orientation="Horizontal" Grid.Row="2">
+            <Label FontSize="12" FontAttributes="Bold" Text="Description:"  />
+            <Label x:Name="DescriptionLabel" FontSize="12"  />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="3">
+            <Label FontSize="12" FontAttributes="Bold" Text="Price:"  />
+            <Label x:Name="PriceLabel" FontSize="12" />
+        </StackLayout>
+    </Grid>
 </ui:ContentPageBase>

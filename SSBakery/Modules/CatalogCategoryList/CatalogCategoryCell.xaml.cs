@@ -1,4 +1,6 @@
-﻿using System.Reactive.Disposables;
+﻿using System;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.XamForms;
 using Xamarin.Forms;
@@ -13,12 +15,9 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    this.OneWayBind(ViewModel, vm => vm.Name, v => v.Name.Text)
-                        .DisposeWith(disposables);
-                });
+            this.WhenAnyValue(x => x.ViewModel)
+                .Do(PopulateFromViewModel)
+                .Subscribe();
         }
 
         /// <summary>
@@ -26,19 +25,26 @@ namespace SSBakery.UI.Modules
         /// https://github.com/luberda-molinet/FFImageLoading/wiki/Xamarin.Forms-Advanced
         /// https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/performance/#RecycleElement
         /// </summary>
-        protected override void OnBindingContextChanged()
+        //protected override void OnBindingContextChanged()
+        //{
+        //    base.OnBindingContextChanged();
+
+        //    Image.Source = null;
+
+        //    var item = BindingContext as CatalogItemCellViewModel;
+        //    if(item == null)
+        //    {
+        //        return;
+        //    }
+
+        //    Image.Source = ImageSource.FromFile("Icon.png"); // item.ImageUrl;
+        //}
+
+        private void PopulateFromViewModel(ICatalogCategoryCellViewModel catalogCategory)
         {
-            base.OnBindingContextChanged();
-
-            Image.Source = null;
-
-            var item = BindingContext as CatalogItemCellViewModel;
-            if(item == null)
-            {
-                return;
-            }
-
-            Image.Source = ImageSource.FromFile("Icon.png"); // item.ImageUrl;
+            NameLabel.Text = catalogCategory.Name;
+            DescriptionLabel.Text = catalogCategory.Description;
+            Image.Source = ImageSource.FromFile("Icon.png"); // catalogCategory.ImageUrl;
         }
     }
 }
