@@ -16,6 +16,7 @@ namespace SSBakery.UI.Modules
             InitializeComponent();
 
             this.WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
                 .Do(PopulateFromViewModel)
                 .Subscribe();
         }
@@ -43,7 +44,6 @@ namespace SSBakery.UI.Modules
         private void PopulateFromViewModel(ICatalogCategoryCellViewModel catalogCategory)
         {
             NameLabel.Text = catalogCategory.Name;
-            DescriptionLabel.Text = catalogCategory.Description;
             Image.Source = ImageSource.FromFile("Icon.png"); // catalogCategory.ImageUrl;
         }
     }
