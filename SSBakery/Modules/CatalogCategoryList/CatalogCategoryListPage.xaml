@@ -14,7 +14,7 @@
               CachingStrategy="RetainElement">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <modules:AlbumCell />
+                    <modules:CatalogCategoryCell />
                     <!--<ImageCell ImageSource="{Binding ImageUrl}" Text="{Binding Name}" />-->
                 </DataTemplate>
             </ListView.ItemTemplate>

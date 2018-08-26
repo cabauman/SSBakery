@@ -14,7 +14,7 @@ namespace SSBakery.UI.Modules
             _model = model;
         }
 
-        public CatalogCategory CatalogCategory
+        public CatalogCategory Model
         {
             get { return _model; }
         }

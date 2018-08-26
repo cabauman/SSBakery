@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Disposables;
-using System.Threading.Tasks;
+﻿using System.Reactive.Disposables;
 using ReactiveUI;
 using ReactiveUI.XamForms;
 using Xamarin.Forms;

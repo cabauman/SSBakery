@@ -24,7 +24,7 @@ namespace SSBakery.Repositories
 
         private static readonly string PATHFMT_USER = Path.Combine(NODE_USERS, "{0}");
         private static readonly string PATH_CATALOG_CATEGORIES = Path.Combine(NODE_AUTH_READABLE, NODE_CATALOG_CATAGORIES);
-        private static readonly string PATHFMT_CATALOG_ITEMS_FOR_CATEGORY = Path.Combine(PATH_CATALOG_CATEGORIES, "{0}");
+        private static readonly string PATH_CATALOG_ITEMS = Path.Combine(NODE_AUTH_READABLE, NODE_CATALOG_ITEMS);
         private static readonly string PATH_REWARD_DATA = Path.Combine(NODE_USER_READABLE, NODE_REWARD_DATA);
         private static readonly string PATHFMT_REWARD_DATA_FOR_CUSTOMER = Path.Combine(PATH_REWARD_DATA, "{0}");
 
@@ -35,7 +35,7 @@ namespace SSBakery.Repositories
             _firebaseClient = CreateFirebaseClient(firebaseAuthService);
 
             dependencyResolver.Register(() => CatalogCategoryRepo, typeof(ICatalogCategoryRepo));
-            dependencyResolver.Register(() => CatalogItemRepoFactory, typeof(CatalogItemRepoFactory));
+            dependencyResolver.Register(() => CatalogItemRepoFactory, typeof(ICatalogItemRepoFactory));
             dependencyResolver.Register(() => UserRepo, typeof(IRepository<SSBakeryUser>));
             dependencyResolver.Register(() => CustomerRewardDataRepo, typeof(IRepository<CustomerRewardData>));
         }
@@ -45,9 +45,9 @@ namespace SSBakery.Repositories
             get { return new CatalogCategoryRepo(_firebaseClient, PATH_CATALOG_CATEGORIES); }
         }
 
-        public CatalogItemRepoFactory CatalogItemRepoFactory
+        public ICatalogItemRepoFactory CatalogItemRepoFactory
         {
-            get { return new CatalogItemRepoFactory(_firebaseClient, PATHFMT_CATALOG_ITEMS_FOR_CATEGORY); }
+            get { return new CatalogItemRepoFactory(_firebaseClient, PATH_CATALOG_ITEMS); }
         }
 
         public IRepository<CustomerRewardData> CustomerRewardDataRepo
@@ -62,12 +62,12 @@ namespace SSBakery.Repositories
 
         private FirebaseClient CreateFirebaseClient(IFirebaseAuthService firebaseAuthService)
         {
-            const string BaseUrl = "https://<YOUR PROJECT ID>.firebaseio.com";
+            const string BaseUrl = "https://ss-bakery.firebaseio.com/";
 
             FirebaseOptions options = new FirebaseOptions()
             {
                 OfflineDatabaseFactory = (t, s) => new OfflineDatabase(t, s),
-                AuthTokenAsyncFactory = async () => await firebaseAuthService.GetIdTokenAsync(),
+                //AuthTokenAsyncFactory = async () => await firebaseAuthService.GetIdTokenAsync(),
                 JsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
                 {
                     DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore

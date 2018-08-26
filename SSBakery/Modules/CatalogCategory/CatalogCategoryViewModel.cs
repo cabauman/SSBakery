@@ -29,6 +29,7 @@ namespace SSBakery.UI.Modules
         {
             catalogItemRepoFactory = catalogItemRepoFactory ?? Locator.Current.GetService<ICatalogItemRepoFactory>();
             ICatalogItemRepo catalogItemRepo = catalogItemRepoFactory.Create(categoryId);
+            CatalogItems = new List<ICatalogItemCellViewModel>();
 
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
@@ -78,8 +79,6 @@ namespace SSBakery.UI.Modules
         //public bool IsRefreshing => _isRefreshing.Value;
 
         public ReactiveCommand<Unit, ICatalogItemCellViewModel> LoadCatalogItems { get; }
-
-        public IRepoContainer RepoContainer { get; }
 
         public ICatalogItemCellViewModel SelectedItem
         {

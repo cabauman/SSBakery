@@ -8,9 +8,9 @@
                     x:Class="SSBakery.UI.Modules.CatalogCategoryPage">
 
     <ListView x:Name="CatalogItemListView"
-              RowHeight="100"
-              SeparatorVisibility="None"
-              CachingStrategy="RecycleElement">
+        RowHeight="100"
+        SeparatorVisibility="None"
+        CachingStrategy="RecycleElement">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <modules:CatalogItemCell />

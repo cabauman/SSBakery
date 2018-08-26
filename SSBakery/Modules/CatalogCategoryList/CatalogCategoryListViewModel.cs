@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Threading;
-using GameCtor.Repository;
 using ReactiveUI;
 using RxNavigation;
 using Splat;
-using SSBakery;
-using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
-using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
@@ -44,7 +38,7 @@ namespace SSBakery.UI.Modules
             this
                 .WhenAnyValue(vm => vm.SelectedItem)
                 .Where(x => x != null)
-                .SelectMany(x => viewStackService.PushPage(new CatalogCategoryViewModel(x.Id)))
+                .SelectMany(x => ViewStackService.PushPage(new CatalogCategoryViewModel(x.Id)))
                 .Subscribe();
 
             _isRefreshing = LoadCatalogCategories

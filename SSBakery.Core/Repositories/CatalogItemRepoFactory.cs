@@ -4,7 +4,7 @@ using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
-    public class CatalogItemRepoFactory
+    public class CatalogItemRepoFactory : ICatalogItemRepoFactory
     {
         private readonly FirebaseClient _client;
         private readonly string _basePath;

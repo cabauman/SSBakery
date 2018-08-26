@@ -11,8 +11,6 @@ namespace SSBakery.UI.Modules
 
         ReactiveCommand<Unit, ICatalogItemCellViewModel> LoadCatalogItems { get; }
 
-        IRepoContainer RepoContainer { get; }
-
         ICatalogItemCellViewModel SelectedItem { get; set; }
 
         //ICatalogItemCellViewModel ItemAppearing { get; set; }

@@ -9,6 +9,6 @@ namespace SSBakery.UI.Modules
 
         string Name { get; }
 
-        CatalogCategory CatalogCategory { get; }
+        CatalogCategory Model { get; }
     }
 }
