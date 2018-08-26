@@ -1,4 +1,5 @@
 ﻿using System;
+using GameCtor.Repository;
 using Newtonsoft.Json;
 
 namespace SSBakery.Models
@@ -10,6 +11,9 @@ namespace SSBakery.Models
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("categoryId")]
+        public string CategoryId { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }

@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Reactive.Disposables;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using Square.Connect.Model;
 using SSBakery;
 using SSBakery.Models;
 using SSBakery.Services;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {

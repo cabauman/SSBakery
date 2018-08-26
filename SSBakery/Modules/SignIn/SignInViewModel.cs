@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using GameCtor.FirebaseAuth;
+using GameCtor.XamarinAuth;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery.Config;
 using SSBakery.Core.Common;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 using Xamarin.Auth;
 
 namespace SSBakery.UI.Modules

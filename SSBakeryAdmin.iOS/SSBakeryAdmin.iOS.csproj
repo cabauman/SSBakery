@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectGuid>{EC640C28-EE60-4FAD-A100-2306A0126D5F}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SSBakeryAdmin.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>SSBakeryAdmin.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Distribution: Colt Bauman (64KU3RCFA9)</CodesignKey>
+    <CodesignProvision>Common AdHoc</CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignProvision>
+    </CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchArch>ARM64</MtouchArch>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>
+    </CodesignProvision>
+    <BuildIpa>true</BuildIpa>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\BaseTableViewController.cs" />
+    <Compile Include="Controllers\MainTableViewController.cs" />
+    <Compile Include="Controllers\SearchResultsTableController.cs" />
+    <Compile Include="Controllers\StampCardViewController.cs" />
+    <Compile Include="Helpers\CGPointExtensions.cs" />
+    <Compile Include="Helpers\UIViewExtensions.cs" />
+    <Compile Include="Helpers\ViewUtil.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Modules\CatalogCategoryList\CatalogCategoryCellViewModel.cs" />
+    <Compile Include="Modules\CatalogCategoryList\ICatalogCategoryCellViewModel.cs" />
+    <Compile Include="Modules\CatalogCategoryList\CatalogCategoryListController.cs" />
+    <Compile Include="Modules\CatalogCategory\CatalogCategoryController.cs" />
+    <Compile Include="Modules\CatalogCategory\CatalogItemCell.cs" />
+    <Compile Include="Modules\CatalogCategory\CatalogItemCellViewModel.cs" />
+    <Compile Include="Modules\CatalogCategory\CatalogCategoryViewModel.cs" />
+    <Compile Include="Modules\CatalogCategory\ICatalogItemCellViewModel.cs" />
+    <Compile Include="Modules\CatalogCategory\ICatalogCategoryViewModel.cs" />
+    <Compile Include="Modules\CatalogCategoryList\CatalogCategoryListViewModel.cs" />
+    <Compile Include="Modules\CatalogCategoryList\ICatalogCategoryListViewModel.cs" />
+    <Compile Include="Modules\CatalogItemDetails\CatalogItemDetailsController.cs" />
+    <Compile Include="Modules\CatalogItemDetails\CatalogItemDetailsViewModel.cs" />
+    <Compile Include="Modules\CatalogItemDetails\ICatalogItemDetailsViewModel.cs" />
+    <Compile Include="Modules\CustomerDirectory\CustomerDirectoryViewModel.cs" />
+    <Compile Include="Modules\CustomerDirectory\ICustomerDirectoryViewModel.cs" />
+    <Compile Include="Modules\CustomerDirectory\ICustomerCellViewModel.cs" />
+    <Compile Include="Modules\Customer\CustomerViewModel.cs" />
+    <Compile Include="Modules\Customer\ICustomerViewModel.cs" />
+    <Compile Include="Modules\SignIn\SignInController.cs" />
+    <Compile Include="Modules\SignIn\SignInViewModel.cs" />
+    <Compile Include="Modules\SignIn\ISignInViewModel.cs" />
+    <Compile Include="Modules\Home\HomeController.cs" />
+    <Compile Include="Modules\Home\HomeViewModel.cs" />
+    <Compile Include="Modules\Home\IHomeViewModel.cs" />
+    <Compile Include="Modules\StampCard\StampCardViewModel.cs" />
+    <Compile Include="Modules\StampCard\IStampCardViewModel.cs" />
+    <Compile Include="Services\MediaService.cs" />
+    <Compile Include="Views\LoadingOverlay.cs" />
+    <Compile Include="Views\StampSlotCell.cs" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <InterfaceDefinition Include="Resources\LaunchScreen.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GameCtor.FirebaseAuth">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.FirebaseAuth.Mobile">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.Mobile\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.FirebaseStorage.DotNet">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseStorage.DotNet\bin\Release\netstandard2.0\GameCtor.FirebaseStorage.DotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.Repository">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\Repository\bin\Release\netstandard2.0\GameCtor.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.XamarinAuth">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entitlements.plist" />
+    <BundleResource Include="Resources\SSBakeryIcon512x512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\SSBakeryIcon120x120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\SSBakeryIcon152x152.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\SSBakeryIcon167x167.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\SSBakeryIcon180x180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\SSBakeryIcon76x76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\Stamp.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\Stamp.imageset\SSBakeryStamp1x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\Stamp.imageset\SSBakeryStamp2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\Stamp.imageset\SSBakeryStamp3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SSBakery.Core\SSBakery.Core.csproj">
+      <Project>{44ce511a-0366-4a24-a0a5-a284328f8851}</Project>
+      <Name>SSBakery.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSBakeryAdmin\SSBakeryAdmin.csproj">
+      <Project>{9d4c0722-29e2-446c-a5a6-8eeebec7a410}</Project>
+      <Name>SSBakeryAdmin</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ReactiveUI">
+      <Version>8.7.2</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI.Events">
+      <Version>8.7.2</Version>
+    </PackageReference>
+    <PackageReference Include="RxNavigation">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Splat">
+      <Version>5.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.0.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.Compatibility">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>4.0.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Auth">
+      <Version>1.6.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>0.9.1-preview</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Auth">
+      <Version>5.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

@@ -5,11 +5,11 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {

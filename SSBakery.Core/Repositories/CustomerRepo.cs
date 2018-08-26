@@ -3,51 +3,45 @@ using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using Firebase.Database;
+using GameCtor.FirebaseDatabase.DotNet;
 using Square.Connect.Api;
 using Square.Connect.Model;
 using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
-    public class CustomerRepo //: IRepository<Customer>
+    public class CustomerRepo : FirebaseOfflineRepo<SSBakery.Models.SSBakeryUser>, ICustomerRepo
     {
-        public CustomerRepo()
+        public CustomerRepo(FirebaseClient client, string path, string key = null)
+            : base(client, path, key)
         {
         }
 
-        public IObservable<Unit> Add(Customer obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IObservable<Unit> Delete(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IObservable<Customer> GetItem(string id)
+        public IObservable<Unit> PullFromPosSystemAndStoreInFirebase(string beginTime = null, int? limit = null)
         {
             var customersApi = new CustomersApi();
+            var filter = new CustomerFilter(UpdatedAt: new TimeRange(beginTime));
+            var query = new CustomerQuery(filter);
+            var request = new SearchCustomersRequest(Query: query);
 
             return customersApi
-                .RetrieveCustomerAsync(id)
+                .SearchCustomersAsync(request)
                 .ToObservable()
-                .Select(x => x.Customer);
+                .SelectMany(x => x.Customers)
+                .Select(MapDtoToModel)
+                .ToList()
+                .SelectMany(items => Upsert(items));
         }
 
-        public IObservable<IEnumerable<Customer>> GetItems(int? cursor, int? count, bool forceRefresh = false)
+        private SSBakery.Models.SSBakeryUser MapDtoToModel(Customer dto)
         {
-            var customersApi = new CustomersApi();
-
-            return customersApi
-                .ListCustomersAsync()
-                .ToObservable()
-                .Select(x => x.Customers);
-        }
-
-        public IObservable<Unit> Update(Customer obj)
-        {
-            throw new NotImplementedException();
+            return new SSBakery.Models.SSBakeryUser()
+            {
+                Id = dto.Id,
+                Name = dto.GivenName + " " + dto.FamilyName,
+                PhoneNumber = dto.PhoneNumber
+            };
         }
     }
 }

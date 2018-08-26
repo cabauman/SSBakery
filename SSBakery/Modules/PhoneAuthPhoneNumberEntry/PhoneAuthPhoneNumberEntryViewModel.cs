@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using GameCtor.Firebase.AuthWrapper;
+using GameCtor.FirebaseAuth;
+using GameCtor.FirebaseAuth.Mobile;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery.Core.Common;
-using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
@@ -86,7 +86,7 @@ namespace SSBakery.UI.Modules
             set { this.RaiseAndSetIfChanged(ref _phoneNumber, value); }
         }
 
-        private IObservable<Unit> HandleResult(AuthAction authAction, IPhoneNumberVerificationResult result, IObservable<Unit> completionObservable)
+        private IObservable<Unit> HandleResult(AuthAction authAction, PhoneNumberVerificationResult result, IObservable<Unit> completionObservable)
         {
             if(result.Authenticated)
             {

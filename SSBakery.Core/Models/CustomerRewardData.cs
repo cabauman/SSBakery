@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GameCtor.Repository;
+using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {

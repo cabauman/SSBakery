@@ -5,14 +5,15 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading;
+using GameCtor.Repository;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery;
 using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
@@ -31,7 +32,7 @@ namespace SSBakery.UI.Modules
                 () =>
                 {
                     return catalogCategoryRepo.GetItems()
-                        .SelectMany(x => x.Items)
+                        .SelectMany(x => x)
                         .Select(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
                         .ToList()
                         .Select(x => x.AsEnumerable());

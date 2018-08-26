@@ -20,13 +20,14 @@
 
   <ItemGroup>
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
-    <PackageReference Include="GameCtor.Firebase.AuthWrapper" Version="1.0.2" />
-    <PackageReference Include="Genesis.Ensure" Version="2.0.0" />
-    <PackageReference Include="ReactiveUI" Version="8.3.1" />
-    <PackageReference Include="ReactiveUI.Events.XamForms" Version="8.3.1" />
-    <PackageReference Include="ReactiveUI.XamForms" Version="8.3.1" />
+    <PackageReference Include="ReactiveUI" Version="8.7.2" />
+    <PackageReference Include="ReactiveUI.Events.XamForms" Version="8.7.2" />
+    <PackageReference Include="ReactiveUI.XamForms" Version="8.7.2" />
+    <PackageReference Include="RxNavigation" Version="1.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="System.Reactive" Version="4.1.0" />
+    <PackageReference Include="System.Reactive.Compatibility" Version="4.1.0" />
     <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
@@ -102,6 +103,23 @@
 
   <ItemGroup>
     <Folder Include="Common\Interfaces\" />
-    <Folder Include="Layout\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GameCtor.FirebaseAuth">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.FirebaseAuth.Mobile">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.Mobile\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.Repository">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\Repository\bin\Release\netstandard2.0\GameCtor.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.XamarinAuth">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="RxNavigation.XamForms">
+      <HintPath>..\..\RxNavigation\src\RxNavigation.XamForms\bin\Release\netstandard2.0\RxNavigation.XamForms.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

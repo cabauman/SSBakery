@@ -1,4 +1,4 @@
-﻿using SSBakery.UI.Navigation.Interfaces;
+﻿using RxNavigation;
 
 namespace SSBakery.UI.Common
 {
@@ -9,6 +9,6 @@ namespace SSBakery.UI.Common
         {
         }
 
-        public string Id => GetType().Name;
+        public string Title => GetType().Name;
     }
 }

@@ -1,15 +1,24 @@
-﻿using SSBakery.Models;
+﻿using System.IO;
+using Firebase.Database;
 using SSBakery.Repositories.Interfaces;
 
 namespace SSBakery.Repositories
 {
     public class CatalogItemRepoFactory
     {
-        private const string PathFmt = "authReadable/catalogItems/{0}";
+        private FirebaseClient _client;
+        private string _basePath;
 
-        public IRepository<CatalogItem> Create(string catalogCategoryId)
+        public CatalogItemRepoFactory(FirebaseClient client, string basePath)
         {
-            return new FirebaseOfflineRepo<CatalogItem>(null, string.Format(PathFmt, catalogCategoryId));
+            _client = client;
+            _basePath = basePath;
+        }
+
+        public ICatalogItemRepo Create(string categoryId)
+        {
+            string path = Path.Combine(_basePath, categoryId);
+            return new CatalogItemRepo(_client, path, categoryId);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using ReactiveUI;
+using RxNavigation;
 using Splat;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Common
 {
-    public class ViewModelBase : ReactiveObject, ISupportsActivation, IEnableLogger
+    public class ViewModelBase : ReactiveObject, ISupportsActivation
     {
         private ViewModelActivator _activator;
 

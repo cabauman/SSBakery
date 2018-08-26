@@ -1,4 +1,5 @@
-﻿using SSBakery.Models;
+﻿using GameCtor.Repository;
+using SSBakery.Models;
 
 namespace SSBakery.Repositories.Interfaces
 {

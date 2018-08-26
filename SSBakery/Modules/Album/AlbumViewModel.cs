@@ -2,10 +2,10 @@
 using System.Reactive;
 using System.Threading;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {

@@ -4,19 +4,18 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using GameCtor.Repository;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
     public class CatalogCategoryViewModel : PageViewModel, ICatalogCategoryViewModel
     {
-        private static readonly int BatchSize = 10;
-
         private ObservableAsPropertyHelper<bool> _isRefreshing;
         private ICatalogItemCellViewModel _selectedItem;
         private ICatalogItemCellViewModel _itemAppearing;
@@ -34,9 +33,8 @@ namespace SSBakery.UI.Modules
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return catalogItemRepo.GetItems(_cursor, BatchSize)
-                        .Do(x => _cursor = x.Cursor)
-                        .SelectMany(x => x.Items)
+                    return catalogItemRepo.GetItems()
+                        .SelectMany(x => x)
                         .Select(x => new CatalogItemCellViewModel(x) as ICatalogItemCellViewModel);
                 });
 

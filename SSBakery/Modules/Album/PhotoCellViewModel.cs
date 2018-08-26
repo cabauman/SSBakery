@@ -1,8 +1,8 @@
 ﻿using ReactiveUI;
+using RxNavigation;
 using SSBakery.Models;
 using SSBakery.Services;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {

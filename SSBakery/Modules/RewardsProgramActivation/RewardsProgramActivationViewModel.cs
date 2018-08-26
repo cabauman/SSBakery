@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using GameCtor.FirebaseAuth;
 using ReactiveUI;
+using RxNavigation;
 using Splat;
 using SSBakery.Core.Common;
-using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
 
 namespace SSBakery.UI.Modules
 {
@@ -37,8 +37,8 @@ namespace SSBakery.UI.Modules
                 .Defer(
                     () =>
                     {
-                        return ViewStackService
-                            .InsertPage(1, new RewardsViewModel())
+                        return Observable
+                            .Start(() => ViewStackService.InsertPage(1, new RewardsViewModel()))
                             .Concat(ViewStackService.PopToPage(1));
                     });
         }

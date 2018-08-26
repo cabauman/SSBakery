@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
+using GameCtor.FirebaseAuth;
+using GameCtor.FirebaseAuth.Mobile;
+using GameCtor.XamarinAuth;
 using ReactiveUI;
 using ReactiveUI.XamForms;
+using RxNavigation;
+using RxNavigation.XamForms;
 using Splat;
 using SSBakery.Config;
 using SSBakery.Repositories;
@@ -11,8 +16,6 @@ using SSBakery.Repositories.Interfaces;
 using SSBakery.Services;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Modules;
-using SSBakery.UI.Navigation;
-using SSBakery.UI.Navigation.Interfaces;
 using Xamarin.Forms;
 
 namespace SSBakery

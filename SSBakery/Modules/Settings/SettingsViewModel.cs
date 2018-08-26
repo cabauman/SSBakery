@@ -1,5 +1,5 @@
-﻿using SSBakery.UI.Common;
-using SSBakery.UI.Navigation.Interfaces;
+﻿using RxNavigation;
+using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules
 {
