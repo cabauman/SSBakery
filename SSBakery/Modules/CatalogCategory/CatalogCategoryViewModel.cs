@@ -28,23 +28,21 @@ namespace SSBakery.UI.Modules
                 : base(viewStackService)
         {
             catalogItemRepoFactory = catalogItemRepoFactory ?? Locator.Current.GetService<ICatalogItemRepoFactory>();
-            IRepository<CatalogItem> catalogItemRepo = catalogItemRepoFactory.Create(categoryId);
+            ICatalogItemRepo catalogItemRepo = catalogItemRepoFactory.Create(categoryId);
 
             LoadCatalogItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
                     return catalogItemRepo.GetItems()
                         .SelectMany(x => x)
-                        .Select(x => new CatalogItemCellViewModel(x) as ICatalogItemCellViewModel);
+                        .Select(x => new CatalogItemCellViewModel(x) as ICatalogItemCellViewModel)
+                        .Do(x => CatalogItems.Add(x));
                 });
 
             this.WhenActivated(
                 disposables =>
                 {
                     SelectedItem = null;
-
-                    LoadCatalogItems
-                        .Subscribe(x => CatalogItems.Add(x));
 
                     LoadCatalogItems
                         .ThrownExceptions
@@ -62,22 +60,22 @@ namespace SSBakery.UI.Modules
                         .Subscribe()
                         .DisposeWith(disposables);
 
-                    this
-                        .WhenAnyValue(vm => vm.ItemAppearing)
-                        .Where(item => item != null && item.Id == CatalogItems[CatalogItems.Count - 1].Id)
-                        .Select(_ => Unit.Default)
-                        .InvokeCommand(LoadCatalogItems)
-                        .DisposeWith(disposables);
+                    //this
+                    //    .WhenAnyValue(vm => vm.ItemAppearing)
+                    //    .Where(item => item != null && item.Id == CatalogItems[CatalogItems.Count - 1].Id)
+                    //    .Select(_ => Unit.Default)
+                    //    .InvokeCommand(LoadCatalogItems)
+                    //    .DisposeWith(disposables);
 
-                    _isRefreshing = LoadCatalogItems
-                        .IsExecuting
-                        .ToProperty(this, vm => vm.IsRefreshing, true);
+                    //_isRefreshing = LoadCatalogItems
+                    //    .IsExecuting
+                    //    .ToProperty(this, vm => vm.IsRefreshing, true);
                 });
         }
 
         public IList<ICatalogItemCellViewModel> CatalogItems { get; }
 
-        public bool IsRefreshing => _isRefreshing.Value;
+        //public bool IsRefreshing => _isRefreshing.Value;
 
         public ReactiveCommand<Unit, ICatalogItemCellViewModel> LoadCatalogItems { get; }
 
@@ -89,11 +87,11 @@ namespace SSBakery.UI.Modules
             set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
         }
 
-        public ICatalogItemCellViewModel ItemAppearing
-        {
-            get { return _itemAppearing; }
-            set { this.RaiseAndSetIfChanged(ref _itemAppearing, value); }
-        }
+        //public ICatalogItemCellViewModel ItemAppearing
+        //{
+        //    get { return _itemAppearing; }
+        //    set { this.RaiseAndSetIfChanged(ref _itemAppearing, value); }
+        //}
 
         private IObservable<Unit> LoadSelectedPage(ICatalogItemCellViewModel viewModel)
         {

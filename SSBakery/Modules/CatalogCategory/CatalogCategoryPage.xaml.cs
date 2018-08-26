@@ -37,13 +37,13 @@ namespace SSBakery.UI.Modules
                     this
                         .Bind(ViewModel, vm => vm.SelectedItem, v => v.CatalogItemListView.SelectedItem)
                         .DisposeWith(disposables);
-                    this
-                        .CatalogItemListView
-                        .Events()
-                        .ItemAppearing
-                        .Select(e => e.Item as ICatalogItemCellViewModel)
-                        .BindTo(this, x => x.ViewModel.ItemAppearing)
-                        .DisposeWith(disposables);
+                    //this
+                    //    .CatalogItemListView
+                    //    .Events()
+                    //    .ItemAppearing
+                    //    .Select(e => e.Item as ICatalogItemCellViewModel)
+                    //    .BindTo(this, x => x.ViewModel.ItemAppearing)
+                    //    .DisposeWith(disposables);
                 });
         }
     }

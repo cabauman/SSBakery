@@ -15,6 +15,6 @@ namespace SSBakery.UI.Modules
 
         ICatalogItemCellViewModel SelectedItem { get; set; }
 
-        ICatalogItemCellViewModel ItemAppearing { get; set; }
+        //ICatalogItemCellViewModel ItemAppearing { get; set; }
     }
 }

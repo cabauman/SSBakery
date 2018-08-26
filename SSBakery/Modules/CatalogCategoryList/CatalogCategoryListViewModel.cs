@@ -23,10 +23,10 @@ namespace SSBakery.UI.Modules
         private ObservableAsPropertyHelper<bool> _isRefreshing;
         private ICatalogCategoryCellViewModel _selectedItem;
 
-        public CatalogCategoryListViewModel(IRepository<CatalogCategory> catalogCategoryRepo = null, IViewStackService viewStackService = null)
+        public CatalogCategoryListViewModel(ICatalogCategoryRepo catalogCategoryRepo = null, IViewStackService viewStackService = null)
             : base(viewStackService)
         {
-            catalogCategoryRepo = catalogCategoryRepo ?? Locator.Current.GetService<IRepository<CatalogCategory>>();
+            catalogCategoryRepo = catalogCategoryRepo ?? Locator.Current.GetService<ICatalogCategoryRepo>();
 
             LoadCatalogCategories = ReactiveCommand.CreateFromObservable(
                 () =>

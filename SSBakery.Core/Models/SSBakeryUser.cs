@@ -8,13 +8,13 @@ namespace SSBakery.Models
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        [JsonProperty("customerId")]
+        public string CustomerId { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("phoneNumber")]
         public string PhoneNumber { get; set; }
-
-        [JsonProperty("customerId")]
-        public string CustomerId { get; set; }
     }
 }
