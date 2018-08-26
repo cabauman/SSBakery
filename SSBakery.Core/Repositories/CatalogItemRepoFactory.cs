@@ -6,8 +6,8 @@ namespace SSBakery.Repositories
 {
     public class CatalogItemRepoFactory
     {
-        private FirebaseClient _client;
-        private string _basePath;
+        private readonly FirebaseClient _client;
+        private readonly string _basePath;
 
         public CatalogItemRepoFactory(FirebaseClient client, string basePath)
         {

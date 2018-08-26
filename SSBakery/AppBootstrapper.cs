@@ -51,13 +51,13 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new AuthService(), typeof(IAuthService));
             var firebaseAuthService = new FirebaseAuthService();
             Locator.CurrentMutable.RegisterConstant(firebaseAuthService, typeof(IFirebaseAuthService));
-            Locator.CurrentMutable.RegisterLazySingleton(() => new RepoContainer(), typeof(IRepoContainer));
             Locator.CurrentMutable.RegisterLazySingleton(() => new FacebookPhotoService(), typeof(IFacebookPhotoService));
 
-            Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
+            var repoContainer = new RepositoryRegistrar(firebaseAuthService, Locator.CurrentMutable);
 
-            viewStackService.PushPage(new MainViewModel())
-                .Subscribe();
+            //Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
+
+            viewStackService.PushPage(new MainViewModel()).Subscribe();
 
             return;
 
