@@ -24,6 +24,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision />
+    <CodeAnalysisRuleSet>SSBakeryAdmin.iOS.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -36,6 +37,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution: Colt Bauman (64KU3RCFA9)</CodesignKey>
     <CodesignProvision>Common AdHoc</CodesignProvision>
+    <CodeAnalysisRuleSet>SSBakeryAdmin.iOS.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,6 +54,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>
     </CodesignProvision>
+    <CodeAnalysisRuleSet>SSBakeryAdmin.iOS.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -66,6 +69,7 @@
     <CodesignProvision>
     </CodesignProvision>
     <BuildIpa>true</BuildIpa>
+    <CodeAnalysisRuleSet>SSBakeryAdmin.iOS.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -124,6 +128,7 @@
     </InterfaceDefinition>
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+    <None Include="SSBakeryAdmin.iOS.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GameCtor.FirebaseAuth">
