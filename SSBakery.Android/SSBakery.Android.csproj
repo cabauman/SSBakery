@@ -153,7 +153,7 @@
       <Project>{44ce511a-0366-4a24-a0a5-a284328f8851}</Project>
       <Name>SSBakery.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SSBakery\SSBakery.UI.csproj">
+    <ProjectReference Include="..\SSBakery.UI\SSBakery.UI.csproj">
       <Project>{9b8ad95f-353c-4565-87af-b51a17f5d84f}</Project>
       <Name>SSBakery.UI</Name>
     </ProjectReference>

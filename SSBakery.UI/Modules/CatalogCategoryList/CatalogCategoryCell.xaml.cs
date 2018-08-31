@@ -15,10 +15,15 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenAnyValue(x => x.ViewModel)
-                .Where(x => x != null)
-                .Do(PopulateFromViewModel)
-                .Subscribe();
+            this.WhenActivated(
+                disposables =>
+                {
+                    this.WhenAnyValue(x => x.ViewModel)
+                        .Where(x => x != null)
+                        .Do(PopulateFromViewModel)
+                        .Subscribe()
+                        .DisposeWith(disposables);
+                });
         }
 
         /// <summary>

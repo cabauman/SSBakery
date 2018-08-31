@@ -6,9 +6,9 @@ namespace SSBakery.UI.Modules
 {
     public interface ICatalogCategoryListViewModel
     {
-        ReactiveCommand<Unit, IEnumerable<ICatalogCategoryCellViewModel>> LoadCatalogCategories { get; }
+        ReactiveCommand<Unit, IReadOnlyList<ICatalogCategoryCellViewModel>> LoadCatalogCategories { get; }
 
-        IEnumerable<ICatalogCategoryCellViewModel> CatalogCategories { get; }
+        IReadOnlyList<ICatalogCategoryCellViewModel> CatalogCategories { get; }
 
         ICatalogCategoryCellViewModel SelectedItem { get; set; }
     }

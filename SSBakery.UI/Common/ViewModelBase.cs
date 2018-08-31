@@ -1,5 +1,5 @@
-﻿using ReactiveUI;
-using RxNavigation;
+﻿using GameCtor.RxNavigation;
+using ReactiveUI;
 using Splat;
 
 namespace SSBakery.UI.Common

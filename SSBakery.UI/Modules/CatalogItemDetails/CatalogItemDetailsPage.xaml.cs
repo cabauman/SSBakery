@@ -17,6 +17,7 @@ namespace SSBakery.UI.Modules
             this.WhenAnyValue(x => x.ViewModel)
                 .Where(x => x != null)
                 .Do(PopulateFromViewModel)
+                .Take(1)
                 .Subscribe();
         }
 

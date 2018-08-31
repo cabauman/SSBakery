@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.XamForms;
@@ -14,10 +15,15 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenAnyValue(x => x.ViewModel)
-                .Where(x => x != null)
-                .Do(PopulateFromViewModel)
-                .Subscribe();
+            this.WhenActivated(
+                disposables =>
+                {
+                    this.WhenAnyValue(x => x.ViewModel)
+                        .Where(x => x != null)
+                        .Do(PopulateFromViewModel)
+                        .Subscribe()
+                        .DisposeWith(disposables);
+                });
         }
 
         /// <summary>

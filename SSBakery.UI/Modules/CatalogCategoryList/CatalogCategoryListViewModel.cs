@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using GameCtor.RxNavigation;
 using ReactiveUI;
-using RxNavigation;
 using Splat;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Common;
@@ -13,7 +13,7 @@ namespace SSBakery.UI.Modules
 {
     public class CatalogCategoryListViewModel : PageViewModel, ICatalogCategoryListViewModel
     {
-        private ObservableAsPropertyHelper<IEnumerable<ICatalogCategoryCellViewModel>> _catalogCategories;
+        private ObservableAsPropertyHelper<IReadOnlyList<ICatalogCategoryCellViewModel>> _catalogCategories;
         private ObservableAsPropertyHelper<bool> _isRefreshing;
         private ICatalogCategoryCellViewModel _selectedItem;
 
@@ -29,7 +29,7 @@ namespace SSBakery.UI.Modules
                         .SelectMany(x => x)
                         .Select(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
                         .ToList()
-                        .Select(x => x.AsEnumerable());
+                        .Select(x => x as IReadOnlyList<ICatalogCategoryCellViewModel>);
                 });
 
             _catalogCategories = LoadCatalogCategories
@@ -46,9 +46,9 @@ namespace SSBakery.UI.Modules
                 .ToProperty(this, vm => vm.IsRefreshing, true);
         }
 
-        public ReactiveCommand<Unit, IEnumerable<ICatalogCategoryCellViewModel>> LoadCatalogCategories { get; }
+        public ReactiveCommand<Unit, IReadOnlyList<ICatalogCategoryCellViewModel>> LoadCatalogCategories { get; }
 
-        public IEnumerable<ICatalogCategoryCellViewModel> CatalogCategories => _catalogCategories.Value;
+        public IReadOnlyList<ICatalogCategoryCellViewModel> CatalogCategories => _catalogCategories.Value;
 
         public bool IsRefreshing => _isRefreshing.Value;
 

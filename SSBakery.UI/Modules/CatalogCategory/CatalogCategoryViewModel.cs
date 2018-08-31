@@ -4,11 +4,9 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using GameCtor.Repository;
+using GameCtor.RxNavigation;
 using ReactiveUI;
-using RxNavigation;
 using Splat;
-using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 using SSBakery.UI.Common;
 

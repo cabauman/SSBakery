@@ -1,9 +1,8 @@
 ﻿using System.Reactive.Disposables;
 using GameCtor.FirebaseAuth;
+using GameCtor.RxNavigation;
 using ReactiveUI;
-using RxNavigation;
 using Splat;
-using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules

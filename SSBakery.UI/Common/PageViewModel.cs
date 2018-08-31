@@ -1,4 +1,4 @@
-﻿using RxNavigation;
+﻿using GameCtor.RxNavigation;
 
 namespace SSBakery.UI.Common
 {
