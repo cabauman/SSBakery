@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SSBakery.Config
+﻿namespace SSBakery.Config
 {
     public static class Constants
     {
-        public static string FACEBOOK_PAGE_ID = "";
-        public static string FACEBOOK_PAGE_ACCESS_TOKEN = "";
+        public const string CUSTOMER_APP_ID = "";
+        public const string FACEBOOK_PAGE_ID = "";
+        public const string FACEBOOK_PAGE_ACCESS_TOKEN = "";
     }
 }
