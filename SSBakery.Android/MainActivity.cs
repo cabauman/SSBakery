@@ -24,7 +24,7 @@ namespace SSBakery.Droid
             CrossCurrentActivity.Current.Init(this, bundle);
 
             var options = new FirebaseOptions.Builder()
-                .SetApplicationId("<APPLICATION ID>")
+                //.SetApplicationId("<APPLICATION ID>")
                 .SetApiKey(Config.ApiKeys.FIREBASE)
                 .Build();
             FirebaseApp.InitializeApp(this, options);

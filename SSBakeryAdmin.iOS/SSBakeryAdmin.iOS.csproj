@@ -80,10 +80,10 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BaseTableViewController.cs" />
-    <Compile Include="Controllers\MainTableViewController.cs" />
-    <Compile Include="Controllers\SearchResultsTableController.cs" />
-    <Compile Include="Controllers\StampCardViewController.cs" />
+    <Compile Include="Controllers\BaseCustomerDirectoryController.cs" />
+    <Compile Include="Modules\CustomerDirectory\CustomerDirectoryController.cs" />
+    <Compile Include="Controllers\CustomerDirectorySearchResultsController.cs" />
+    <Compile Include="Modules\StampCard\StampCardController.cs" />
     <Compile Include="Helpers\CGPointExtensions.cs" />
     <Compile Include="Helpers\UIViewExtensions.cs" />
     <Compile Include="Helpers\ViewUtil.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Modules\CatalogItemDetails\CatalogItemDetailsViewModel.cs" />
     <Compile Include="Modules\CatalogItemDetails\ICatalogItemDetailsViewModel.cs" />
     <Compile Include="Modules\CustomerDirectory\CustomerDirectoryViewModel.cs" />
+    <Compile Include="Modules\CustomerDirectory\ICustomerDirectorySearchResultsViewModel.cs" />
     <Compile Include="Modules\CustomerDirectory\ICustomerDirectoryViewModel.cs" />
     <Compile Include="Modules\CustomerDirectory\ICustomerCellViewModel.cs" />
     <Compile Include="Modules\Customer\CustomerViewModel.cs" />
