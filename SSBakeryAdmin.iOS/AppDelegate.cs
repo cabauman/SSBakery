@@ -4,7 +4,7 @@ using GameCtor.FirebaseAuth;
 using GameCtor.FirebaseAuth.Mobile;
 using GameCtor.XamarinAuth;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 using SSBakeryAdmin.iOS.Modules.CatalogCategory;
 using SSBakeryAdmin.iOS.Modules.CatalogCategoryList;

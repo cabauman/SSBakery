@@ -1,6 +1,6 @@
 ﻿using System.Reactive;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 
 namespace SSBakeryAdmin.iOS.Modules.Customer
 {

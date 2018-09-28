@@ -4,7 +4,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Xml;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 using SSBakery.Repositories.Interfaces;
 

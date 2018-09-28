@@ -2,7 +2,7 @@
 using System.Reactive;
 using System.Threading;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;

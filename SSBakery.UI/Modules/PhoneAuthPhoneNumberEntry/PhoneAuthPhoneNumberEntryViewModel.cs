@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using GameCtor.FirebaseAuth;
 using GameCtor.FirebaseAuth.Mobile;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 using SSBakery.Core.Common;
 using SSBakery.UI.Common;

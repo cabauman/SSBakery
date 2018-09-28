@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Reactive.Disposables;
+using GameCtor.RxNavigation;
 using ReactiveUI;
-using RxNavigation;
 using Splat;
 using Square.Connect.Model;
 using SSBakery;

@@ -7,7 +7,7 @@ using GameCtor.FirebaseStorage.DotNet;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 
 namespace SSBakeryAdmin.iOS.Modules.CatalogItemDetails

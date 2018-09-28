@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using GameCtor.FirebaseAuth;
 using GameCtor.XamarinAuth;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 using SSBakeryAdmin.iOS.Modules.Home;
 using SSBakeryAdmin.Services.Interfaces;

@@ -1,4 +1,4 @@
-﻿using RxNavigation;
+﻿using GameCtor.RxNavigation;
 using SSBakery.Models;
 using SSBakery.UI.Common;
 

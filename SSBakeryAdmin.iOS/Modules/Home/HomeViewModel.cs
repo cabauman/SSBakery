@@ -5,7 +5,7 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Xml;
 using ReactiveUI;
-using RxNavigation;
+using GameCtor.RxNavigation;
 using Splat;
 using SSBakeryAdmin.iOS.Modules.CatalogCategoryList;
 using SSBakeryAdmin.iOS.Modules.CustomerDirectory;
