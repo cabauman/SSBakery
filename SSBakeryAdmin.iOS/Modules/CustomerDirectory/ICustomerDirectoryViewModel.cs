@@ -6,12 +6,16 @@ namespace SSBakeryAdmin.iOS.Modules.CustomerDirectory
 {
     public interface ICustomerDirectoryViewModel
     {
+        IReadOnlyList<ICustomerCellViewModel> Customers { get; }
+
         ReactiveCommand<Unit, IReadOnlyList<ICustomerCellViewModel>> LoadCustomers { get; }
 
         ReactiveCommand<Unit, Unit> SyncWithPosSystem { get; }
 
         ReactiveCommand<ICustomerCellViewModel, Unit> NavigateToCustomer { get; }
 
-        IReadOnlyList<ICustomerCellViewModel> Customers { get; }
+        void AddUnclaimedReward(int index);
+
+        void RemoveUnclaimedReward(int index);
     }
 }
