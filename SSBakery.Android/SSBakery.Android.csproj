@@ -146,6 +146,8 @@
     <Compile Include="GoogleAuthInterceptorActivity.cs" />
     <Compile Include="FacebookAuthInterceptorActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MyFirebaseInstanceIdService.cs" />
+    <Compile Include="MyFirebaseMessagingService.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
