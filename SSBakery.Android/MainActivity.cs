@@ -1,7 +1,9 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Firebase;
+using GameCtor.FirebaseAnalytics;
 using Plugin.CurrentActivity;
 
 namespace SSBakery.Droid
@@ -23,12 +25,16 @@ namespace SSBakery.Droid
             FirebaseApp.InitializeApp(this, options);
 
             InitCrashlytics();
-            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
+            CrossCurrentActivity.Current.Init(this, bundle);
+            //CrossFirebaseAnalytics.Current.SetUserId("123");
+            //CrossFirebaseAnalytics.Current.SetUserProperty("propertyName", "propertyValue");
+            //CrossFirebaseAnalytics.Current.LogEvent("dummy_event", new Dictionary<string, object>() { { "someKey", "someValue" } });
 
+            Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
-            CrossCurrentActivity.Current.Init(this, bundle);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             LoadApplication(new App());
         }
