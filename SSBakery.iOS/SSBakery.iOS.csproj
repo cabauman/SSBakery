@@ -171,6 +171,9 @@
     <PackageReference Include="Xamarin.Firebase.iOS.Analytics">
       <Version>5.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
+      <Version>3.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
       <Version>3.10.3.1</Version>
     </PackageReference>
