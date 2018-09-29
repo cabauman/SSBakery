@@ -38,38 +38,30 @@ namespace SSBakery.UI.Modules
                         .Do(x => CatalogItems.Add(x));
                 });
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    SelectedItem = null;
+            LoadCatalogItems
+                .ThrownExceptions
+                .Subscribe(
+                    ex =>
+                    {
+                        this.Log().Debug(ex.Message);
+                    });
 
-                    LoadCatalogItems
-                        .ThrownExceptions
-                        .Subscribe(
-                            ex =>
-                            {
-                                this.Log().Debug(ex.Message);
-                            })
-                        .DisposeWith(disposables);
+            this
+                .WhenAnyValue(vm => vm.SelectedItem)
+                .Where(x => x != null)
+                .SelectMany(x => LoadSelectedPage(x))
+                .Subscribe();
 
-                    this
-                        .WhenAnyValue(vm => vm.SelectedItem)
-                        .Where(x => x != null)
-                        .SelectMany(x => LoadSelectedPage(x))
-                        .Subscribe()
-                        .DisposeWith(disposables);
+            //this
+            //    .WhenAnyValue(vm => vm.ItemAppearing)
+            //    .Where(item => item != null && item.Id == CatalogItems[CatalogItems.Count - 1].Id)
+            //    .Select(_ => Unit.Default)
+            //    .InvokeCommand(LoadCatalogItems)
+            //    .DisposeWith(disposables);
 
-                    //this
-                    //    .WhenAnyValue(vm => vm.ItemAppearing)
-                    //    .Where(item => item != null && item.Id == CatalogItems[CatalogItems.Count - 1].Id)
-                    //    .Select(_ => Unit.Default)
-                    //    .InvokeCommand(LoadCatalogItems)
-                    //    .DisposeWith(disposables);
-
-                    //_isRefreshing = LoadCatalogItems
-                    //    .IsExecuting
-                    //    .ToProperty(this, vm => vm.IsRefreshing, true);
-                });
+            //_isRefreshing = LoadCatalogItems
+            //    .IsExecuting
+            //    .ToProperty(this, vm => vm.IsRefreshing, true);
         }
 
         public IList<ICatalogItemCellViewModel> CatalogItems { get; }

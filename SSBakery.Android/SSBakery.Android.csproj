@@ -60,6 +60,9 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GameCtor.FirebaseAnalytics">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAnalytics\bin\Release\monoandroid80\MonoAndroid80\GameCtor.FirebaseAnalytics.dll</HintPath>
+    </Reference>
     <Reference Include="GameCtor.XamarinAuth">
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
     </Reference>

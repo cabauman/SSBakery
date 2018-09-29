@@ -17,8 +17,8 @@ namespace SSBakery.UI.Modules
             this.WhenActivated(
                 disposables =>
                 {
-                    CatalogButton.Clicked += (s, e) => throw new ArgumentNullException();
-                    return;
+                    //CatalogButton.Clicked += (s, e) => throw new ArgumentNullException();
+                    //return;
 
                     this
                         .BindCommand(ViewModel, vm => vm.NavigateToCatalogPage, v => v.CatalogButton)

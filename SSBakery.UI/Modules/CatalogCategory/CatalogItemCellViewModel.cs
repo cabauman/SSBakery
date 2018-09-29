@@ -14,25 +14,13 @@ namespace SSBakery.UI.Modules
             _model = model;
         }
 
-        public CatalogItem CatalogItem
-        {
-            get { return _model; }
-        }
+        public CatalogItem CatalogItem => _model;
 
-        public string Id
-        {
-            get { return _model.Id; }
-        }
+        public string Id => _model.Id;
 
-        public string Name
-        {
-            get { return _model.Name; }
-        }
+        public string Name => _model.Name;
 
-        public string Description
-        {
-            get { return _model.Description; }
-        }
+        public string Description => _model.Description;
 
         public string Price
         {
@@ -48,9 +36,6 @@ namespace SSBakery.UI.Modules
         //    }
         //}
 
-        public string ImageUrl
-        {
-            get { return _model.ImageUrl; }
-        }
+        public string ImageUrl => _model.ImageUrl;
     }
 }

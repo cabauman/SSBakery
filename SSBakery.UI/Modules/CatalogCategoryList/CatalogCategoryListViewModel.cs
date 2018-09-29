@@ -29,11 +29,12 @@ namespace SSBakery.UI.Modules
                         .SelectMany(x => x)
                         .Select(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
                         .ToList()
-                        .Select(x => x as IReadOnlyList<ICatalogCategoryCellViewModel>);
+                        .Select(x => x as IReadOnlyList<ICatalogCategoryCellViewModel>)
+                        .SubscribeOn(RxApp.TaskpoolScheduler);
                 });
 
             _catalogCategories = LoadCatalogCategories
-                .ToProperty(this, x => x.CatalogCategories);
+                .ToProperty(this, x => x.CatalogCategories, scheduler: RxApp.MainThreadScheduler);
 
             this
                 .WhenAnyValue(vm => vm.SelectedItem)

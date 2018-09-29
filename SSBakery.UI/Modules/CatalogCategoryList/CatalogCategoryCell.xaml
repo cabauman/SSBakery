@@ -20,7 +20,8 @@
                                     VerticalOptions="FillAndExpand"
                                     Aspect="AspectFill"
                                     CacheDuration="30"
-                                    DownsampleToViewSize="true" />
+                                    DownsampleToViewSize="true"
+                                    DownsampleHeight="80" />
 
         <StackLayout Grid.Row="0" Grid.Column="1">
             <Label x:Name="NameLabel" FontSize="16" />

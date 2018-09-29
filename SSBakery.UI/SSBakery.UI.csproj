@@ -107,6 +107,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="GameCtor.FirebaseAnalytics">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAnalytics\bin\Release\monoandroid80\MonoAndroid80\GameCtor.FirebaseAnalytics.dll</HintPath>
+    </Reference>
     <Reference Include="GameCtor.FirebaseAuth">
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.dll</HintPath>
     </Reference>
