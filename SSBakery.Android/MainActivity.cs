@@ -16,6 +16,13 @@ namespace SSBakery.Droid
 
             base.OnCreate(bundle);
 
+            var options = new FirebaseOptions.Builder()
+                .SetApplicationId(Config.Constants.CUSTOMER_APP_ID)
+                .SetApiKey(Config.ApiKeys.FIREBASE)
+                .Build();
+            FirebaseApp.InitializeApp(this, options);
+
+            InitCrashlytics();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             Xamarin.Forms.Forms.Init(this, bundle);
@@ -23,13 +30,21 @@ namespace SSBakery.Droid
             Xamarin.FormsMaps.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
 
-            var options = new FirebaseOptions.Builder()
-                .SetApplicationId(Config.Constants.CUSTOMER_APP_ID)
-                .SetApiKey(Config.ApiKeys.FIREBASE)
-                .Build();
-            FirebaseApp.InitializeApp(this, options);
-
             LoadApplication(new App());
+        }
+
+        private void InitCrashlytics()
+        {
+            Fabric.Fabric.With(this, new Crashlytics.Crashlytics());
+
+            // Optional: Setup Xamarin / Mono Unhandled exception parsing / handling
+            Crashlytics.Crashlytics.HandleManagedExceptions();
+
+            // TODO: Use the current user's information
+            // You can call any combination of these three methods
+            Crashlytics.Crashlytics.SetUserIdentifier("12345");
+            Crashlytics.Crashlytics.SetUserIdentifier("user@fabric.io");
+            Crashlytics.Crashlytics.SetUserName("Test User");
         }
     }
 }

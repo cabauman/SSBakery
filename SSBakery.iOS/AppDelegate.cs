@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+using Firebase.Crashlytics;
 using Foundation;
 using UIKit;
 
@@ -20,6 +18,9 @@ namespace SSBakery.iOS
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Firebase.Core.App.Configure();
+            Crashlytics.Configure();
+
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();

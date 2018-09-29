@@ -6702,6 +6702,9 @@ namespace SSBakery.Droid
 			// aapt resource value: 0x7f090049
 			public const int character_counter_pattern = 2131296329;
 			
+			// aapt resource value: 0x7f090050
+			public const int com_crashlytics_android_build_id = 2131296336;
+			
 			// aapt resource value: 0x7f090001
 			public const int common_google_play_services_enable_button = 2131296257;
 			

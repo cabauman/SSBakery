@@ -147,7 +147,7 @@
       <Project>{44ce511a-0366-4a24-a0a5-a284328f8851}</Project>
       <Name>SSBakery.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SSBakery\SSBakery.UI.csproj">
+    <ProjectReference Include="..\SSBakery.UI\SSBakery.UI.csproj">
       <Project>{9b8ad95f-353c-4565-87af-b51a17f5d84f}</Project>
       <Name>SSBakery.UI</Name>
     </ProjectReference>
@@ -160,7 +160,7 @@
       <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI">
-      <Version>8.3.1</Version>
+      <Version>8.7.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Auth.XamarinForms">
       <Version>1.6.0.2</Version>
@@ -168,11 +168,17 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.3.840</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Analytics">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
+      <Version>3.10.3.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.1.0.583944</Version>
+      <Version>3.2.0.839982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms.Maps">
-      <Version>3.1.0.583944</Version>
+      <Version>3.2.0.839982</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

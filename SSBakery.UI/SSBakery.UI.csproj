@@ -125,8 +125,5 @@
     <Reference Include="GameCtor.XamarinAuth">
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
     </Reference>
-    <Reference Include="RxNavigation.XamForms">
-      <HintPath>..\..\RxNavigation\src\RxNavigation.XamForms\bin\Release\netstandard2.0\RxNavigation.XamForms.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
