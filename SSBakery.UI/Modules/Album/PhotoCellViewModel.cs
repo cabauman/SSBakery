@@ -1,7 +1,5 @@
-﻿using ReactiveUI;
-using GameCtor.RxNavigation;
+﻿using GameCtor.RxNavigation;
 using SSBakery.Models;
-using SSBakery.Services;
 using SSBakery.UI.Common;
 
 namespace SSBakery.UI.Modules

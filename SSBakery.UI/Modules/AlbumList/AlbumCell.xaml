@@ -17,11 +17,11 @@
         </Grid.ColumnDefinitions>
         <ffimageloading:CachedImage x:Name="Image"
                                     Margin="10"
-                                    HorizontalOptions="Center"
-                                    HeightRequest="80"
-                                    WidthRequest ="80"
+                                    VerticalOptions="FillAndExpand"
                                     Aspect="AspectFill"
-                                    DownsampleToViewSize="True" />
+                                    CacheDuration="30"
+                                    DownsampleToViewSize="true"
+                                    DownsampleHeight="80" />
 
         <StackLayout Grid.Row="0" Grid.Column="1">
             <Label x:Name="Name" FontSize="16" />

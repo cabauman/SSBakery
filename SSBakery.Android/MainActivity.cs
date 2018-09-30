@@ -25,6 +25,7 @@ namespace SSBakery.Droid
             FirebaseApp.InitializeApp(this, options);
 
             InitCrashlytics();
+
             CrossCurrentActivity.Current.Init(this, bundle);
             //CrossFirebaseAnalytics.Current.SetUserId("123");
             //CrossFirebaseAnalytics.Current.SetUserProperty("propertyName", "propertyValue");

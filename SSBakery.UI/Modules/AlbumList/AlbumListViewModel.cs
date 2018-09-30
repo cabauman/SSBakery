@@ -7,7 +7,6 @@ using System.Threading;
 using GameCtor.RxNavigation;
 using ReactiveUI;
 using Splat;
-using SSBakery;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
 
@@ -38,7 +37,9 @@ namespace SSBakery.UI.Modules
                     return viewModels;
                 });
 
-            _albums = LoadAlbums.ToProperty(this, vm => vm.Albums);
+            _albums = LoadAlbums
+                .SubscribeOn(RxApp.TaskpoolScheduler)
+                .ToProperty(this, vm => vm.Albums, scheduler: RxApp.MainThreadScheduler);
 
             this.WhenActivated(
                 disposables =>

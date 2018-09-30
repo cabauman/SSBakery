@@ -23,20 +23,11 @@ namespace SSBakery.UI.Modules
             _model = model;
         }
 
-        public FacebookAlbum FacebookAlbum
-        {
-            get { return _model; }
-        }
+        public FacebookAlbum FacebookAlbum => _model;
 
-        public string Name
-        {
-            get { return _model.Name; }
-        }
+        public string Name => _model.Name;
 
-        public int Count
-        {
-            get { return _model.Count; }
-        }
+        public int Count => _model.Count;
 
         public string ImageUrl
         {

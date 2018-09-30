@@ -17,10 +17,6 @@ namespace SSBakery.UI.Modules
         public AlbumPage()
         {
             InitializeComponent();
-            return;
-
-            /*
-            HeightRequest = Application.Current.MainPage.Width / 3;
 
             this.WhenActivated(
                 disposables =>
@@ -33,35 +29,7 @@ namespace SSBakery.UI.Modules
                         .Select(x => Unit.Default)
                         .InvokeCommand(this, x => x.ViewModel.LoadPhotos)
                         .DisposeWith(disposables);
-                    //this
-                    //    .WhenAnyValue(x => x.ViewModel.Photos)
-                    //    .Where(x => x != null)
-                    //    .Subscribe(LayoutGrid);
                 });
-            */
-        }
-
-        private void LayoutGrid(IList<PhotoCellViewModel> photos)
-        {
-            foreach(var photo in photos)
-            {
-                var image = new FFImageLoading.Forms.CachedImage
-                {
-                    HorizontalOptions = LayoutOptions.Start,
-                    VerticalOptions = LayoutOptions.Start,
-                    WidthRequest = 110,
-                    HeightRequest = 110,
-                    Aspect = Aspect.AspectFill,
-                    DownsampleToViewSize = true,
-                    Source = photo.ImageUrl
-                };
-
-                var tapGesture = new TapGestureRecognizer();
-                tapGesture.Tapped += TapGesture_Tapped;
-                image.GestureRecognizers.Add(tapGesture);
-
-                // wrapLayout.Children.Add(image);
-            }
         }
 
         private void TapGesture_Tapped(object sender, EventArgs e)
