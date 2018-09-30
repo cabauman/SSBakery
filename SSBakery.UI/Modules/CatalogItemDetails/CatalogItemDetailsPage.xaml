@@ -13,12 +13,12 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ffimageloading:CachedImage x:Name="Image"
-                                    Margin="0,0,0,10"
-                                    VerticalOptions="FillAndExpand"
-                                    Aspect="AspectFill"
-                                    CacheDuration="30"
-                                    DownsampleToViewSize="true" />
+        <ffimageloading:CachedImage
+            x:Name="Image"
+            Margin="0,0,0,10"
+            VerticalOptions="FillAndExpand"
+            Aspect="AspectFill"
+            CacheDuration="30" />
 
         <StackLayout Orientation="Horizontal" Grid.Row="1">
             <Label FontSize="12" FontAttributes="Bold" Text="Name:"  />

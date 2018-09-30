@@ -82,6 +82,9 @@
     <PackageReference Include="ReactiveUI">
       <Version>8.7.2</Version>
     </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.1.4.168</Version>
+    </PackageReference>
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.4.0</Version>
     </PackageReference>
@@ -112,6 +115,9 @@
       <Version>1.6.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.3.840</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.3.840</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Analytics">

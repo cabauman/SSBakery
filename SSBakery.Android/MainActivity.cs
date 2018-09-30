@@ -5,6 +5,7 @@ using Android.OS;
 using Firebase;
 using GameCtor.FirebaseAnalytics;
 using Plugin.CurrentActivity;
+using Rg.Plugins.Popup.Services;
 
 namespace SSBakery.Droid
 {
@@ -26,6 +27,7 @@ namespace SSBakery.Droid
 
             InitCrashlytics();
 
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             //CrossFirebaseAnalytics.Current.SetUserId("123");
             //CrossFirebaseAnalytics.Current.SetUserProperty("propertyName", "propertyValue");
@@ -38,6 +40,19 @@ namespace SSBakery.Droid
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             LoadApplication(new App());
+        }
+
+        public override async void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                // Do something if there are some pages in the `PopupStack`
+                await PopupNavigation.Instance.PopAsync();
+            }
+            else
+            {
+                // Do something if there are not any pages in the `PopupStack`
+            }
         }
 
         private void InitCrashlytics()

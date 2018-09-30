@@ -4,8 +4,10 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
+using Rg.Plugins.Popup.Services;
 using SSBakery.Services;
 using SSBakery.UI.Common;
+using SSBakery.UI.Modules.Album;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -35,6 +37,12 @@ namespace SSBakery.UI.Modules
         private void TapGesture_Tapped(object sender, EventArgs e)
         {
             DisplayAlert("Alert", "This is an image button", "OK");
+        }
+
+        private async void FlowListView_FlowItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var photoCell = e.Item as PhotoCellViewModel;
+            await PopupNavigation.Instance.PushAsync(new PhotoPopupPage(photoCell.ImageUrl));
         }
     }
 }

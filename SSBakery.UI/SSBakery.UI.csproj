@@ -24,6 +24,7 @@
     <PackageReference Include="ReactiveUI" Version="8.7.2" />
     <PackageReference Include="ReactiveUI.Events.XamForms" Version="8.7.2" />
     <PackageReference Include="ReactiveUI.XamForms" Version="8.7.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
     <PackageReference Include="Splat" Version="5.0.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
@@ -31,6 +32,7 @@
     <PackageReference Include="System.Reactive.Compatibility" Version="4.1.0" />
     <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="3.2.0.839982" />
   </ItemGroup>
@@ -40,6 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Modules\Album\PhotoPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Modules\StoreInfo\StoreInfoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

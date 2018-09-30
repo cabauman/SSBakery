@@ -7,7 +7,7 @@
                        x:TypeArguments="modules:ICatalogCategoryCellViewModel"
                        x:Class="SSBakery.UI.Modules.CatalogCategoryCell">
 
-    <Grid HeightRequest="100">
+    <Grid HeightRequest="70">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -21,7 +21,7 @@
                                     Aspect="AspectFill"
                                     CacheDuration="30"
                                     DownsampleToViewSize="true"
-                                    DownsampleHeight="80" />
+                                    DownsampleHeight="50" />
 
         <StackLayout Grid.Row="0" Grid.Column="1">
             <Label x:Name="NameLabel" FontSize="16" />

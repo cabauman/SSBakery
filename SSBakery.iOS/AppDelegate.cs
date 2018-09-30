@@ -20,6 +20,7 @@ namespace SSBakery.iOS
         {
             Firebase.Core.App.Configure();
             Crashlytics.Configure();
+            Rg.Plugins.Popup.Popup.Init();
 
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
