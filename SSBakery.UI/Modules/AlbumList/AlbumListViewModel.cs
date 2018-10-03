@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading;
 using GameCtor.RxNavigation;
@@ -41,23 +40,15 @@ namespace SSBakery.UI.Modules
                 .SubscribeOn(RxApp.TaskpoolScheduler)
                 .ToProperty(this, vm => vm.Albums, scheduler: RxApp.MainThreadScheduler);
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    SelectedItem = null;
+            this
+                .WhenAnyValue(vm => vm.SelectedItem)
+                .Where(x => x != null)
+                .SelectMany(x => LoadSelectedPage(x))
+                .Subscribe();
 
-                    this
-                        .WhenAnyValue(vm => vm.SelectedItem)
-                        .Where(x => x != null)
-                        .SelectMany(x => LoadSelectedPage(x))
-                        .Subscribe()
-                        .DisposeWith(disposables);
-
-                    LoadAlbums
-                        .ThrownExceptions
-                        .Subscribe(ex => this.Log().WarnException("Failed to load albums", ex))
-                        .DisposeWith(disposables);
-                });
+            LoadAlbums
+                .ThrownExceptions
+                .Subscribe(ex => this.Log().WarnException("Failed to load albums", ex));
         }
 
         public ReactiveCommand<Unit, List<AlbumCellViewModel>> LoadAlbums { get; set; }
