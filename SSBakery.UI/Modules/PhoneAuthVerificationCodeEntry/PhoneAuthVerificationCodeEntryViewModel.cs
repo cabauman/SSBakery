@@ -12,8 +12,8 @@ namespace SSBakery.UI.Modules
 {
     public class PhoneAuthVerificationCodeEntryViewModel : PageViewModel, IPhoneAuthVerificationCodeEntryViewModel
     {
-        private const string PhoneNumberTest = "+1 653-555-4117";
-        private const string VerificationCodeTest = "897604";
+        private const string PhoneNumberTest = "+1 653-555-4127";
+        private const string VerificationCodeTest = "123456";
         private const int REQUIRED_CODE_LENGTH = 6;
 
         private readonly IFirebaseAuthService _firebaseAuthService;
@@ -42,8 +42,8 @@ namespace SSBakery.UI.Modules
                     }
                     else
                     {
-                        return _firebaseAuthService
-                            .LinkPhoneNumberToCurrentUser(verificationId, VerificationCode)
+                        return _firebaseAuthService.CurrentUser
+                            .LinkWithPhoneNumber(verificationId, VerificationCode)
                             .ObserveOn(RxApp.MainThreadScheduler)
                             .SelectMany(_ => whenVerified);
                     }

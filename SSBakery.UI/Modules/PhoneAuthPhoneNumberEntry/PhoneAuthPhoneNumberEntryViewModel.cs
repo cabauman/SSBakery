@@ -2,7 +2,6 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using GameCtor.FirebaseAuth;
-using GameCtor.FirebaseAuth.Mobile;
 using GameCtor.RxNavigation;
 using ReactiveUI;
 using Splat;
@@ -13,8 +12,8 @@ namespace SSBakery.UI.Modules
 {
     public class PhoneAuthPhoneNumberEntryViewModel : PageViewModel, IPhoneAuthPhoneNumberEntryViewModel
     {
-        private const string PhoneNumberTest = "+1 653-555-4117";
-        private const string VerificationCodeTest = "897604";
+        private const string PhoneNumberTest = "+1 653-555-4127";
+        private const string VerificationCodeTest = "123456";
 
         private readonly IFirebaseAuthService _firebaseAuthService;
 
@@ -47,8 +46,8 @@ namespace SSBakery.UI.Modules
                     }
                     else
                     {
-                        return _firebaseAuthService
-                            .LinkPhoneNumberToCurrentUser(_phoneNumber)
+                        return _firebaseAuthService.CurrentUser
+                            .LinkWithPhoneNumber(PhoneNumberTest)
                             .SelectMany(result => HandleResult(authAction, result, whenVerified));
                     }
                 },
@@ -86,9 +85,9 @@ namespace SSBakery.UI.Modules
             set { this.RaiseAndSetIfChanged(ref _phoneNumber, value); }
         }
 
-        private IObservable<Unit> HandleResult(AuthAction authAction, PhoneNumberVerificationResult result, IObservable<Unit> completionObservable)
+        private IObservable<Unit> HandleResult(AuthAction authAction, PhoneNumberSignInResult result, IObservable<Unit> completionObservable)
         {
-            if(result.Authenticated)
+            if(result.AuthResult != null)
             {
                 return completionObservable;
             }
