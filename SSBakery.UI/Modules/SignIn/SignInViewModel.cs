@@ -2,15 +2,12 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using GameCtor.FirebaseAuth;
+using GameCtor.RxNavigation;
 using GameCtor.XamarinAuth;
 using ReactiveUI;
-using GameCtor.RxNavigation;
 using Splat;
-using SSBakery.Config;
 using SSBakery.Core.Common;
-using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
-using Xamarin.Auth;
 
 namespace SSBakery.UI.Modules
 {
@@ -57,8 +54,14 @@ namespace SSBakery.UI.Modules
             TriggerGoogleAuthFlow = ReactiveCommand.Create(
                 () =>
                 {
-                    _provider = "Google";
-                    authService.TriggerGoogleAuthFlow();
+                    _provider = "google";
+                    authService.TriggerGoogleAuthFlow(
+                        Config.GoogleAuthConfig.CLIENT_ID_ANDROID,
+                        null,
+                        Config.GoogleAuthConfig.SCOPE,
+                        Config.GoogleAuthConfig.AUTHORIZE_URL,
+                        Config.GoogleAuthConfig.REDIRECT_URL_ANDROID,
+                        Config.GoogleAuthConfig.ACCESS_TOKEN_URL);
                 });
 
             TriggerGoogleAuthFlow.ThrownExceptions.Subscribe(
@@ -70,8 +73,14 @@ namespace SSBakery.UI.Modules
             TriggerFacebookAuthFlow = ReactiveCommand.Create(
                 () =>
                 {
-                    _provider = "Facebook";
-                    authService.TriggerFacebookAuthFlow();
+                    _provider = "facebook";
+                    authService.TriggerFacebookAuthFlow(
+                        Config.FacebookAuthConfig.CLIENT_ID,
+                        null,
+                        Config.FacebookAuthConfig.SCOPE,
+                        Config.FacebookAuthConfig.AUTHORIZE_URL,
+                        Config.FacebookAuthConfig.REDIRECT_URL,
+                        string.Empty);
                 });
 
             TriggerFacebookAuthFlow.ThrownExceptions.Subscribe(
@@ -116,12 +125,14 @@ namespace SSBakery.UI.Modules
         private IObservable<Unit> AuthenticateWithFirebase(string authToken)
         {
             IObservable<Unit> result = null;
-            if(_provider == "Google")
+            if(_provider == "google")
             {
+                //result = _firebaseAuthService.CurrentUser
+                //    .LinkWithGoogle(null, authToken).Select(_ => Unit.Default);
                 result = _firebaseAuthService
-                    .SignInWithGoogle(authToken);
+                    .SignInWithGoogle(null, authToken);
             }
-            else if(_provider == "Facebook")
+            else if(_provider == "facebook")
             {
                 result = _firebaseAuthService
                     .SignInWithFacebook(authToken);
