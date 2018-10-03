@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Runtime;
 using Firebase;
 using GameCtor.FirebaseAnalytics;
 using Plugin.CurrentActivity;
@@ -19,19 +20,20 @@ namespace SSBakery.Droid
 
             base.OnCreate(bundle);
 
-            var options = new FirebaseOptions.Builder()
-                .SetApplicationId(Config.Constants.CUSTOMER_APP_ID)
-                .SetApiKey(Config.ApiKeys.FIREBASE)
-                .Build();
-            FirebaseApp.InitializeApp(this, options);
+            //var options = new FirebaseOptions.Builder()
+            //    .SetApplicationId(Config.Constants.CUSTOMER_APP_ID)
+            //    .SetApiKey(Config.ApiKeys.FIREBASE)
+            //    .Build();
+            FirebaseApp.InitializeApp(this);
 
             InitCrashlytics();
 
             Rg.Plugins.Popup.Popup.Init(this, bundle);
+            Xamarin.Essentials.Platform.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
-            //CrossFirebaseAnalytics.Current.SetUserId("123");
+            //CrossFirebaseAnalytics.Current.SetUserId("321");
             //CrossFirebaseAnalytics.Current.SetUserProperty("propertyName", "propertyValue");
-            //CrossFirebaseAnalytics.Current.LogEvent("dummy_event", new Dictionary<string, object>() { { "someKey", "someValue" } });
+            //CrossFirebaseAnalytics.Current.LogEvent("dummy_event2", new Dictionary<string, object>() { { "someKey", "someValue" } });
 
             Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             Xamarin.Forms.Forms.Init(this, bundle);
@@ -53,6 +55,13 @@ namespace SSBakery.Droid
             {
                 // Do something if there are not any pages in the `PopupStack`
             }
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         private void InitCrashlytics()

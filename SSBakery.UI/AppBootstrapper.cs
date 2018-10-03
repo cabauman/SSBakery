@@ -44,7 +44,7 @@ namespace SSBakery
             Locator.CurrentMutable.Register(() => new RewardsProgramActivationPage(), typeof(IViewFor<IRewardsProgramActivationViewModel>));
 
             Locator.CurrentMutable.Register(() => new AuthService(), typeof(IAuthService));
-            var firebaseAuthService = new FirebaseAuthService();
+            IFirebaseAuthService firebaseAuthService = CrossFirebaseAuth.Current;
             Locator.CurrentMutable.RegisterConstant(firebaseAuthService, typeof(IFirebaseAuthService));
             Locator.CurrentMutable.RegisterLazySingleton(() => new FacebookPhotoService(), typeof(IFacebookPhotoService));
 
@@ -52,17 +52,17 @@ namespace SSBakery
 
             //Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
-            viewStackService.PushPage(new MainViewModel()).Subscribe();
+            //viewStackService.PushPage(new MainViewModel()).Subscribe();
 
-            return;
+            //return;
 
-            if(firebaseAuthService.IsAuthenticated)
+            if (firebaseAuthService.CurrentUser != null)
             {
-                viewStackService.PushPage(new MainViewModel());
+                viewStackService.PushPage(new MainViewModel()).Subscribe();
             }
             else
             {
-                viewStackService.PushPage(new SignInViewModel());
+                viewStackService.PushPage(new SignInViewModel()).Subscribe();
             }
         }
 

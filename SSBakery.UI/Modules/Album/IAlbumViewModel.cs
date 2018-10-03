@@ -8,8 +8,6 @@ namespace SSBakery.UI.Modules
     {
         ReactiveCommand<Unit, List<PhotoCellViewModel>> LoadPhotos { get; }
 
-        PhotoCellViewModel SelectedItem { get; set; }
-
         IList<PhotoCellViewModel> Photos { get; }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reactive;
 using System.Threading;
-using ReactiveUI;
 using GameCtor.RxNavigation;
+using ReactiveUI;
 using Splat;
 using SSBakery.Services.Interfaces;
 using SSBakery.UI.Common;
@@ -42,12 +43,6 @@ namespace SSBakery.UI.Modules
         public IList<PhotoCellViewModel> Photos
         {
             get { return _photos.Value; }
-        }
-
-        public PhotoCellViewModel SelectedItem
-        {
-            get { return _selectedItem; }
-            set { this.RaiseAndSetIfChanged(ref _selectedItem, value); }
         }
     }
 }

@@ -8,6 +8,7 @@ namespace SSBakery.UI.Modules
     {
         private FacebookPhoto _model;
         private string _imageUrl;
+        private string _imageUrlMaxSize;
 
         public PhotoCellViewModel(FacebookPhoto model, IViewStackService viewStackService = null)
             : base(viewStackService)
@@ -22,19 +23,27 @@ namespace SSBakery.UI.Modules
                 if(_imageUrl == null)
                 {
                     int minWidthIdx = 0;
-                    for(int i = 1; i < _model.Images.Count; ++i)
+                    int maxWidthIdx = 0;
+                    for (int i = 1; i < _model.Images.Count; ++i)
                     {
                         if(_model.Images[i].Width < _model.Images[minWidthIdx].Width)
                         {
                             minWidthIdx = i;
                         }
+                        else if(_model.Images[i].Width > _model.Images[maxWidthIdx].Width)
+                        {
+                            maxWidthIdx = i;
+                        }
                     }
 
                     _imageUrl = _model.Images[minWidthIdx].Source;
+                    _imageUrlMaxSize = _model.Images[maxWidthIdx].Source;
                 }
 
                 return _imageUrl;
             }
         }
+
+        public string ImageUrlMaxSize => _imageUrlMaxSize;
     }
 }

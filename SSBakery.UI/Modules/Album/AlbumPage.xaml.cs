@@ -5,9 +5,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using Rg.Plugins.Popup.Services;
-using SSBakery.Services;
 using SSBakery.UI.Common;
-using SSBakery.UI.Modules.Album;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,29 +18,17 @@ namespace SSBakery.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    ViewModel.SelectedItem = null;
-
-                    this
-                        .WhenAnyValue(x => x.ViewModel)
-                        .Where(x => x != null)
-                        .Select(x => Unit.Default)
-                        .InvokeCommand(this, x => x.ViewModel.LoadPhotos)
-                        .DisposeWith(disposables);
-                });
-        }
-
-        private void TapGesture_Tapped(object sender, EventArgs e)
-        {
-            DisplayAlert("Alert", "This is an image button", "OK");
+            this
+                .WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Select(x => Unit.Default)
+                .InvokeCommand(this, x => x.ViewModel.LoadPhotos);
         }
 
         private async void FlowListView_FlowItemTapped(object sender, ItemTappedEventArgs e)
         {
             var photoCell = e.Item as PhotoCellViewModel;
-            await PopupNavigation.Instance.PushAsync(new PhotoPopupPage(photoCell.ImageUrl));
+            await PopupNavigation.Instance.PushAsync(new PhotoPopupPage(photoCell.ImageUrlMaxSize));
         }
     }
 }

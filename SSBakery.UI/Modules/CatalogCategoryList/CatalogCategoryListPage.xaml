@@ -9,7 +9,7 @@
             x:Class="SSBakery.UI.Modules.CatalogCategoryListPage">
     <ContentPage.Content>
         <ListView x:Name="CatalogCategoryListView"
-              RowHeight="100"
+              RowHeight="70"
               SeparatorVisibility="None"
               CachingStrategy="RetainElement">
             <ListView.ItemTemplate>

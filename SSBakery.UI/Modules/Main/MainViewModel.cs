@@ -1,4 +1,7 @@
-﻿using System.Reactive.Disposables;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using GameCtor.FirebaseAuth;
 using GameCtor.RxNavigation;
 using ReactiveUI;
@@ -32,7 +35,7 @@ namespace SSBakery.UI.Modules
                     return ViewStackService.PushPage(new StoreInfoViewModel());
                 });
 
-            if(_authService.IsPhoneNumberLinkedToAccount)
+            if(_authService.CurrentUser.Providers.Contains("phone"))
             {
                 NavigateToRewardsPage = ReactiveCommand.CreateFromObservable(
                     () =>
@@ -53,6 +56,12 @@ namespace SSBakery.UI.Modules
                 d =>
                 {
                     Disposable.Empty.DisposeWith(d);
+                });
+
+            NavigateToCatalogPage.ThrownExceptions.Subscribe(
+                ex =>
+                {
+                    System.Console.WriteLine(ex.Message);
                 });
         }
 

@@ -31,6 +31,7 @@
     <PackageReference Include="System.Reactive" Version="4.1.0" />
     <PackageReference Include="System.Reactive.Compatibility" Version="4.1.0" />
     <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="0.10.0-preview" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
@@ -119,7 +120,7 @@
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.dll</HintPath>
     </Reference>
     <Reference Include="GameCtor.FirebaseAuth.Mobile">
-      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.Mobile\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.Mobile.dll</HintPath>
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.Mobile\bin\Release\monoandroid80\MonoAndroid80\GameCtor.FirebaseAuth.Mobile.dll</HintPath>
     </Reference>
     <Reference Include="GameCtor.Repository">
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\Repository\bin\Release\netstandard2.0\GameCtor.Repository.dll</HintPath>

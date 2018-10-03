@@ -136,6 +136,9 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GameCtor.FirebaseAuth.Mobile">
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.Mobile\bin\Release\xamarin.ios10\GameCtor.FirebaseAuth.Mobile.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -164,6 +167,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Auth.XamarinForms">
       <Version>1.6.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>0.10.0-preview</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.3.840</Version>

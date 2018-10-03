@@ -63,6 +63,10 @@
     <Reference Include="GameCtor.FirebaseAnalytics">
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAnalytics\bin\Release\monoandroid80\MonoAndroid80\GameCtor.FirebaseAnalytics.dll</HintPath>
     </Reference>
+    <Reference Include="GameCtor.FirebaseAuth.Mobile, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.Mobile\bin\Release\monoandroid80\MonoAndroid80\GameCtor.FirebaseAuth.Mobile.dll</HintPath>
+    </Reference>
     <Reference Include="GameCtor.XamarinAuth">
       <HintPath>..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
     </Reference>
@@ -114,6 +118,9 @@
     <PackageReference Include="Xamarin.Auth.XamarinForms">
       <Version>1.6.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>0.10.0-preview</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.3.840</Version>
     </PackageReference>
@@ -164,6 +171,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml">

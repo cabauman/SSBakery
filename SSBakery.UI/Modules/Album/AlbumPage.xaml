@@ -10,20 +10,21 @@
                     x:Class="SSBakery.UI.Modules.AlbumPage">
     <ContentPage.Content>
 
-            <flv:FlowListView
-                FlowColumnMinWidth="110"
-                SeparatorVisibility="None"
-                HasUnevenRows="true"
-                FlowColumnCount="3"
-	            FlowItemsSource="{Binding Photos}"
-                FlowItemTapped="FlowListView_FlowItemTapped">
+        <flv:FlowListView
+            x:Name="PhotoFlowListView"
+            RowHeight="100"
+            FlowColumnMinWidth="110"
+            SeparatorVisibility="None"
+            HasUnevenRows="false"
+            FlowColumnCount="3"
+	        FlowItemsSource="{Binding Photos}"
+            FlowItemTapped="FlowListView_FlowItemTapped">
 
                 <flv:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <ffimageloading:CachedImage
                             Margin="3"
                             Aspect="AspectFill"
-                            HeightRequest="100"
 							DownsampleHeight="100"
                             DownsampleUseDipUnits="false"
 							Source="{Binding ImageUrl}" />
