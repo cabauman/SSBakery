@@ -38,7 +38,7 @@ namespace SSBakery.UI.Modules
                     () =>
                     {
                         return Observable
-                            .Start(() => ViewStackService.InsertPage(1, new RewardsViewModel()))
+                            .Start(() => ViewStackService.InsertPage(1, new RewardsViewModel()), RxApp.MainThreadScheduler)
                             .Concat(ViewStackService.PopToPage(1));
                     });
         }
