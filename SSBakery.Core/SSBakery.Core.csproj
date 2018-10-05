@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>SSBakery.Core.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\SSBakery.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>SSBakery.Core.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\SSBakery.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

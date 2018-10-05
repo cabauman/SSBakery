@@ -9,6 +9,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CodeAnalysisRuleSet>..\..\SSBakery.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>..\..\SSBakery.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json">
       <Link>stylecop.json</Link>
@@ -40,11 +48,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
+    <Reference Include="GameCtor.FirebaseAuth">
+      <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.Repository">
+      <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\Repository\bin\Release\netstandard2.0\GameCtor.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.RxNavigation">
+      <HintPath>..\..\..\RxNavigation\src\RxNavigation.XamForms\bin\Release\netstandard2.0\GameCtor.RxNavigation.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.RxNavigation.XamForms">
+      <HintPath>..\..\..\RxNavigation\src\RxNavigation.XamForms\bin\Release\netstandard2.0\GameCtor.RxNavigation.XamForms.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.XamarinAuth">
+      <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
