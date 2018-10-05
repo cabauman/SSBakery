@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace SSBakeryAdmin.UI.Modules
 {
-    public interface ICatalogCategoryViewModel
+    public interface ICatalogItemListViewModel
     {
         ReactiveCommand<Unit, IReadOnlyList<ICatalogItemCellViewModel>> LoadItems { get; }
 

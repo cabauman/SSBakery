@@ -2,18 +2,26 @@
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using GameCtor.RxNavigation;
 using ReactiveUI;
 using ReactiveUI.XamForms;
+using Xamarin.Forms;
 
 namespace SSBakeryAdmin.UI.Modules
 {
     public partial class MainPage : ReactiveMasterDetailPage<MainViewModel>
     {
-        public MainPage(MainViewModel viewModel)
+        public MainPage(MainViewModel viewModel, IView detailView)
         {
             ViewModel = viewModel;
+            Detail = (Xamarin.Forms.Page)detailView;
 
             InitializeComponent();
+
+            if(Device.RuntimePlatform == Device.UWP)
+            {
+                MasterBehavior = MasterBehavior.Popover;
+            }
 
             this.WhenActivated(
                 disposables =>
@@ -31,7 +39,7 @@ namespace SSBakeryAdmin.UI.Modules
                             _ =>
                             {
                                 // Deselect the cell.
-                                MyListView.SelectedItem = null;
+                                Device.BeginInvokeOnMainThread(() => MyListView.SelectedItem = null);
                                 // Hide the master panel.
                                 IsPresented = false;
                             })

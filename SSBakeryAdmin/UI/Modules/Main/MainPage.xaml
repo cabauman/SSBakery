@@ -2,6 +2,8 @@
 <rxui:ReactiveMasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+             xmlns:rxnav="clr-namespace:GameCtor.RxNavigation.XamForms;assembly=GameCtor.RxNavigation.XamForms"
+             xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
              xmlns:local="clr-namespace:SSBakeryAdmin.UI.Modules"
              x:Class="SSBakeryAdmin.UI.Modules.MainPage"
              x:TypeArguments="local:MainViewModel">
@@ -20,8 +22,8 @@
         </ContentPage>
     </MasterDetailPage.Master>
 
-    <MasterDetailPage.Detail>
-        <rxui:RoutedViewHost x:Name="ViewHost" />
-    </MasterDetailPage.Detail>
+    <!--<MasterDetailPage.Detail>
+        <rxnav:MainView x:Name="NavigationShell" />
+    </MasterDetailPage.Detail>-->
 
 </rxui:ReactiveMasterDetailPage>

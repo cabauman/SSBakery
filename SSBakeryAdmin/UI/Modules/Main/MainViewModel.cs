@@ -20,7 +20,7 @@ namespace SSBakeryAdmin.UI.Modules
             MenuItems = GetMenuItems();
 
             NavigateToMenuItem = ReactiveCommand.CreateFromObservable<IPageViewModel, Unit>(
-                pageVm => viewStackService.PushPage(pageVm, resetStack: true));
+                pageVm => viewStackService.PushPage(pageVm, resetStack: false));
 
             this.WhenAnyValue(x => x.Selected)
                 .Where(x => x != null)
@@ -43,12 +43,11 @@ namespace SSBakeryAdmin.UI.Modules
 
         private IEnumerable<MasterCellViewModel> GetMenuItems()
         {
-            throw new NotImplementedException();
-            //return new[]
-            //{
-            //    new MasterCellViewModel { Title = "Customer Directory", IconSource = "contacts.png", TargetType = typeof(CustomerDirectoryPage) },
-            //    new MasterCellViewModel { Title = "Catalog", IconSource = "reminders.png", TargetType = typeof(CatalogCategoryListPage) },
-            //};
+            return new[]
+            {
+                new MasterCellViewModel { Title = "Customer Directory", IconSource = "contacts.png", TargetType = typeof(CustomerDirectoryViewModel) },
+                new MasterCellViewModel { Title = "Catalog", IconSource = "reminders.png", TargetType = typeof(CatalogCategoryListViewModel) },
+            };
         }
     }
 }

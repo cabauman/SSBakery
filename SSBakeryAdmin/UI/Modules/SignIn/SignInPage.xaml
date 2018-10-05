@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:ui="clr-namespace:SSBakeryAdmin.UI.Common"
+            xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
+            x:TypeArguments="modules:ISignInViewModel"
+            x:Class="SSBakeryAdmin.UI.Modules.SignInPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="1"
+                Padding="10"
+                VerticalOptions="End">
+                <Button
+                    x:Name="GoogleSignInButton"
+                    Text="Sign in with Google" />
+                <Button
+                    x:Name="FacebookSignInButton"
+                    Text="Sign in with Facebook"
+                    BackgroundColor="AliceBlue" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ui:ContentPageBase>

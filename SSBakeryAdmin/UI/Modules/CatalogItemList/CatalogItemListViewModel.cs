@@ -10,13 +10,13 @@ using SSBakery.Repositories.Interfaces;
 
 namespace SSBakeryAdmin.UI.Modules
 {
-    public class CatalogCategoryViewModel : ReactiveObject, ICatalogCategoryViewModel, IPageViewModel
+    public class CatalogItemListViewModel : ReactiveObject, ICatalogItemListViewModel, IPageViewModel
     {
         private readonly ObservableAsPropertyHelper<IReadOnlyList<ICatalogItemCellViewModel>> _items;
 
         private string _timestampOfLatestSync;
 
-        public CatalogCategoryViewModel(string categoryId, ICatalogItemRepo itemRepo = null)
+        public CatalogItemListViewModel(string categoryId, ICatalogItemRepo itemRepo = null)
         {
             itemRepo = itemRepo ?? Locator.Current.GetService<ICatalogItemRepo>();
 
