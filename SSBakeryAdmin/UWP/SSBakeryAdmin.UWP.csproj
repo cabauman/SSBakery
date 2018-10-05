@@ -130,7 +130,10 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="contacts.png" />
     <Content Include="Properties\Default.rd.xml" />
+    <Content Include="reminders.png" />
+    <Content Include="todo.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -162,10 +165,20 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SSBakeryAdmin\SSBakeryAdmin.csproj">
-      <Project>{A70FCBB5-F75E-4659-BDB9-60E4A50CC0A7}</Project>
-      <Name>SSBakeryAdmin</Name>
+    <ProjectReference Include="..\..\SSBakery.Core\SSBakery.Core.csproj">
+      <Project>{44ce511a-0366-4a24-a0a5-a284328f8851}</Project>
+      <Name>SSBakery.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UI\SSBakeryAdmin.UI.csproj">
+      <Project>{9308d152-875b-4dcb-97c8-ebf1ffd70e0f}</Project>
+      <Name>SSBakeryAdmin.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GameCtor.FirebaseDatabase.DotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseDatabase.DotNet\bin\Release\netstandard2.0\GameCtor.FirebaseDatabase.DotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

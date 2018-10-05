@@ -1,4 +1,5 @@
 ﻿using System;
+using SSBakeryAdmin.UI.Modules;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,8 @@ namespace SSBakeryAdmin
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            var bootstrapper = new AppBootstrapper();
+            MainPage = new MainPage(bootstrapper.CreateMainViewModel(), bootstrapper.NavigationShell);
         }
 
         protected override void OnStart()

@@ -64,4 +64,31 @@
       <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\XamarinAuth\bin\Release\netstandard2.0\GameCtor.XamarinAuth.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Modules\CatalogCategoryList\CatalogCategoryCell.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\CatalogItemList\CatalogItemListPage.xaml.cs">
+      <DependentUpon>CatalogItemListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\CatalogItemList\CatalogItemCell.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\CustomerDirectory\CustomerCell.xaml.cs">
+      <DependentUpon>CustomerCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\CustomerDirectory\CustomerDirectoryPage.xaml.cs">
+      <DependentUpon>CustomerDirectoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\SignIn\SignInPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Modules\CatalogCategoryList\CatalogCategoryListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
