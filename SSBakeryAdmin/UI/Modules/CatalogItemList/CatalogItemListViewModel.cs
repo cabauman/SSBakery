@@ -20,14 +20,6 @@ namespace SSBakeryAdmin.UI.Modules
         {
             itemRepo = itemRepo ?? Locator.Current.GetService<ICatalogItemRepo>();
 
-            SyncWithPosSystem = ReactiveCommand.CreateFromObservable(
-                () =>
-                {
-                    return itemRepo
-                        .PullFromPosSystemAndStoreInFirebase(categoryId, _timestampOfLatestSync)
-                        .Do(_ => SaveTimestampOfLatestSync());
-                });
-
             LoadItems = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
@@ -43,8 +35,6 @@ namespace SSBakeryAdmin.UI.Modules
         }
 
         public ReactiveCommand<Unit, IReadOnlyList<ICatalogItemCellViewModel>> LoadItems { get; }
-
-        public ReactiveCommand<Unit, Unit> SyncWithPosSystem { get; }
 
         public IReadOnlyList<ICatalogItemCellViewModel> Items => _items.Value;
 

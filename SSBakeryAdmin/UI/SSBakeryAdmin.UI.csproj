@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
+    <PackageReference Include="DynamicData" Version="6.5.1.2479" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.0.0-alpha8" />
     <PackageReference Include="ReactiveUI" Version="8.7.2" />
     <PackageReference Include="ReactiveUI.Events.XamForms" Version="8.7.2" />
@@ -34,6 +35,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="16.3.0.21" />
     <PackageReference Include="System.Reactive" Version="4.1.1" />
     <PackageReference Include="System.Reactive.Compatibility" Version="4.1.1" />
     <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" />
@@ -75,11 +77,11 @@
     <Compile Update="Modules\CatalogItemList\CatalogItemCell.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="Modules\CustomerDirectory\CustomerCell.xaml.cs">
-      <DependentUpon>CustomerCell.xaml</DependentUpon>
+    <Compile Update="Modules\CustomerDirectory\RewardsMemberCell.xaml.cs">
+      <DependentUpon>RewardsMemberCell.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\CustomerDirectory\CustomerDirectoryPage.xaml.cs">
-      <DependentUpon>CustomerDirectoryPage.xaml</DependentUpon>
+    <Compile Update="Modules\CustomerDirectory\RewardsMemberDirectoryPage.xaml.cs">
+      <DependentUpon>RewardsMemberDirectoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\SignIn\SignInPage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>

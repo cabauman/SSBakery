@@ -1,35 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <rxui:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
-             xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
-             x:TypeArguments="modules:ICatalogCategoryListViewModel"
-             x:Class="SSBakeryAdmin.UI.Modules.CatalogCategoryListPage">
-  <ListView x:Name="MyListView"
-            SelectionMode="None"
-            CachingStrategy="RecycleElement">
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                          xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                          xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
+                          x:TypeArguments="modules:ICatalogCategoryListViewModel"
+                          x:Class="SSBakeryAdmin.UI.Modules.CatalogCategoryListPage">
+
+    <syncfusion:SfListView
+        x:Name="MyListView"
+        ItemSize="70"
+        SelectionMode="Single"
+        SelectionGesture="Tap">
+        <syncfusion:SfListView.ItemTemplate>
+            <DataTemplate>
+                <modules:CatalogCategoryCell />
+            </DataTemplate>
+        </syncfusion:SfListView.ItemTemplate>
+        <syncfusion:SfListView.LayoutManager>
+            <syncfusion:GridLayout SpanCount="1" />
+        </syncfusion:SfListView.LayoutManager>
+    </syncfusion:SfListView>
+
+    <!--<ListView x:Name="MyListView"
+        SelectionMode="None"
+        CachingStrategy="RecycleElement">
             
-    <!--Built in Cells-->
+    --><!--Built in Cells--><!--
     <ListView.ItemTemplate>
         <DataTemplate>
             <TextCell Text="{Binding .}" />
         </DataTemplate>
     </ListView.ItemTemplate>
     
-    <!--Custom View Cells-->
+    --><!--Custom View Cells-->
     <!--
     <ListView.ItemTemplate>
-      <DataTemplate>
+        <DataTemplate>
         <ViewCell>
-          <StackLayout>
+            <StackLayout>
             <Label Text="{Binding Text}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
+                    Style="{DynamicResource ListItemTextStyle}" />
             <Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
+                    Style="{DynamicResource ListItemDetailTextStyle}"/>
+            </StackLayout>
         </ViewCell>
-      </DataTemplate>
+        </DataTemplate>
     </ListView.ItemTemplate>
-    -->
-  </ListView>
+    --><!--
+    </ListView>-->
 </rxui:ReactiveContentPage>

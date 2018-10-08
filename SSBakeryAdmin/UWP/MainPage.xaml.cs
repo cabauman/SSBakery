@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Syncfusion.ListView.XForms.UWP;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -20,7 +21,7 @@ namespace SSBakeryAdmin.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            SfListViewRenderer.Init();
             LoadApplication(new SSBakeryAdmin.App());
         }
     }

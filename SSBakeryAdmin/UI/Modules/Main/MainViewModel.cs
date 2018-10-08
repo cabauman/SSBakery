@@ -45,7 +45,7 @@ namespace SSBakeryAdmin.UI.Modules
         {
             return new[]
             {
-                new MasterCellViewModel { Title = "Customer Directory", IconSource = "contacts.png", TargetType = typeof(CustomerDirectoryViewModel) },
+                new MasterCellViewModel { Title = "Customer Directory", IconSource = "contacts.png", TargetType = typeof(RewardsMemberDirectoryViewModel) },
                 new MasterCellViewModel { Title = "Catalog", IconSource = "reminders.png", TargetType = typeof(CatalogCategoryListViewModel) },
             };
         }
