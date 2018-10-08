@@ -9,9 +9,9 @@ using Xamarin.Forms.Xaml;
 namespace SSBakeryAdmin.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CustomerCell : ReactiveViewCell<ICustomerCellViewModel>
+    public partial class RewardsMemberCell : ReactiveViewCell<IRewardsMemberCellViewModel>
     {
-        public CustomerCell()
+        public RewardsMemberCell()
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace SSBakeryAdmin.UI.Modules
                 });
         }
 
-        private void PopulateFromViewModel(ICustomerCellViewModel catalogItem)
+        private void PopulateFromViewModel(IRewardsMemberCellViewModel catalogItem)
         {
             //NameLabel.Text = catalogItem.Name;
         }

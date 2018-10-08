@@ -4,16 +4,14 @@ using SSBakery.Models;
 
 namespace SSBakeryAdmin.UI.Modules
 {
-    public interface ICustomerViewModel
+    public interface IRewardsMemberViewModel
     {
         string Name { get; }
 
         string PhoneNumber { get; }
 
-        //int Stamps { get; }
+        int TotalVisits { get; }
 
-        //CustomerRewardData RewardData { get; }
-
-        ReactiveCommand<Unit, Unit> UseReward { get; }
+        int UnclaimedRewardCount { get; }
     }
 }

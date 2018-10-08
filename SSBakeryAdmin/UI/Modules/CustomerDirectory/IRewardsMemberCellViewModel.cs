@@ -4,7 +4,7 @@ using SSBakery.Models;
 
 namespace SSBakeryAdmin.UI.Modules
 {
-    public interface ICustomerCellViewModel
+    public interface IRewardsMemberCellViewModel
     {
         string Name { get; }
 
@@ -12,7 +12,7 @@ namespace SSBakeryAdmin.UI.Modules
 
         int Stamps { get; }
 
-        CustomerRewardData RewardData { get; }
+        RewardsMember RewardData { get; set; }
 
         ReactiveCommand<Unit, Unit> UseReward { get; }
     }
