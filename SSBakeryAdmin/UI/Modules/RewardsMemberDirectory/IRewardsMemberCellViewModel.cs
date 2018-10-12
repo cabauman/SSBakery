@@ -6,14 +6,16 @@ namespace SSBakeryAdmin.UI.Modules
 {
     public interface IRewardsMemberCellViewModel
     {
+        RewardsMember Model { get; }
+
         string Name { get; }
 
         string PhoneNumber { get; }
 
         int Stamps { get; }
 
-        RewardsMember RewardData { get; set; }
+        int TotalVisits { get; set; }
 
-        ReactiveCommand<Unit, Unit> UseReward { get; }
+        int UnclaimedRewardCount { get; set; }
     }
 }

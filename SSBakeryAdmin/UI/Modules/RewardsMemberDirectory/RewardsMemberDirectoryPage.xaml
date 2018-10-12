@@ -8,29 +8,30 @@
                     x:TypeArguments="modules:IRewardsMemberDirectoryViewModel"
                     x:Class="SSBakeryAdmin.UI.Modules.RewardsMemberDirectoryPage">
 
-    <syncfusion:SfListView
+    <ListView
+        x:Name="RewardsMemberListView"
+        RowHeight="70"
+        SeparatorVisibility="None"
+        CachingStrategy="RecycleElement">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <modules:RewardsMemberCell />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    
+    <!--<syncfusion:SfListView
         x:Name="RewardsMemberListView"
         ItemSize="70"
         SelectionMode="Single"
         SelectionGesture="Tap">
         <syncfusion:SfListView.ItemTemplate>
             <DataTemplate>
-                <modules:CatalogItemCell />
+                <modules:RewardsMemberCell />
             </DataTemplate>
         </syncfusion:SfListView.ItemTemplate>
         <syncfusion:SfListView.LayoutManager>
             <syncfusion:GridLayout SpanCount="1" />
         </syncfusion:SfListView.LayoutManager>
-    </syncfusion:SfListView>
-    
-    <!--<ListView x:Name="CustomerListView"
-        RowHeight="100"
-        SeparatorVisibility="None"
-        CachingStrategy="RecycleElement">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <modules:CatalogItemCell />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>-->
+    </syncfusion:SfListView>-->
 </ui:ContentPageBase>

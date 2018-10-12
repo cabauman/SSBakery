@@ -15,20 +15,16 @@ namespace SSBakeryAdmin.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    this.WhenAnyValue(x => x.ViewModel)
-                        .Where(x => x != null)
-                        .Do(PopulateFromViewModel)
-                        .Subscribe()
-                        .DisposeWith(disposables);
-                });
+            this.WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Do(PopulateFromViewModel)
+                .Subscribe();
         }
 
-        private void PopulateFromViewModel(IRewardsMemberCellViewModel catalogItem)
+        private void PopulateFromViewModel(IRewardsMemberCellViewModel viewModel)
         {
-            //NameLabel.Text = catalogItem.Name;
+            DescriptionLabel.Text = viewModel.TotalVisits.ToString();
+            NameLabel.Text = viewModel.Name;
         }
     }
 }
