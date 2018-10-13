@@ -3,11 +3,8 @@ using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {
-    public class RewardsMember : IModel
+    public class RewardsMember : BaseModel
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
         [JsonProperty("name")]
         public string Name { get; set; }
 

@@ -4,11 +4,8 @@ using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {
-    public class AdminVar : IModel
+    public class AdminVar : BaseModel
     {
-        [JsonIgnore]
-        public string Id { get; set; }
-
         [JsonProperty("catalogSyncTimestamp")]
         public string CatalogSyncTimestamp { get; set; }
 

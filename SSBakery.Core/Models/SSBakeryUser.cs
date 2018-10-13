@@ -3,11 +3,8 @@ using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {
-    public class SSBakeryUser : IModel
+    public class SSBakeryUser : BaseModel
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
         [JsonProperty("customerId")]
         public string CustomerId { get; set; }
 

@@ -4,11 +4,8 @@ using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {
-    public class CatalogCategory : IModel
+    public class CatalogCategory : BaseModel
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
         [JsonProperty("name")]
         public string Name { get; set; }
 
