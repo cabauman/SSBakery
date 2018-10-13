@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Reactive.Threading.Tasks;
 using GameCtor.RxNavigation;
 using GameCtor.RxNavigation.XamForms;
 using ReactiveUI;
 using Splat;
+using Square.Connect.Api;
+using Square.Connect.Model;
+using SSBakery.Config;
 using SSBakery.Helpers;
 using SSBakery.Repositories;
 using SSBakeryAdmin.UI.Modules;
@@ -32,7 +36,28 @@ namespace SSBakeryAdmin
             NavigationShell = new MainView(RxApp.TaskpoolScheduler, RxApp.MainThreadScheduler, ViewLocator.Current);
             var viewStackService = new ViewStackService(NavigationShell);
             Locator.CurrentMutable.RegisterConstant(viewStackService, typeof(IViewStackService));
+            Locator.CurrentMutable.Register(() => new RewardsMemberSynchronizer(), typeof(IRewardsMemberSynchronizer));
             Locator.CurrentMutable.Register(() => new CatalogSynchronizer(), typeof(ICatalogSynchronizer));
+            var repositoryRegistrar = new RepositoryRegistrar(null, Locator.CurrentMutable);
+            Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
+
+            //var customersApi = new CustomersApi();
+            //var filter = new CustomerFilter();
+            //var query = new CustomerQuery(filter);
+            //var request = new SearchCustomersRequest(Cursor: null, Query: query);
+
+            //customersApi
+            //    .SearchCustomersAsync(request)
+            //    .ToObservable()
+            //    .Subscribe(
+            //        x =>
+            //        {
+            //            Console.WriteLine(x);
+            //        },
+            //        ex =>
+            //        {
+            //            Console.WriteLine(ex.Message);
+            //        });
         }
 
         private void RegisterViews()
@@ -41,7 +66,9 @@ namespace SSBakeryAdmin
 
             // Detail pages
             Locator.CurrentMutable.Register(() => new RewardsMemberDirectoryPage(), typeof(IViewFor<IRewardsMemberDirectoryViewModel>));
+            Locator.CurrentMutable.Register(() => new RewardsMemberCell(), typeof(IViewFor<IRewardsMemberCellViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogCategoryListPage(), typeof(IViewFor<ICatalogCategoryListViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogItemListPage(), typeof(IViewFor<ICatalogItemListViewModel>));
         }
 
         private void RegisterViewModels()

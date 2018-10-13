@@ -6,7 +6,7 @@ namespace SSBakery.Models
 {
     public class AdminVar : IModel
     {
-        [JsonProperty("id")]
+        [JsonIgnore]
         public string Id { get; set; }
 
         [JsonProperty("catalogSyncTimestamp")]

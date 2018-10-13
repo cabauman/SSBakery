@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Xml;
 using GameCtor.RxNavigation;
 using ReactiveUI;
 using Splat;
@@ -14,11 +13,13 @@ namespace SSBakeryAdmin.UI.Modules
     {
         private readonly ObservableAsPropertyHelper<IReadOnlyList<ICatalogItemCellViewModel>> _items;
 
-        private string _timestampOfLatestSync;
-
-        public CatalogItemListViewModel(string categoryId, ICatalogItemRepo itemRepo = null)
+        public CatalogItemListViewModel(
+            string categoryId,
+            ICatalogItemRepo itemRepo = null,
+            IViewStackService viewStackService = null)
         {
             itemRepo = itemRepo ?? Locator.Current.GetService<ICatalogItemRepo>();
+            viewStackService = viewStackService ?? Locator.Current.GetService<IViewStackService>();
 
             LoadItems = ReactiveCommand.CreateFromObservable(
                 () =>
@@ -39,10 +40,5 @@ namespace SSBakeryAdmin.UI.Modules
         public IReadOnlyList<ICatalogItemCellViewModel> Items => _items.Value;
 
         public string Title => "Catalog Items";
-
-        private void SaveTimestampOfLatestSync()
-        {
-            _timestampOfLatestSync = XmlConvert.ToString(DateTime.UtcNow, XmlDateTimeSerializationMode.Utc);
-        }
     }
 }

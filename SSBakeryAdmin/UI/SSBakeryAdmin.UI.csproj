@@ -77,10 +77,10 @@
     <Compile Update="Modules\CatalogItemList\CatalogItemCell.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="Modules\CustomerDirectory\RewardsMemberCell.xaml.cs">
+    <Compile Update="Modules\RewardsMemberDirectory\RewardsMemberCell.xaml.cs">
       <DependentUpon>RewardsMemberCell.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Modules\CustomerDirectory\RewardsMemberDirectoryPage.xaml.cs">
+    <Compile Update="Modules\RewardsMemberDirectory\RewardsMemberDirectoryPage.xaml.cs">
       <DependentUpon>RewardsMemberDirectoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Modules\SignIn\SignInPage.xaml.cs">

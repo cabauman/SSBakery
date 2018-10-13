@@ -20,7 +20,13 @@ namespace SSBakery.Repositories
         public IObservable<AdminVar> GetInstance()
         {
             return GetItem(_childNode)
-                .Select(x => x ?? new AdminVar());
+                .Select(
+                    x =>
+                    {
+                        x = x ?? new AdminVar();
+                        x.Id = _childNode;
+                        return x;
+                    });
         }
     }
 }

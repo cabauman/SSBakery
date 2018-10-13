@@ -17,6 +17,7 @@ namespace SSBakery.Repositories
         private const string NODE_USER_READABLE = "userReadable";
         private const string NODE_USER_WRITABLE = "userWritable";
         private const string NODE_AUTH_READABLE = "authReadable";
+        private const string NODE_CUSTOMER_READABLE = "customerReadable";
 
         private const string NODE_CATALOG_CATAGORIES = "catalogCategories";
         private const string NODE_CATALOG_ITEMS = "catalogItems";
@@ -25,10 +26,10 @@ namespace SSBakery.Repositories
         private const string NODE_ADMIN_VARS = "adminVars";
 
         private static readonly string PATHFMT_USER = Path.Combine(NODE_USERS, "{0}");
-        private static readonly string PATH_ADMIN = Path.Combine(NODE_USER_READABLE, NODE_ADMIN);
+        private static readonly string PATH_ADMIN = Path.Combine(NODE_ADMIN);
         private static readonly string PATH_CATALOG_CATEGORIES = Path.Combine(NODE_AUTH_READABLE, NODE_CATALOG_CATAGORIES);
         private static readonly string PATH_CATALOG_ITEMS = Path.Combine(NODE_AUTH_READABLE, NODE_CATALOG_ITEMS);
-        private static readonly string PATH_REWARD_DATA = Path.Combine(NODE_USER_READABLE, NODE_REWARD_DATA);
+        private static readonly string PATH_REWARD_DATA = Path.Combine(NODE_CUSTOMER_READABLE, NODE_REWARD_DATA);
         private static readonly string PATHFMT_REWARD_DATA_FOR_CUSTOMER = Path.Combine(PATH_REWARD_DATA, "{0}");
 
         private readonly FirebaseClient _firebaseClient;
@@ -40,7 +41,7 @@ namespace SSBakery.Repositories
             dependencyResolver.Register(() => CatalogCategoryRepo, typeof(ICatalogCategoryRepo));
             dependencyResolver.Register(() => CatalogItemRepoFactory, typeof(ICatalogItemRepoFactory));
             dependencyResolver.Register(() => UserRepo, typeof(IRepository<SSBakeryUser>));
-            dependencyResolver.Register(() => CustomerRewardDataRepo, typeof(IRepository<RewardsMember>));
+            dependencyResolver.Register(() => RewardsMemberRepo, typeof(IRepository<RewardsMember>));
             dependencyResolver.Register(() => AdminVarRepo, typeof(IAdminVarRepo));
         }
 
@@ -54,7 +55,7 @@ namespace SSBakery.Repositories
             get { return new CatalogItemRepoFactory(_firebaseClient, PATH_CATALOG_ITEMS); }
         }
 
-        public IRepository<RewardsMember> CustomerRewardDataRepo
+        public IRepository<RewardsMember> RewardsMemberRepo
         {
             get { return new FirebaseOfflineRepo<RewardsMember>(_firebaseClient, PATH_REWARD_DATA); }
         }

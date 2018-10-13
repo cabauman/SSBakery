@@ -7,7 +7,8 @@
                     x:TypeArguments="modules:ICatalogItemListViewModel"
                     x:Class="SSBakeryAdmin.UI.Modules.CatalogItemListPage">
 
-    <ListView x:Name="CatalogItemListView"
+    <ListView
+        x:Name="CatalogItemListView"
         RowHeight="100"
         SeparatorVisibility="None"
         CachingStrategy="RecycleElement">

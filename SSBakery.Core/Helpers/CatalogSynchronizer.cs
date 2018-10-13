@@ -44,7 +44,7 @@ namespace SSBakery.Helpers
             var catalogApi = new CatalogApi();
             var objectTypes = new List<SearchCatalogObjectsRequest.ObjectTypesEnum> { SearchCatalogObjectsRequest.ObjectTypesEnum.CATEGORY };
             //var beginTime = "2018-08-02T15:00:00Z";
-            var request = new SearchCatalogObjectsRequest(ObjectTypes: objectTypes, IncludeDeletedObjects: true, BeginTime: beginTime, Limit: limit);
+            var request = new SearchCatalogObjectsRequest(ObjectTypes: objectTypes, IncludeDeletedObjects: true, BeginTime: beginTime);
 
             IObservable<CatalogObject> resultStream = catalogApi
                 .SearchCatalogObjectsAsync(request)
@@ -60,8 +60,9 @@ namespace SSBakery.Helpers
             IObservable<Unit> addedOrModifiedCategories = resultStream
                 .Where(x => !x.IsDeleted.Value)
                 .Select(MapDtoToCategory)
-                .ToList()
-                .SelectMany(categories => _categoryRepo.Upsert(categories));
+                .SelectMany(category => _categoryRepo.Upsert(category));
+                //.ToList()
+                //.SelectMany(categories => _categoryRepo.Upsert(categories));
 
             return Observable.Merge(deletedCategories, addedOrModifiedCategories);
         }
@@ -70,7 +71,7 @@ namespace SSBakery.Helpers
         {
             var catalogApi = new CatalogApi();
             var objectTypes = new List<SearchCatalogObjectsRequest.ObjectTypesEnum> { SearchCatalogObjectsRequest.ObjectTypesEnum.ITEM };
-            var request = new SearchCatalogObjectsRequest(ObjectTypes: objectTypes, BeginTime: beginTime, Limit: limit);
+            var request = new SearchCatalogObjectsRequest(ObjectTypes: objectTypes, BeginTime: beginTime);
 
             IObservable<CatalogObject> resultStream = catalogApi
                 .SearchCatalogObjectsAsync(request)
@@ -97,8 +98,9 @@ namespace SSBakery.Helpers
                     x =>
                     {
                         return x
-                            .ToList()
-                            .SelectMany(items => _itemRepoFactory.Create(x.Key).Upsert(items));
+                            .SelectMany(item => _itemRepoFactory.Create(x.Key).Upsert(item));
+                            //.ToList()
+                            //.SelectMany(items => _itemRepoFactory.Create(x.Key).Upsert(items));
                     });
 
             return Observable.Merge(deletedItems, addedOrModifiedItems);
@@ -139,7 +141,7 @@ namespace SSBakery.Helpers
             return _adminVarRepo
                 .GetInstance()
                 .Do(x => x.CatalogSyncTimestamp = timestamp)
-                .SelectMany(x => _adminVarRepo.Update(x));
+                .SelectMany(x => _adminVarRepo.Upsert(x));
         }
     }
 }

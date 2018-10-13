@@ -41,10 +41,12 @@ namespace SSBakeryAdmin.UI.Modules
             LoadRewardsMembers = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return rewardsMemberRepo
-                        .GetItems()
-                        .Do(x => _rewardsMemberCache.AddOrUpdate(x))
-                        .Select(_ => Unit.Default);
+                    return Observable.Return(Unit.Default);
+
+                    //return rewardsMemberRepo
+                    //    .GetItems()
+                    //    .Do(x => _rewardsMemberCache.AddOrUpdate(x))
+                    //    .Select(_ => Unit.Default);
                 });
 
             SyncWithPosSystem = ReactiveCommand.CreateFromObservable(
@@ -61,7 +63,7 @@ namespace SSBakeryAdmin.UI.Modules
                         Console.WriteLine(x.Message);
                     });
 
-            //LoadRewardsMembers.InvokeCommand(this, x => x.SyncWithPosSystem);
+            LoadRewardsMembers.InvokeCommand(this, x => x.SyncWithPosSystem);
 
             var dynamicFilter = this.WhenValueChanged(@this => @this.SearchText)
                 .Throttle(TimeSpan.FromMilliseconds(250), RxApp.TaskpoolScheduler)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using SSBakeryAdmin.UI.Common;
@@ -18,11 +17,19 @@ namespace SSBakeryAdmin.UI.Modules
         {
             InitializeComponent();
 
-            //this
-            //    .WhenAnyValue(x => x.ViewModel)
-            //    .Where(x => x != null)
-            //    .Select(x => Unit.Default)
-            //    .InvokeCommand(this, x => x.ViewModel.LoadCatalogItems);
+            this
+                .WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Select(_ => Unit.Default)
+                .Take(1)
+                .InvokeCommand(ViewModel, x => x.LoadItems);
+
+            this
+                .WhenAnyValue(x => x.ViewModel.Items)
+                .Where(x => x != null)
+                .Do(items => CatalogItemListView.ItemsSource = items)
+                .Take(1)
+                .Subscribe();
         }
     }
 }
