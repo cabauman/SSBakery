@@ -1,4 +1,5 @@
 ﻿using System;
+using SSBakery.Config;
 using SSBakeryAdmin.UI.Modules;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,6 +11,8 @@ namespace SSBakeryAdmin
     {
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SYNC_FUSION_LICENSE);
+
             InitializeComponent();
 
             var bootstrapper = new AppBootstrapper();
