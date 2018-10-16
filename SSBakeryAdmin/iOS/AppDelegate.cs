@@ -25,6 +25,7 @@ namespace SSBakeryAdmin.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             SfListViewRenderer.Init();
+            Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
