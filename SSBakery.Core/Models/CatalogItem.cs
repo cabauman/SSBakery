@@ -1,6 +1,4 @@
-﻿using System;
-using GameCtor.Repository;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {
@@ -20,5 +18,8 @@ namespace SSBakery.Models
 
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
+
+        [JsonProperty("visibleToCustomers")]
+        public bool VisibleToCustomers { get; set; }
     }
 }
