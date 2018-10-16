@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using FFImageLoading.Forms.Platform;
+using GameCtor.XamarinAuth;
 using Syncfusion.ListView.XForms.UWP;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -52,16 +54,17 @@ namespace SSBakeryAdmin.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                List<Assembly> assembliesToInclude = new List<Assembly>();
-
                 // Add all the assemblies your app uses
+                List<Assembly> assembliesToInclude = new List<Assembly>();
                 assembliesToInclude.Add(typeof(SfListViewRenderer).GetTypeInfo().Assembly);
 
                 Xamarin.Forms.Forms.Init(e, assembliesToInclude);
+                CachedImageRenderer.Init();
+                Xamarin.Auth.Presenters.UWP.AuthenticationConfiguration.Init();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
@@ -77,6 +80,15 @@ namespace SSBakeryAdmin.UWP
             }
             // Ensure the current window is active
             Window.Current.Activate();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var eventArgs = args as ProtocolActivatedEventArgs;
+                AuthenticationState.Authenticator?.OnPageLoading(new Uri(eventArgs.Uri.AbsoluteUri));
+            }
         }
 
         /// <summary>

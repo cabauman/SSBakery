@@ -22,9 +22,6 @@ namespace SSBakeryAdmin.UI.Modules
                     this
                         .BindCommand(ViewModel, vm => vm.TriggerGoogleAuthFlow, v => v.GoogleSignInButton)
                         .DisposeWith(disposables);
-                    this
-                        .BindCommand(ViewModel, vm => vm.TriggerFacebookAuthFlow, v => v.FacebookSignInButton)
-                        .DisposeWith(disposables);
                 });
         }
     }

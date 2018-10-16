@@ -11,17 +11,11 @@ namespace SSBakeryAdmin.UI.Modules
 {
     public partial class MainPage : ReactiveMasterDetailPage<MainViewModel>
     {
-        public MainPage(MainViewModel viewModel, IView detailView)
+        public MainPage(IView detailView)
         {
-            ViewModel = viewModel;
             Detail = (Xamarin.Forms.Page)detailView;
 
             InitializeComponent();
-
-            if(Device.RuntimePlatform == Device.UWP)
-            {
-                MasterBehavior = MasterBehavior.Popover;
-            }
 
             this.WhenActivated(
                 disposables =>
@@ -43,6 +37,9 @@ namespace SSBakeryAdmin.UI.Modules
                                 // Hide the master panel.
                                 IsPresented = false;
                             })
+                        .DisposeWith(disposables);
+                    this
+                        .BindCommand(ViewModel, vm => vm.SignOut, v => v.SignOutButton)
                         .DisposeWith(disposables);
                 });
         }

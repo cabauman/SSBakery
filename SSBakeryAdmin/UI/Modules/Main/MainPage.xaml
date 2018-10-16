@@ -18,6 +18,9 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Button
+                    x:Name="SignOutButton"
+                    Text="Sign Out" />
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

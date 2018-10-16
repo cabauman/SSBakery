@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using ReactiveUI;
 using SSBakery.Config;
-using SSBakeryAdmin.UI.Modules;
+using SSBakeryAdmin.UI.Common;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SSBakeryAdmin
 {
-    public partial class App : Application
+    public partial class App : ReactiveApplication<AppBootstrapper>
     {
         public App()
         {
@@ -15,8 +18,9 @@ namespace SSBakeryAdmin
 
             InitializeComponent();
 
-            var bootstrapper = new AppBootstrapper();
-            MainPage = new MainPage(bootstrapper.CreateMainViewModel(), bootstrapper.NavigationShell);
+            ViewModel = new AppBootstrapper();
+            Task.Run(async () => { await ViewModel.NavigateToFirstPage(); }).Wait();
+            this.OneWayBind(ViewModel, vm => vm.MainView, v => v.MainPage, selector: ResolvePage);
         }
 
         protected override void OnStart()
@@ -32,6 +36,20 @@ namespace SSBakeryAdmin
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        private Page ResolvePage(object viewModel)
+        {
+            var viewFor = ViewLocator.Current.ResolveView(viewModel);
+            var page = viewFor as Page;
+            if(page == null)
+            {
+                throw new InvalidOperationException($"Resolved view '{viewFor.GetType().FullName}' for type '{viewModel.GetType().FullName}', is not a Page.");
+            }
+
+            viewFor.ViewModel = viewModel;
+
+            return page;
         }
     }
 }

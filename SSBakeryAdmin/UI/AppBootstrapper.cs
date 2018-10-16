@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Reactive.Threading.Tasks;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using GameCtor.FirebaseAuth;
+using GameCtor.FirebaseAuth.DotNet;
 using GameCtor.RxNavigation;
 using GameCtor.RxNavigation.XamForms;
+using GameCtor.XamarinAuth;
+using LocalStorage.XamarinEssentials;
 using ReactiveUI;
 using Splat;
-using Square.Connect.Api;
-using Square.Connect.Model;
 using SSBakery.Config;
 using SSBakery.Helpers;
 using SSBakery.Repositories;
@@ -13,8 +16,10 @@ using SSBakeryAdmin.UI.Modules;
 
 namespace SSBakeryAdmin
 {
-    public class AppBootstrapper
+    public class AppBootstrapper : ReactiveObject
     {
+        private object _mainView;
+
         public AppBootstrapper()
         {
             RegisterServices();
@@ -24,11 +29,25 @@ namespace SSBakeryAdmin
 
         public IView NavigationShell { get; private set; }
 
-        public MainViewModel CreateMainViewModel()
-        {
-            var viewModel = new MainViewModel();
+        public IFirebaseAuthService FirebaseAuthService { get; private set; }
 
-            return viewModel;
+        public object MainView
+        {
+            get => _mainView;
+            set => this.RaiseAndSetIfChanged(ref _mainView, value);
+        }
+
+        public async Task NavigateToFirstPage()
+        {
+            bool isAuthenticated = await FirebaseAuthService.IsAuthenticated;
+            if(isAuthenticated)
+            {
+                MainView = new MainViewModel(this);
+            }
+            else
+            {
+                MainView = new SignInViewModel(this);
+            }
         }
 
         private void RegisterServices()
@@ -41,34 +60,22 @@ namespace SSBakeryAdmin
             var repositoryRegistrar = new RepositoryRegistrar(null, Locator.CurrentMutable);
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
-            //var customersApi = new CustomersApi();
-            //var filter = new CustomerFilter();
-            //var query = new CustomerQuery(filter);
-            //var request = new SearchCustomersRequest(Cursor: null, Query: query);
-
-            //customersApi
-            //    .SearchCustomersAsync(request)
-            //    .ToObservable()
-            //    .Subscribe(
-            //        x =>
-            //        {
-            //            Console.WriteLine(x);
-            //        },
-            //        ex =>
-            //        {
-            //            Console.WriteLine(ex.Message);
-            //        });
+            Locator.CurrentMutable.Register(() => new AuthService(), typeof(IAuthService));
+            FirebaseAuthService = new FirebaseAuthService(ApiKeys.FIREBASE, new LocalStorageService());
+            Locator.CurrentMutable.RegisterConstant(FirebaseAuthService, typeof(IFirebaseAuthService));
         }
 
         private void RegisterViews()
         {
             Locator.CurrentMutable.Register(() => new MasterCell(), typeof(IViewFor<MasterCellViewModel>));
 
-            // Detail pages
             Locator.CurrentMutable.Register(() => new RewardsMemberDirectoryPage(), typeof(IViewFor<IRewardsMemberDirectoryViewModel>));
             Locator.CurrentMutable.Register(() => new RewardsMemberCell(), typeof(IViewFor<IRewardsMemberCellViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogCategoryListPage(), typeof(IViewFor<ICatalogCategoryListViewModel>));
+            Locator.CurrentMutable.Register(() => new CatalogCategoryCell(), typeof(IViewFor<ICatalogCategoryCellViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemListPage(), typeof(IViewFor<ICatalogItemListViewModel>));
+            Locator.CurrentMutable.Register(() => new MainPage(NavigationShell), typeof(IViewFor<IMainViewModel>));
+            Locator.CurrentMutable.Register(() => new SignInPage(), typeof(IViewFor<ISignInViewModel>));
         }
 
         private void RegisterViewModels()
