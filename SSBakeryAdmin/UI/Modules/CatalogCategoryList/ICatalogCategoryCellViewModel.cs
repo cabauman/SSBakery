@@ -2,7 +2,7 @@
 {
     public interface ICatalogCategoryCellViewModel
     {
-        string CateogryId { get; }
+        string Id { get; }
 
         string Name { get; }
     }

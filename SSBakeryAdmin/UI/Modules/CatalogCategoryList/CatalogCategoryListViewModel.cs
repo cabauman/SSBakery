@@ -60,9 +60,9 @@ namespace SSBakeryAdmin.UI.Modules
                 .Subscribe();
 
             NavigateToCategory = ReactiveCommand.CreateFromObservable<ICatalogCategoryCellViewModel, Unit>(
-                catalogCategoryCell =>
+                categoryCell =>
                 {
-                    return viewStackService.PushPage(new CatalogItemListViewModel(catalogCategoryCell.CateogryId));
+                    return viewStackService.PushPage(new CatalogItemListViewModel(categoryCell.Id));
                 });
         }
 

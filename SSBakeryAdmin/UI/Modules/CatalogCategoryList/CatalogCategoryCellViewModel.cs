@@ -4,15 +4,15 @@ namespace SSBakeryAdmin.UI.Modules
 {
     public class CatalogCategoryCellViewModel : ICatalogCategoryCellViewModel
     {
-        private readonly CatalogCategory _catalogCategory;
+        private readonly CatalogCategory _model;
 
-        public CatalogCategoryCellViewModel(CatalogCategory catalogCategory)
+        public CatalogCategoryCellViewModel(CatalogCategory model)
         {
-            _catalogCategory = catalogCategory;
+            _model = model;
         }
 
-        public string CateogryId => _catalogCategory.Id;
+        public string Id => _model.Id;
 
-        public string Name => _catalogCategory.Name;
+        public string Name => _model.Name;
     }
 }
