@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using DynamicData;
 using GameCtor.RxNavigation;
 using ReactiveUI;
 using Splat;
 using SSBakery.Helpers;
+using SSBakery.Models;
 using SSBakery.Repositories.Interfaces;
 
 namespace SSBakeryAdmin.UI.Modules
@@ -15,19 +18,25 @@ namespace SSBakeryAdmin.UI.Modules
     {
         private readonly ObservableAsPropertyHelper<IReadOnlyList<ICatalogCategoryCellViewModel>> _categories;
 
+        private ISourceCache<CatalogCategory, string> _categoryCache;
+        private ReadOnlyObservableCollection<ICatalogCategoryCellViewModel> _categoryCells;
+
         public CatalogCategoryListViewModel(
             ICatalogCategoryRepo categoryRepo = null,
-            CatalogSynchronizer catalogSynchronizer = null,
+            ICatalogSynchronizer catalogSynchronizer = null,
             IViewStackService viewStackService = null)
         {
             categoryRepo = categoryRepo ?? Locator.Current.GetService<ICatalogCategoryRepo>();
+            catalogSynchronizer = catalogSynchronizer ?? Locator.Current.GetService<ICatalogSynchronizer>();
             viewStackService = viewStackService ?? Locator.Current.GetService<IViewStackService>();
+
+            _categoryCache = new SourceCache<CatalogCategory, string>(x => x.Id);
 
             SyncWithPosSystem = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
                     return catalogSynchronizer
-                        .PullFromPosSystemAndStoreInFirebase();
+                        .PullFromPosSystemAndStoreInFirebase(_categoryCache);
                 });
 
             LoadCategories = ReactiveCommand.CreateFromObservable(
@@ -35,16 +44,20 @@ namespace SSBakeryAdmin.UI.Modules
                 {
                     return categoryRepo
                         .GetItems()
-                        .SelectMany(x => x)
-                        .Select(x => new CatalogCategoryCellViewModel(x))
-                        .ToList()
-                        .Select(x => x as IReadOnlyList<ICatalogCategoryCellViewModel>);
+                        .Do(x => _categoryCache.AddOrUpdate(x))
+                        .Select(_ => Unit.Default);
                 });
 
-            _categories = LoadCategories.ToProperty(this, x => x.Categories);
+            //LoadCategories.InvokeCommand(this, x => x.SyncWithPosSystem);
 
-            SyncWithPosSystem
-                .InvokeCommand(LoadCategories);
+            _categoryCache
+                .Connect()
+                //.Filter(dynamicFilter)
+                .Transform(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Bind(out _categoryCells)
+                .DisposeMany()
+                .Subscribe();
 
             NavigateToCategory = ReactiveCommand.CreateFromObservable<ICatalogCategoryCellViewModel, Unit>(
                 catalogCategoryCell =>
@@ -55,9 +68,11 @@ namespace SSBakeryAdmin.UI.Modules
 
         public ReactiveCommand<Unit, Unit> SyncWithPosSystem { get; }
 
-        public ReactiveCommand<Unit, IReadOnlyList<ICatalogCategoryCellViewModel>> LoadCategories { get; }
+        public ReactiveCommand<Unit, Unit> LoadCategories { get; }
 
         public ReactiveCommand<ICatalogCategoryCellViewModel, Unit> NavigateToCategory { get; }
+
+        public ReadOnlyObservableCollection<ICatalogCategoryCellViewModel> CategoryCells => _categoryCells;
 
         public IReadOnlyList<ICatalogCategoryCellViewModel> Categories => _categories.Value;
 

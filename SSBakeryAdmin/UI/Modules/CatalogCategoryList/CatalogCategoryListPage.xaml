@@ -22,31 +22,15 @@
         </syncfusion:SfListView.LayoutManager>
     </syncfusion:SfListView>
 
-    <!--<ListView x:Name="MyListView"
-        SelectionMode="None"
+    <!--<ListView
+        x:Name="CategoryListView"
+        RowHeight="70"
+        SeparatorVisibility="None"
         CachingStrategy="RecycleElement">
-            
-    --><!--Built in Cells--><!--
-    <ListView.ItemTemplate>
-        <DataTemplate>
-            <TextCell Text="{Binding .}" />
-        </DataTemplate>
-    </ListView.ItemTemplate>
-    
-    --><!--Custom View Cells-->
-    <!--
-    <ListView.ItemTemplate>
-        <DataTemplate>
-        <ViewCell>
-            <StackLayout>
-            <Label Text="{Binding Text}" 
-                    Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Detail}" 
-                    Style="{DynamicResource ListItemDetailTextStyle}"/>
-            </StackLayout>
-        </ViewCell>
-        </DataTemplate>
-    </ListView.ItemTemplate>
-    --><!--
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <modules:CatalogCategoryCell />
+            </DataTemplate>
+        </ListView.ItemTemplate>
     </ListView>-->
 </rxui:ReactiveContentPage>
