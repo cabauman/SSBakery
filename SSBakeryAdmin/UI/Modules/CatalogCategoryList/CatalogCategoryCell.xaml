@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<rxui:ReactiveViewCell xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-                       xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
-                       xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
-                       x:TypeArguments="modules:ICatalogCategoryCellViewModel"
-                       x:Class="SSBakeryAdmin.UI.Modules.CatalogCategoryCell">
+<rxui:ReactiveContentView xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                          xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                          xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
+                          x:TypeArguments="modules:ICatalogCategoryCellViewModel"
+                          x:Class="SSBakeryAdmin.UI.Modules.CatalogCategoryCell">
 
     <Grid HeightRequest="40">
         <Grid.RowDefinitions>
@@ -29,4 +29,4 @@
             <Label x:Name="DescriptionLabel" FontSize="12"  />
         </StackLayout>
     </Grid>
-</rxui:ReactiveViewCell>
+</rxui:ReactiveContentView>

@@ -9,27 +9,22 @@ using Xamarin.Forms.Xaml;
 namespace SSBakeryAdmin.UI.Modules
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CatalogCategoryCell : ReactiveViewCell<ICatalogCategoryCellViewModel>
+    public partial class CatalogCategoryCell : ReactiveContentView<ICatalogCategoryCellViewModel>
     {
         public CatalogCategoryCell()
         {
             InitializeComponent();
 
-            this.WhenActivated(
-                disposables =>
-                {
-                    this.WhenAnyValue(x => x.ViewModel)
-                        .Where(x => x != null)
-                        .Do(PopulateFromViewModel)
-                        .Subscribe()
-                        .DisposeWith(disposables);
-                });
+            this.WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Do(PopulateFromViewModel)
+                .Subscribe();
         }
 
         private void PopulateFromViewModel(ICatalogCategoryCellViewModel catalogCategory)
         {
-            //NameLabel.Text = catalogCategory.Name;
-            //Image.Source = ImageSource.FromFile("Icon.png"); // catalogCategory.ImageUrl;
+            NameLabel.Text = catalogCategory.Name;
+            Image.Source = ImageSource.FromFile("LargeTile.scale-100.png"); // catalogCategory.ImageUrl;
         }
     }
 }
