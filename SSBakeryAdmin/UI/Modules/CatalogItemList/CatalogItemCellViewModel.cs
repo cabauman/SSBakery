@@ -2,21 +2,15 @@
 {
     public class CatalogItemCellViewModel : ICatalogItemCellViewModel
     {
-        private readonly SSBakery.Models.CatalogItem _catalogItem;
+        private readonly SSBakery.Models.CatalogItem _model;
 
-        public CatalogItemCellViewModel(SSBakery.Models.CatalogItem catalogItem)
+        public CatalogItemCellViewModel(SSBakery.Models.CatalogItem model)
         {
-            _catalogItem = catalogItem;
+            _model = model;
         }
 
-        public string ItemId
-        {
-            get { return _catalogItem.Id; }
-        }
+        public string Id => _model.Id;
 
-        public string Name
-        {
-            get { return _catalogItem.Name; }
-        }
+        public string Name => _model.Name;
     }
 }
