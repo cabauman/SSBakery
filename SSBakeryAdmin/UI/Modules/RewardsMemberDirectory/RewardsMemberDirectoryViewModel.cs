@@ -49,6 +49,8 @@ namespace SSBakeryAdmin.UI.Modules
                     //    .Select(_ => Unit.Default);
                 });
 
+            return;
+
             SyncWithPosSystem = ReactiveCommand.CreateFromObservable(
                 () =>
                 {

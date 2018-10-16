@@ -46,8 +46,7 @@ namespace SSBakery.Helpers
                 .SelectMany(x => x)
                 .Where(customer => !string.IsNullOrWhiteSpace(customer.PhoneNumber))
                 .Select(customer => HandlePotentialCustomerMerge(customer, rewardsMemberCache))
-                .SelectMany(rewardsMembers => _rewardsMemberRepo.Upsert(rewardsMembers))
-                .LastOrDefaultAsync();
+                .SelectMany(rewardsMember => _rewardsMemberRepo.Upsert(rewardsMember));
         }
 
         private IObservable<IList<Customer>> GetRecentlyUpdatedCustomers(CustomersApi customersApi, CustomerQuery query, string cursor)
@@ -132,11 +131,7 @@ namespace SSBakery.Helpers
                         var timestamp = XmlConvert.ToString(DateTime.UtcNow, XmlDateTimeSerializationMode.Utc);
                         x.CustomerSyncTimestamp = timestamp;
                     })
-                .SelectMany(
-                    x =>
-                    {
-                        return _adminVarRepo.Upsert(x);
-                    });
+                .SelectMany(x => _adminVarRepo.Upsert(x));
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Xml;
+using DynamicData;
 using Splat;
 using Square.Connect.Api;
 using Square.Connect.Model;
@@ -27,19 +28,20 @@ namespace SSBakery.Helpers
             _adminVarRepo = adminVarRepo ?? Locator.Current.GetService<IAdminVarRepo>();
         }
 
-        public IObservable<Unit> PullFromPosSystemAndStoreInFirebase()
+        public IObservable<Unit> PullFromPosSystemAndStoreInFirebase(ISourceCache<SSBakery.Models.CatalogCategory, string> categoryCache)
         {
             return GetTimestampOfLatestSync()
                 .SelectMany(
                     beginTime =>
                     {
-                        return Observable
-                            .Merge(SyncCategories(beginTime), SyncItems(beginTime));
+                        return SyncCategories(beginTime, categoryCache);
+                        //return Observable
+                        //    .Merge(SyncCategories(beginTime, categoryCache), SyncItems(beginTime));
                     })
                 .Concat(SaveTimestampOfLatestSync());
         }
 
-        private IObservable<Unit> SyncCategories(string beginTime)
+        private IObservable<Unit> SyncCategories(string beginTime, ISourceCache<SSBakery.Models.CatalogCategory, string> categoryCache)
         {
             var catalogApi = new CatalogApi();
             var objectTypes = new List<SearchCatalogObjectsRequest.ObjectTypesEnum> { SearchCatalogObjectsRequest.ObjectTypesEnum.CATEGORY };
@@ -49,17 +51,16 @@ namespace SSBakery.Helpers
             IObservable<CatalogObject> resultStream = catalogApi
                 .SearchCatalogObjectsAsync(request)
                 .ToObservable()
+                .Where(x => x.Objects != null)
                 .SelectMany(x => x.Objects);
 
             IObservable<Unit> deletedCategories = resultStream
-                .Where(x => x.IsDeleted.Value)
-                .Select(MapDtoToCategory)
-                .ToList()
-                .SelectMany(categories => _categoryRepo.Delete(categories));
+                .Where(x => x.IsDeleted.Value && categoryCache.Lookup(x.Id).HasValue)
+                .SelectMany(x => _categoryRepo.Delete(x.Id));
 
             IObservable<Unit> addedOrModifiedCategories = resultStream
                 .Where(x => !x.IsDeleted.Value)
-                .Select(MapDtoToCategory)
+                .Select(x => UpdateCategoryCache(x, categoryCache))
                 .SelectMany(category => _categoryRepo.Upsert(category));
                 //.ToList()
                 //.SelectMany(categories => _categoryRepo.Upsert(categories));
@@ -76,18 +77,20 @@ namespace SSBakery.Helpers
             IObservable<CatalogObject> resultStream = catalogApi
                 .SearchCatalogObjectsAsync(request)
                 .ToObservable()
+                .Where(x => x.Objects != null)
                 .SelectMany(x => x.Objects);
 
             IObservable<Unit> deletedItems = resultStream
                 .Where(x => x.IsDeleted.Value)
-                .Select(MapDtoToItem)
-                .GroupBy(x => x.CategoryId)
+                .GroupBy(x => x.ItemData.CategoryId)
                 .SelectMany(
                     x =>
                     {
                         return x
-                            .ToList()
-                            .SelectMany(items => _itemRepoFactory.Create(x.Key).Delete(items));
+                            .Select(catalogObject => catalogObject.Id)
+                            .SelectMany(itemId => _itemRepoFactory.Create(x.Key).Delete(itemId));
+                            //.ToList()
+                            //.SelectMany(items => _itemRepoFactory.Create(x.Key).Delete(items));
                     });
 
             IObservable<Unit> addedOrModifiedItems = resultStream
@@ -104,6 +107,24 @@ namespace SSBakery.Helpers
                     });
 
             return Observable.Merge(deletedItems, addedOrModifiedItems);
+        }
+
+        private SSBakery.Models.CatalogCategory UpdateCategoryCache(CatalogObject catalogObject, ISourceCache<SSBakery.Models.CatalogCategory, string> categoryCache)
+        {
+            var lookupResult = categoryCache.Lookup(catalogObject.Id);
+            var isNew = !lookupResult.HasValue;
+            var category = isNew ? null : lookupResult.Value;
+            if(isNew)
+            {
+                category = MapDtoToCategory(catalogObject);
+                categoryCache.AddOrUpdate(category);
+            }
+            else
+            {
+                category.Name = catalogObject.CategoryData.Name;
+            }
+
+            return category;
         }
 
         private SSBakery.Models.CatalogCategory MapDtoToCategory(CatalogObject dto)
@@ -136,11 +157,14 @@ namespace SSBakery.Helpers
 
         private IObservable<Unit> SaveTimestampOfLatestSync()
         {
-            var timestamp = XmlConvert.ToString(DateTime.UtcNow, XmlDateTimeSerializationMode.Utc);
-
             return _adminVarRepo
                 .GetInstance()
-                .Do(x => x.CatalogSyncTimestamp = timestamp)
+                .Do(
+                    x =>
+                    {
+                        var timestamp = XmlConvert.ToString(DateTime.UtcNow, XmlDateTimeSerializationMode.Utc);
+                        x.CatalogSyncTimestamp = timestamp;
+                    })
                 .SelectMany(x => _adminVarRepo.Upsert(x));
         }
     }
