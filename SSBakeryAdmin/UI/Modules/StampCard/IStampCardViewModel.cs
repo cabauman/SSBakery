@@ -1,13 +1,22 @@
-﻿using System.Reactive;
+﻿using System.Collections.Generic;
+using System.Reactive;
 using ReactiveUI;
 
-namespace SSBakeryAdmin.Modules.StampCard
+namespace SSBakeryAdmin.UI.Modules
 {
     public interface IStampCardViewModel
     {
-        ReactiveCommand<Unit, Unit> AddStamp { get; }
+        int RewardCount { get; set; }
 
-        ReactiveCommand<Unit, Unit> RemoveStamp { get; }
+        IStampCellViewModel SelectedItem { get; set; }
+
+        IReadOnlyList<IStampCellViewModel> StampCells { get; }
+
+        ReactiveCommand<Unit, Unit> Save { get; }
+
+        ReactiveCommand<Unit, Unit> IncrementRewardCount { get; }
+
+        ReactiveCommand<Unit, Unit> DecrementRewardCount { get; }
 
         ReactiveCommand<Unit, Unit> StartNewStampCard { get; }
     }

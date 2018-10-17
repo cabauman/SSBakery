@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<rxui:ReactiveContentView xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                          xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                          xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
+                          x:TypeArguments="modules:IStampCellViewModel"
+                          x:Class="SSBakeryAdmin.UI.Modules.StampCell">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image
+            x:Name="StampImage"
+            Margin="10"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            WidthRequest="200"
+            HeightRequest="200"
+            Aspect="AspectFit">
+            <Image.Source>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="Stamp.png" />
+                    <On Platform="UWP" Value="Images/Stamp.png" />
+                </OnPlatform>
+            </Image.Source>
+        </Image>
+    </Grid>
+    
+</rxui:ReactiveContentView>
