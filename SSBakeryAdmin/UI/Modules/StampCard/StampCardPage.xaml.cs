@@ -41,10 +41,6 @@ namespace SSBakeryAdmin.UI.Modules
                     this
                         .BindCommand(ViewModel, vm => vm.DecrementRewardCount, v => v.DecrementRewardCountButton)
                         .DisposeWith(disposables);
-                    //this
-                    //    .WhenAnyValue(x => ViewModel.SelectedItem)
-                    //    .Subscribe(_ => Device.BeginInvokeOnMainThread(() => StampListView.SelectedItem = null))
-                    //    .DisposeWith(disposables);
                 });
         }
 

@@ -81,6 +81,12 @@
     <Compile Update="Modules\CatalogCategoryList\CatalogCategoryCell.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <Compile Update="Modules\StampCard\StampCell.xaml.cs">
+      <DependentUpon>StampCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\StampCard\StampCardPage.xaml.cs">
+      <DependentUpon>StampCardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Modules\CatalogItemList\CatalogItemListPage.xaml.cs">
       <DependentUpon>CatalogItemListPage.xaml</DependentUpon>
     </Compile>

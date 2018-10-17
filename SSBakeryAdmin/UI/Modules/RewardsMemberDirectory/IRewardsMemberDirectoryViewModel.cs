@@ -11,6 +11,8 @@ namespace SSBakeryAdmin.UI.Modules
 {
     public interface IRewardsMemberDirectoryViewModel
     {
+        IRewardsMemberCellViewModel SelectedItem { get; set; }
+
         ReadOnlyObservableCollection<IRewardsMemberCellViewModel> MemberCells { get; }
 
         IConnectableObservable<FirebaseEvent<RewardsMember>> WhenRewardsMembersModified { get; }

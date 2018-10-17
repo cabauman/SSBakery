@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using DynamicData;
@@ -14,7 +12,6 @@ using ReactiveUI;
 using Splat;
 using SSBakery.Helpers;
 using SSBakery.Models;
-using SSBakery.Repositories.Interfaces;
 using SSBakeryAdmin.UI.Common;
 
 namespace SSBakeryAdmin.UI.Modules
@@ -26,6 +23,7 @@ namespace SSBakeryAdmin.UI.Modules
         private ISourceCache<RewardsMember, string> _rewardsMemberCache;
         private ReadOnlyObservableCollection<IRewardsMemberCellViewModel> _rewardsMemberCells;
         private string _searchText;
+        private IRewardsMemberCellViewModel _selectedItem;
 
         public RewardsMemberDirectoryViewModel(
             IRepository<RewardsMember> rewardsMemberRepo = null,
@@ -41,15 +39,13 @@ namespace SSBakeryAdmin.UI.Modules
             LoadRewardsMembers = ReactiveCommand.CreateFromObservable(
                 () =>
                 {
-                    return Observable.Return(Unit.Default);
+                    //return Observable.Return(Unit.Default);
 
-                    //return rewardsMemberRepo
-                    //    .GetItems()
-                    //    .Do(x => _rewardsMemberCache.AddOrUpdate(x))
-                    //    .Select(_ => Unit.Default);
+                    return rewardsMemberRepo
+                        .GetItems()
+                        .Do(x => _rewardsMemberCache.AddOrUpdate(x))
+                        .Select(_ => Unit.Default);
                 });
-
-            return;
 
             SyncWithPosSystem = ReactiveCommand.CreateFromObservable(
                 () =>
@@ -65,7 +61,7 @@ namespace SSBakeryAdmin.UI.Modules
                         Console.WriteLine(x.Message);
                     });
 
-            LoadRewardsMembers.InvokeCommand(this, x => x.SyncWithPosSystem);
+            //LoadRewardsMembers.InvokeCommand(this, x => x.SyncWithPosSystem);
 
             var dynamicFilter = this.WhenValueChanged(@this => @this.SearchText)
                 .Throttle(TimeSpan.FromMilliseconds(250), RxApp.TaskpoolScheduler)
@@ -80,37 +76,17 @@ namespace SSBakeryAdmin.UI.Modules
                 .DisposeMany()
                 .Subscribe();
 
-            NavigateToRewardsMember = ReactiveCommand.CreateFromObservable<IRewardsMemberCellViewModel, Unit>(
-                customerCell =>
-                {
-                    return viewStackService.PushPage(new RewardsMemberViewModel());
-                });
-
-            //WhenRewardsMembersModified = rewardsMemberRepo
-            //    .Observe()
-            //    .Publish();
-
-            //this.WhenActivated(
-            //    disposables =>
+            //NavigateToRewardsMember = ReactiveCommand.CreateFromObservable<IRewardsMemberCellViewModel, Unit>(
+            //    customerCell =>
             //    {
-            //        WhenRewardsMembersModified
-            //            .Where(x => x.EventSource == FirebaseEventSource.Online)
-            //            .Subscribe(
-            //                x =>
-            //                {
-            //                    if(x.EventType == FirebaseEventType.AddOrUpdate)
-            //                    {
-            //                        _rewardsMemberCache.AddOrUpdate(x.Object);
-            //                    }
-            //                    else
-            //                    {
-            //                        _rewardsMemberCache.RemoveKey(x.Key);
-            //                    }
-            //                })
-            //            .DisposeWith(disposables);
-
-            //        WhenRewardsMembersModified.Connect();
+            //        return viewStackService.PushPage(new RewardsMemberViewModel());
             //    });
+
+            this
+                .WhenAnyValue(x => x.SelectedItem)
+                .Where(x => x != null)
+                .SelectMany(rewardsMemberCell => viewStackService.PushPage(new StampCardViewModel(rewardsMemberCell.Model, rewardsMemberRepo)))
+                .Subscribe();
         }
 
         public IConnectableObservable<FirebaseEvent<RewardsMember>> WhenRewardsMembersModified { get; }
@@ -122,6 +98,12 @@ namespace SSBakeryAdmin.UI.Modules
         public ReactiveCommand<IRewardsMemberCellViewModel, Unit> NavigateToRewardsMember { get; }
 
         public ReadOnlyObservableCollection<IRewardsMemberCellViewModel> MemberCells => _rewardsMemberCells;
+
+        public IRewardsMemberCellViewModel SelectedItem
+        {
+            get => _selectedItem;
+            set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
+        }
 
         public string SearchText
         {

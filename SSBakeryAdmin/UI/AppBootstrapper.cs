@@ -71,6 +71,8 @@ namespace SSBakeryAdmin
 
             Locator.CurrentMutable.Register(() => new RewardsMemberDirectoryPage(), typeof(IViewFor<IRewardsMemberDirectoryViewModel>));
             Locator.CurrentMutable.Register(() => new RewardsMemberCell(), typeof(IViewFor<IRewardsMemberCellViewModel>));
+            Locator.CurrentMutable.Register(() => new StampCardPage(), typeof(IViewFor<IStampCardViewModel>));
+            Locator.CurrentMutable.Register(() => new StampCell(), typeof(IViewFor<IStampCellViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogCategoryListPage(), typeof(IViewFor<ICatalogCategoryListViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogCategoryCell(), typeof(IViewFor<ICatalogCategoryCellViewModel>));
             Locator.CurrentMutable.Register(() => new CatalogItemListPage(), typeof(IViewFor<ICatalogItemListViewModel>));

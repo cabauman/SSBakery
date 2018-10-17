@@ -31,6 +31,16 @@ namespace SSBakeryAdmin.UI.Modules
                 .Do(members => RewardsMemberListView.ItemsSource = members)
                 .Take(1)
                 .Subscribe();
+
+            this.WhenActivated(
+                disposables =>
+                {
+                    ViewModel.SelectedItem = null;
+
+                    this
+                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.RewardsMemberListView.SelectedItem)
+                        .DisposeWith(disposables);
+                });
         }
     }
 }
