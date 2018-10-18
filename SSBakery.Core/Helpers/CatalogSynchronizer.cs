@@ -34,9 +34,8 @@ namespace SSBakery.Helpers
                 .SelectMany(
                     beginTime =>
                     {
-                        return SyncCategories(beginTime, categoryCache);
-                        //return Observable
-                        //    .Merge(SyncCategories(beginTime, categoryCache), SyncItems(beginTime));
+                        return Observable
+                            .Merge(SyncCategories(beginTime, categoryCache), SyncItems(beginTime));
                     })
                 .Concat(SaveTimestampOfLatestSync());
         }
@@ -62,8 +61,6 @@ namespace SSBakery.Helpers
                 .Where(x => !x.IsDeleted.Value)
                 .Select(x => UpdateCategoryCache(x, categoryCache))
                 .SelectMany(category => _categoryRepo.Upsert(category));
-                //.ToList()
-                //.SelectMany(categories => _categoryRepo.Upsert(categories));
 
             return Observable.Merge(deletedCategories, addedOrModifiedCategories);
         }
@@ -81,20 +78,18 @@ namespace SSBakery.Helpers
                 .SelectMany(x => x.Objects);
 
             IObservable<Unit> deletedItems = resultStream
-                .Where(x => x.IsDeleted.Value)
+                .Where(x => x.IsDeleted.Value && x.ItemData.CategoryId != null)
                 .GroupBy(x => x.ItemData.CategoryId)
                 .SelectMany(
-                    x =>
+                    group =>
                     {
-                        return x
+                        return group
                             .Select(catalogObject => catalogObject.Id)
-                            .SelectMany(itemId => _itemRepoFactory.Create(x.Key).Delete(itemId));
-                            //.ToList()
-                            //.SelectMany(items => _itemRepoFactory.Create(x.Key).Delete(items));
+                            .SelectMany(itemId => _itemRepoFactory.Create(group.Key).Delete(itemId));
                     });
 
             IObservable<Unit> addedOrModifiedItems = resultStream
-                .Where(x => !x.IsDeleted.Value)
+                .Where(x => !x.IsDeleted.Value && x.ItemData.CategoryId != null)
                 .Select(MapDtoToItem)
                 .GroupBy(x => x.CategoryId)
                 .SelectMany(
@@ -102,8 +97,6 @@ namespace SSBakery.Helpers
                     {
                         return x
                             .SelectMany(item => _itemRepoFactory.Create(x.Key).Upsert(item));
-                            //.ToList()
-                            //.SelectMany(items => _itemRepoFactory.Create(x.Key).Upsert(items));
                     });
 
             return Observable.Merge(deletedItems, addedOrModifiedItems);
@@ -143,7 +136,7 @@ namespace SSBakery.Helpers
                 Id = dto.Id,
                 Name = dto.ItemData.Name,
                 Description = dto.ItemData.Description,
-                Price = Convert.ToDecimal(dto.ItemVariationData.PriceMoney.Amount / 100).ToString("C2"),
+                Price = Convert.ToDecimal(dto.ItemData.Variations[0].ItemVariationData.PriceMoney.Amount / 100).ToString("C2"),
                 CategoryId = dto.ItemData.CategoryId
             };
         }
