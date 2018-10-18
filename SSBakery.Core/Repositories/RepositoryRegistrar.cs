@@ -77,7 +77,7 @@ namespace SSBakery.Repositories
             FirebaseOptions options = new FirebaseOptions()
             {
                 OfflineDatabaseFactory = (t, s) => new OfflineDatabase(t, s),
-                //AuthTokenAsyncFactory = async () => await firebaseAuthService.GetIdTokenAsync(),
+                AuthTokenAsyncFactory = async () => await firebaseAuthService.GetIdTokenAsync(),
                 JsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings()
                 {
                     DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore
