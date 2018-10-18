@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.XamForms;
@@ -14,10 +15,19 @@ namespace SSBakeryAdmin.UI.Modules
         {
             InitializeComponent();
 
-            this.WhenAnyValue(x => x.ViewModel)
+            this
+                .WhenAnyValue(x => x.ViewModel)
                 .Where(x => x != null)
                 .Do(PopulateFromViewModel)
                 .Subscribe();
+
+            this.WhenActivated(
+                disposables =>
+                {
+                    this
+                        .Bind(ViewModel, vm => vm.VisibleToUsers, v => v.VisibleToUsersSwitch.IsToggled)
+                        .DisposeWith(disposables);
+                });
         }
 
         private void PopulateFromViewModel(ICatalogCategoryCellViewModel viewModel)

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace SSBakery.Models
 {
@@ -10,6 +11,7 @@ namespace SSBakery.Models
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
 
+        [DefaultValue(true)]
         [JsonProperty("visibleToUsers")]
         public bool VisibleToUsers { get; set; }
     }

@@ -52,7 +52,7 @@ namespace SSBakeryAdmin.UI.Modules
             _categoryCache
                 .Connect()
                 //.Filter(dynamicFilter)
-                .Transform(x => new CatalogCategoryCellViewModel(x) as ICatalogCategoryCellViewModel)
+                .Transform(x => new CatalogCategoryCellViewModel(x, categoryRepo) as ICatalogCategoryCellViewModel)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _categoryCells)
                 .DisposeMany()

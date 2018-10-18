@@ -32,11 +32,11 @@
                 VerticalTextAlignment="Center" />
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Label
-                    FontSize="16"
+                    FontSize="14"
                     VerticalOptions="Center"
                     Text="Visible to users:" />
                 <Switch
-                    x:Name="VisibleToUsers"
+                    x:Name="VisibleToUsersSwitch"
                     VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>

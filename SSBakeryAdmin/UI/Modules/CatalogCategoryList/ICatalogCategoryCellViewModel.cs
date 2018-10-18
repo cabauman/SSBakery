@@ -7,5 +7,7 @@
         string Name { get; }
 
         string ImageUrl { get; set; }
+
+        bool VisibleToUsers { get; set; }
     }
 }

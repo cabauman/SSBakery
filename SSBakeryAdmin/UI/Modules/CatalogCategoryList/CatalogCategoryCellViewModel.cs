@@ -1,14 +1,32 @@
-﻿using SSBakery.Models;
+﻿using System;
+using System.Reactive.Linq;
+using GameCtor.Repository;
+using ReactiveUI;
+using SSBakery.Models;
 
 namespace SSBakeryAdmin.UI.Modules
 {
-    public class CatalogCategoryCellViewModel : ICatalogCategoryCellViewModel
+    public class CatalogCategoryCellViewModel : ReactiveObject, ICatalogCategoryCellViewModel
     {
         private readonly CatalogCategory _model;
 
-        public CatalogCategoryCellViewModel(CatalogCategory model)
+        private bool _visibleToUsers;
+
+        public CatalogCategoryCellViewModel(CatalogCategory model, IRepository<CatalogCategory> categoryRepo)
         {
             _model = model;
+            _visibleToUsers = model.VisibleToUsers;
+
+            this
+                .WhenAnyValue(x => x.VisibleToUsers)
+                .Skip(1)
+                .Do(x => _model.VisibleToUsers = x)
+                .SelectMany(
+                    _ =>
+                    {
+                        return categoryRepo.Upsert(_model);
+                    })
+                .Subscribe();
         }
 
         public string Id => _model.Id;
@@ -19,6 +37,12 @@ namespace SSBakeryAdmin.UI.Modules
         {
             get => _model.ImageUrl ?? @"Images/Stamp.png";
             set => _model.ImageUrl = value;
+        }
+
+        public bool VisibleToUsers
+        {
+            get => _visibleToUsers;
+            set => this.RaiseAndSetIfChanged(ref _visibleToUsers, value);
         }
     }
 }

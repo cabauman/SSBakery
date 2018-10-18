@@ -30,7 +30,7 @@ namespace SSBakeryAdmin.UI.Modules
                     return itemRepo
                         .GetItems()
                         .SelectMany(x => x)
-                        .Select(x => new CatalogItemCellViewModel(x))
+                        .Select(x => new CatalogItemCellViewModel(x, itemRepo))
                         .ToList()
                         .Select(x => x as IReadOnlyList<ICatalogItemCellViewModel>);
                 });

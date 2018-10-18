@@ -15,5 +15,7 @@ namespace SSBakeryAdmin.UI.Modules
         string Price { get; }
 
         string ImageUrl { get; set; }
+
+        bool VisibleToUsers { get; set; }
     }
 }

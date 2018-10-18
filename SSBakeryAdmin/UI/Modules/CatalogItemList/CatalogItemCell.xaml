@@ -39,7 +39,7 @@
                         VerticalTextAlignment="Center"
                         Text="Visible to users:" />
                     <Switch
-                        x:Name="VisibleToUsers"
+                        x:Name="VisibleToUsersSwitch"
                         VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>
