@@ -6,6 +6,8 @@ namespace SSBakeryAdmin.UI.Modules
 {
     public interface ICatalogCategoryListViewModel
     {
+        ICatalogCategoryCellViewModel SelectedItem { get; set; }
+
         ReactiveCommand<Unit, Unit> LoadCategories { get; }
 
         ReactiveCommand<Unit, Unit> SyncWithPosSystem { get; }

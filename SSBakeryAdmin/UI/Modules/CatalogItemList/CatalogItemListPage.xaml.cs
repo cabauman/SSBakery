@@ -22,7 +22,7 @@ namespace SSBakeryAdmin.UI.Modules
                 .Where(x => x != null)
                 .Select(_ => Unit.Default)
                 .Take(1)
-                .InvokeCommand(ViewModel, x => x.LoadItems);
+                .InvokeCommand(this, x => x.ViewModel.LoadItems);
 
             this
                 .WhenAnyValue(x => x.ViewModel.Items)

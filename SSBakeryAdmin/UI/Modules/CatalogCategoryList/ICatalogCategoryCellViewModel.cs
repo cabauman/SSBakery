@@ -1,4 +1,6 @@
-﻿namespace SSBakeryAdmin.UI.Modules
+﻿using SSBakery.Models;
+
+namespace SSBakeryAdmin.UI.Modules
 {
     public interface ICatalogCategoryCellViewModel
     {

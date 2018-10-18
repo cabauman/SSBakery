@@ -31,6 +31,16 @@ namespace SSBakeryAdmin.UI.Modules
                 .Do(categories => CategoryListView.ItemsSource = categories)
                 .Take(1)
                 .Subscribe();
+
+            this.WhenActivated(
+                disposables =>
+                {
+                    ViewModel.SelectedItem = null;
+
+                    this
+                        .Bind(ViewModel, vm => vm.SelectedItem, v => v.CategoryListView.SelectedItem)
+                        .DisposeWith(disposables);
+                });
         }
     }
 }

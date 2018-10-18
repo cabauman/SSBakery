@@ -16,10 +16,9 @@ namespace SSBakeryAdmin.UI.Modules
 {
     public class CatalogCategoryListViewModel : ReactiveObject, ICatalogCategoryListViewModel, IPageViewModel
     {
-        private readonly ObservableAsPropertyHelper<IReadOnlyList<ICatalogCategoryCellViewModel>> _categories;
-
         private ISourceCache<CatalogCategory, string> _categoryCache;
         private ReadOnlyObservableCollection<ICatalogCategoryCellViewModel> _categoryCells;
+        private ICatalogCategoryCellViewModel _selectedItem;
 
         public CatalogCategoryListViewModel(
             ICatalogCategoryRepo categoryRepo = null,
@@ -48,7 +47,7 @@ namespace SSBakeryAdmin.UI.Modules
                         .Select(_ => Unit.Default);
                 });
 
-            //LoadCategories.InvokeCommand(this, x => x.SyncWithPosSystem);
+            LoadCategories.InvokeCommand(this, x => x.SyncWithPosSystem);
 
             _categoryCache
                 .Connect()
@@ -64,6 +63,18 @@ namespace SSBakeryAdmin.UI.Modules
                 {
                     return viewStackService.PushPage(new CatalogItemListViewModel(categoryCell.Id));
                 });
+
+            this
+                .WhenAnyValue(x => x.SelectedItem)
+                .Where(x => x != null)
+                .SelectMany(categoryCell => viewStackService.PushPage(new CatalogItemListViewModel(categoryCell.Id)))
+                .Subscribe();
+        }
+
+        public ICatalogCategoryCellViewModel SelectedItem
+        {
+            get => _selectedItem;
+            set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
         }
 
         public ReactiveCommand<Unit, Unit> SyncWithPosSystem { get; }
@@ -73,8 +84,6 @@ namespace SSBakeryAdmin.UI.Modules
         public ReactiveCommand<ICatalogCategoryCellViewModel, Unit> NavigateToCategory { get; }
 
         public ReadOnlyObservableCollection<ICatalogCategoryCellViewModel> CategoryCells => _categoryCells;
-
-        public IReadOnlyList<ICatalogCategoryCellViewModel> Categories => _categories.Value;
 
         public string Title => "Catalog Categories";
     }

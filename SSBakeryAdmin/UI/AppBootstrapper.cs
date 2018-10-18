@@ -57,12 +57,13 @@ namespace SSBakeryAdmin
             Locator.CurrentMutable.RegisterConstant(viewStackService, typeof(IViewStackService));
             Locator.CurrentMutable.Register(() => new RewardsMemberSynchronizer(), typeof(IRewardsMemberSynchronizer));
             Locator.CurrentMutable.Register(() => new CatalogSynchronizer(), typeof(ICatalogSynchronizer));
-            var repositoryRegistrar = new RepositoryRegistrar(null, Locator.CurrentMutable);
+
             Square.Connect.Client.Configuration.Default.AccessToken = ApiKeys.SQUARE_CONNECT;
 
             Locator.CurrentMutable.Register(() => new AuthService(), typeof(IAuthService));
             FirebaseAuthService = new FirebaseAuthService(ApiKeys.FIREBASE, new LocalStorageService());
             Locator.CurrentMutable.RegisterConstant(FirebaseAuthService, typeof(IFirebaseAuthService));
+            var repositoryRegistrar = new RepositoryRegistrar(FirebaseAuthService, Locator.CurrentMutable);
         }
 
         private void RegisterViews()

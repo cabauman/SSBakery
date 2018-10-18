@@ -15,11 +15,13 @@ namespace SSBakeryAdmin.UI.Modules
 
         public CatalogItemListViewModel(
             string categoryId,
-            ICatalogItemRepo itemRepo = null,
+            ICatalogItemRepoFactory itemRepoFactory = null,
             IViewStackService viewStackService = null)
         {
-            itemRepo = itemRepo ?? Locator.Current.GetService<ICatalogItemRepo>();
+            itemRepoFactory = itemRepoFactory ?? Locator.Current.GetService<ICatalogItemRepoFactory>();
             viewStackService = viewStackService ?? Locator.Current.GetService<IViewStackService>();
+
+            var itemRepo = itemRepoFactory.Create(categoryId);
 
             LoadItems = ReactiveCommand.CreateFromObservable(
                 () =>
