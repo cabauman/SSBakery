@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using SSBakeryAdmin.UI.Common;
@@ -27,9 +27,17 @@ namespace SSBakeryAdmin.UI.Modules
             this
                 .WhenAnyValue(x => x.ViewModel.Items)
                 .Where(x => x != null)
-                .Do(items => CatalogItemListView.ItemsSource = items)
+                .Do(items => ItemListView.ItemsSource = items)
                 .Take(1)
                 .Subscribe();
+
+            this.WhenActivated(
+                disposables =>
+                {
+                    this
+                        .BindCommand(ViewModel, vm => vm.DownloadImages, v => v.DownloadImagesToolbarItem)
+                        .DisposeWith(disposables);
+                });
         }
     }
 }

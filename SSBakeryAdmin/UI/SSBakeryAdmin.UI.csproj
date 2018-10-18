@@ -28,6 +28,7 @@
     <PackageReference Include="DynamicData" Version="6.5.1.2479" />
     <PackageReference Include="FirebaseAuthentication.net" Version="3.0.7" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.0.0-alpha8" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.2" />
     <PackageReference Include="ReactiveUI" Version="8.7.2" />
     <PackageReference Include="ReactiveUI.Events.XamForms" Version="8.7.2" />
     <PackageReference Include="ReactiveUI.XamForms" Version="8.7.2" />
@@ -44,6 +45,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.Forms" Version="3.2.0.871581" />
+    <PackageReference Include="Xamarin.LiveReload" Version="0.3.27" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +58,9 @@
     </Reference>
     <Reference Include="GameCtor.FirebaseAuth.DotNet">
       <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.DotNet\bin\Release\netstandard2.0\GameCtor.FirebaseAuth.DotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="GameCtor.FirebaseStorage.DotNet">
+      <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseStorage.DotNet\bin\Release\netstandard2.0\GameCtor.FirebaseStorage.DotNet.dll</HintPath>
     </Reference>
     <Reference Include="GameCtor.LocalStorage">
       <HintPath>..\..\..\..\Visual Studio 2017\Projects\GameCtor.XPlatLibs\FirebaseAuth.DotNet\bin\Release\netstandard2.0\GameCtor.LocalStorage.dll</HintPath>

@@ -7,7 +7,7 @@
                           x:TypeArguments="modules:ICatalogCategoryCellViewModel"
                           x:Class="SSBakeryAdmin.UI.Modules.CatalogCategoryCell">
 
-    <Grid HeightRequest="40">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -22,11 +22,23 @@
             Aspect="AspectFit"
             CacheDuration="30"
             DownsampleToViewSize="true"
-            DownsampleHeight="50" />
+            DownsampleHeight="80" />
 
-        <StackLayout Grid.Row="0" Grid.Column="1">
-            <Label x:Name="NameLabel" FontSize="16" />
-            <Label x:Name="DescriptionLabel" FontSize="12"  />
+        <StackLayout Grid.Row="0" Grid.Column="1" Spacing="10">
+            <Label
+                x:Name="NameLabel"
+                FontSize="18"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    Text="Visible to users:" />
+                <Switch
+                    x:Name="VisibleToUsers"
+                    VerticalOptions="Center" />
+            </StackLayout>
         </StackLayout>
     </Grid>
 </rxui:ReactiveContentView>

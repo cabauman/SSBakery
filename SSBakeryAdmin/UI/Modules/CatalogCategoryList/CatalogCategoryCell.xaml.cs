@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.XamForms;
@@ -21,10 +20,10 @@ namespace SSBakeryAdmin.UI.Modules
                 .Subscribe();
         }
 
-        private void PopulateFromViewModel(ICatalogCategoryCellViewModel catalogCategory)
+        private void PopulateFromViewModel(ICatalogCategoryCellViewModel viewModel)
         {
-            NameLabel.Text = catalogCategory.Name;
-            Image.Source = ImageSource.FromFile("LargeTile.scale-100.png"); // catalogCategory.ImageUrl;
+            NameLabel.Text = viewModel.Name;
+            Image.Source = viewModel.ImageUrl;
         }
     }
 }

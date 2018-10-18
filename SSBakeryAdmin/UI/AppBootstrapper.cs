@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using GameCtor.FirebaseAuth;
 using GameCtor.FirebaseAuth.DotNet;
+using GameCtor.FirebaseStorage.DotNet;
 using GameCtor.RxNavigation;
 using GameCtor.RxNavigation.XamForms;
 using GameCtor.XamarinAuth;
@@ -64,6 +65,13 @@ namespace SSBakeryAdmin
             FirebaseAuthService = new FirebaseAuthService(ApiKeys.FIREBASE, new LocalStorageService());
             Locator.CurrentMutable.RegisterConstant(FirebaseAuthService, typeof(IFirebaseAuthService));
             var repositoryRegistrar = new RepositoryRegistrar(FirebaseAuthService, Locator.CurrentMutable);
+
+            var firebaseStorageOptions = new Firebase.Storage.FirebaseStorageOptions()
+            {
+                AuthTokenAsyncFactory = () => FirebaseAuthService.GetIdTokenAsync()
+            };
+            var firebaseStorage = new Firebase.Storage.FirebaseStorage("ss-bakery.appspot.com", firebaseStorageOptions);
+            Locator.CurrentMutable.Register(() => new FirebaseStorageService(firebaseStorage), typeof(IFirebaseStorageService));
         }
 
         private void RegisterViews()

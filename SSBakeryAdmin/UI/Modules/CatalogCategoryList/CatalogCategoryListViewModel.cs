@@ -47,7 +47,7 @@ namespace SSBakeryAdmin.UI.Modules
                         .Select(_ => Unit.Default);
                 });
 
-            LoadCategories.InvokeCommand(this, x => x.SyncWithPosSystem);
+            //LoadCategories.InvokeCommand(this, x => x.SyncWithPosSystem);
 
             _categoryCache
                 .Connect()

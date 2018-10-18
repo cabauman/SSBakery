@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using GameCtor.RxNavigation;
@@ -35,9 +36,35 @@ namespace SSBakeryAdmin.UI.Modules
                 });
 
             _items = LoadItems.ToProperty(this, x => x.Items);
+
+            var firebaseStorageService = Locator.Current.GetService<GameCtor.FirebaseStorage.DotNet.IFirebaseStorageService>();
+            DownloadImages = ReactiveCommand.CreateFromObservable(
+                () =>
+                {
+                    return Items
+                        .ToObservable()
+                        .SelectMany(
+                            itemCell =>
+                            {
+                                return firebaseStorageService
+                                    .GetDownloadUrl("catalogPhotos/" + itemCell.Id + ".jpg")
+                                    .Catch<string, Exception>(ex => Observable.Return<string>(null))
+                                    .Where(x => x != null)
+                                    .Do(imageUrl => itemCell.ImageUrl = imageUrl)
+                                    .Select(_ => itemCell);
+                            })
+                        .SelectMany(
+                            itemCell =>
+                            {
+                                return itemRepo
+                                    .Upsert(itemCell.Model);
+                            });
+                });
         }
 
         public ReactiveCommand<Unit, IReadOnlyList<ICatalogItemCellViewModel>> LoadItems { get; }
+
+        public ReactiveCommand<Unit, Unit> DownloadImages { get; }
 
         public IReadOnlyList<ICatalogItemCellViewModel> Items => _items.Value;
 

@@ -9,7 +9,7 @@
 
     <syncfusion:SfListView
         x:Name="CategoryListView"
-        ItemSize="70"
+        ItemSize="100"
         SelectionMode="Single"
         SelectionGesture="Tap">
         <syncfusion:SfListView.ItemTemplate>
@@ -18,7 +18,7 @@
             </DataTemplate>
         </syncfusion:SfListView.ItemTemplate>
         <syncfusion:SfListView.LayoutManager>
-            <syncfusion:GridLayout SpanCount="1" />
+            <syncfusion:GridLayout SpanCount="2" />
         </syncfusion:SfListView.LayoutManager>
     </syncfusion:SfListView>
 

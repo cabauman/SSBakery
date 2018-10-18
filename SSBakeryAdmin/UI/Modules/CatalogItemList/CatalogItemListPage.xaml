@@ -1,15 +1,35 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ui:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
                     xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
                     xmlns:ui="clr-namespace:SSBakeryAdmin.UI.Common"
                     xmlns:modules="clr-namespace:SSBakeryAdmin.UI.Modules"
                     x:TypeArguments="modules:ICatalogItemListViewModel"
                     x:Class="SSBakeryAdmin.UI.Modules.CatalogItemListPage">
 
-    <ListView
-        x:Name="CatalogItemListView"
-        RowHeight="100"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="DownloadImagesToolbarItem" Order="Primary" Icon="contacts.png"  Text="Item 1" Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <syncfusion:SfListView
+        x:Name="ItemListView"
+        ItemSize="120"
+        SelectionMode="Single"
+        SelectionGesture="Tap">
+        <syncfusion:SfListView.ItemTemplate>
+            <DataTemplate>
+                <modules:CatalogItemCell />
+            </DataTemplate>
+        </syncfusion:SfListView.ItemTemplate>
+        <syncfusion:SfListView.LayoutManager>
+            <syncfusion:GridLayout SpanCount="2" />
+        </syncfusion:SfListView.LayoutManager>
+    </syncfusion:SfListView>
+    
+    <!--<ListView
+        x:Name="ItemListView"
+        RowHeight="140"
         SeparatorVisibility="None"
         CachingStrategy="RecycleElement">
         <ListView.ItemTemplate>
@@ -17,5 +37,5 @@
                 <modules:CatalogItemCell />
             </DataTemplate>
         </ListView.ItemTemplate>
-    </ListView>
+    </ListView>-->
 </ui:ContentPageBase>

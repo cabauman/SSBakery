@@ -10,7 +10,7 @@ namespace SSBakery.Models
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
 
-        [JsonProperty("visibleToCustomers")]
-        public bool VisibleToCustomers { get; set; }
+        [JsonProperty("visibleToUsers")]
+        public bool VisibleToUsers { get; set; }
     }
 }

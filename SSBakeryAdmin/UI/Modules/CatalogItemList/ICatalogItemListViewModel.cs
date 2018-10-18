@@ -8,6 +8,8 @@ namespace SSBakeryAdmin.UI.Modules
     {
         ReactiveCommand<Unit, IReadOnlyList<ICatalogItemCellViewModel>> LoadItems { get; }
 
+        ReactiveCommand<Unit, Unit> DownloadImages { get; }
+
         IReadOnlyList<ICatalogItemCellViewModel> Items { get; }
     }
 }
